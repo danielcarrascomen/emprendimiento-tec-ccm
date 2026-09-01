@@ -23,7 +23,7 @@ Abre `…/configurar-admin.html`, llena usuario y contraseña y (recomendado) un
 
 `admin.json` es público pero no contiene la contraseña ni el token en claro: guarda un verificador PBKDF2 y el token cifrado con AES-GCM usando la contraseña. Quien no tenga la contraseña no puede publicar.
 
-**Acceso inicial** (cámbialo en cuanto puedas): usuario `admin`, contraseña `EmprendeCCM-2026!` (sin token: solo descarga `eventos.json`).
+**Acceso**: usuario `adminemprendimiento`, contraseña `adminemprendimiento2026` (definidos el 31 ago 2026; sin token de GitHub todavía, así que el panel ofrece «Descargar eventos.json»).
 
 ## Opción alterna: Google Sheet
 
