@@ -501,13 +501,6 @@
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  /* Banda cinética (marquee) con frases de campaña */
-  .marquee { background: var(--xp-lime); color: var(--xp-navy); overflow: hidden; padding-block: 12px; border-block: 1px solid rgba(6,29,93,.12); }
-  .marquee .track { display: flex; width: max-content; gap: 0; animation: marquee 34s linear infinite; will-change: transform; }
-  .marquee:hover .track { animation-play-state: paused; }
-  .marquee span { display: inline-flex; align-items: center; gap: 18px; padding-inline: 18px; font: 800 15px/1 Poppins, "Kumbh Sans", sans-serif; text-transform: uppercase; letter-spacing: .08em; white-space: nowrap; }
-  .marquee svg { width: 14px; height: 14px; fill: var(--xp-navy); flex: none; }
-  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   /* Spotlight que sigue el cursor en las tarjetas de programas */
   @media (hover: hover) {
     .prog::after { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit; opacity: 0; transition: opacity .35s var(--ease);
@@ -537,7 +530,7 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .js-reveal .reveal { opacity: 1; transform: none; transition: none; }
-    .def-rayo, .skel .ph, .marquee .track, .live::after { animation: none; }
+    .def-rayo, .skel .ph, .live::after { animation: none; }
     .prog::after { display: none; }
     .carousel .slide { transition: none; }
     .card, .btn, .prog, .res, .chip, input, select, textarea { transition: none; }
@@ -610,8 +603,6 @@
       </div>
     </div>
   </section>
-
-  <div class="marquee" aria-hidden="true"><div class="track" id="marqueeTrack"></div></div>
 
   <!-- ================= EXPERIENCIAS DE EMPRENDIMIENTO (programas estrella) ================= -->
   <section id="programas" class="xp" aria-labelledby="prTitle">
@@ -1465,11 +1456,6 @@
     const card = document.getElementById('prog-' + b.dataset.id);
     if (card) card.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
   });
-
-  /* ---- Banda cinética ---- */
-  const FRASES = ['En el Tec, todas y todos podemos emprender', 'Yo emprendo', 'Experiencias de Emprendimiento', 'Campus Ciudad de México', 'Sacudamos el futuro', '#EmprendimientoTec'];
-  const marqueeItems = FRASES.map(f => `<span>${BOLT}${esc(f)}</span>`).join('');
-  $('#marqueeTrack').innerHTML = marqueeItems + marqueeItems;
 
   /* ---- Spotlight en tarjetas de programas (solo con cursor) ---- */
   if (window.matchMedia('(hover: hover)').matches) {
