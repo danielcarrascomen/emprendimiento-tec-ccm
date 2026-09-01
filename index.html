@@ -404,14 +404,14 @@
   @media (max-width: 560px) { .ft-top { grid-template-columns: 1fr; gap: 28px; } }
   .ft-logo img { width: 100%; max-width: 400px; height: auto; }
   .ft-logo p { margin-top: 16px; font-size: 14px; color: rgba(255,255,255,.8); max-width: 34ch; }
-  .ft-col h4 { color: #FFFFFF; font-size: 15px; letter-spacing: .06em; text-transform: uppercase; font-weight: 700; margin: 0 0 6px; }
-  .ft-col h4::after { content: ""; display: block; width: 72px; height: 2px; background: rgba(255,255,255,.55); margin-top: 12px; }
+  .ft-col .ft-h { color: #FFFFFF; font-size: 15px; letter-spacing: .06em; text-transform: uppercase; font-weight: 700; margin: 0 0 6px; }
+  .ft-col .ft-h::after { content: ""; display: block; width: 72px; height: 2px; background: rgba(255,255,255,.55); margin-top: 12px; }
   .ft-col ul { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 10px; }
   .ft-col li { font-size: 14px; }
   .ft-col a { color: #FFFFFF; text-decoration: none; letter-spacing: .04em; text-transform: uppercase; font-size: 13.5px; }
   .ft-col a.normal { text-transform: none; letter-spacing: 0; font-size: 15px; }
   .ft-col a:hover { text-decoration: underline; color: var(--lila); }
-  .ft-col + .ft-col h4 { margin-top: 0; }
+  .ft-col + .ft-col .ft-h { margin-top: 0; }
   .ft-col .group + .group { margin-top: 26px; }
   .ft-bottom { margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.14); display: grid; grid-template-columns: 1fr auto; gap: 18px 28px; align-items: center; }
   @media (max-width: 760px) { .ft-bottom { grid-template-columns: 1fr; } }
@@ -728,7 +728,7 @@
       </div>
       <div class="ft-col">
         <div class="group">
-          <h4>Emprendimiento</h4>
+          <h3 class="ft-h">Emprendimiento</h3>
           <ul>
             <li><a href="#top">Inicio</a></li>
             <li><a href="#programas">Experiencias</a></li>
@@ -738,7 +738,7 @@
           </ul>
         </div>
         <div class="group">
-          <h4>Programas</h4>
+          <h3 class="ft-h">Programas</h3>
           <ul>
             <li><a href="https://sites.google.com/tec.mx/emprendimiento-tec/lab-idea-trailing" target="_blank" rel="noopener">Lab: idea trailing</a></li>
             <li><a href="https://sites.google.com/tec.mx/emprendimiento-tec/EBC" target="_blank" rel="noopener">Explora basecamp</a></li>
@@ -751,7 +751,7 @@
       </div>
       <div class="ft-col">
         <div class="group">
-          <h4>Instituto</h4>
+          <h3 class="ft-h">Instituto</h3>
           <ul>
             <li><a class="normal" href="https://emprendimiento.tec.mx/es" target="_blank" rel="noopener">emprendimiento.tec.mx</a></li>
             <li><a class="normal" href="https://sites.google.com/tec.mx/emprendimiento-tec/" target="_blank" rel="noopener">Experiencias de Emprendimiento</a></li>
@@ -759,7 +759,7 @@
           </ul>
         </div>
         <div class="group">
-          <h4>Campus CCM</h4>
+          <h3 class="ft-h">Campus CCM</h3>
           <ul>
             <li><a class="normal" href="https://chat.whatsapp.com/FTodgXKLPKj4xesST2lMVT" target="_blank" rel="noopener">Comunidad de WhatsApp</a></li>
             <li><a class="normal" href="https://www.instagram.com/emprendimientoccm/" target="_blank" rel="noopener">Instagram @emprendimientoccm</a></li>
@@ -770,7 +770,7 @@
       </div>
       <div class="ft-col">
         <div class="group">
-          <h4>Contacto</h4>
+          <h3 class="ft-h">Contacto</h3>
           <ul>
             <li><a class="normal" href="mailto:olivia_calderon@tec.mx">¡Queremos conocerte!</a><br><span style="font-size:13px;color:rgba(255,255,255,.75)">Emprendimiento en Campus Ciudad de México · olivia_calderon@tec.mx</span></li>
             <li><a class="normal" href="mailto:prenteria@tec.mx">Lab y Explora: prenteria@tec.mx</a></li>
