@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light">
+<title>Configurar acceso · Emprendimiento Tec CCM</title>
+<link rel="icon" href="assets/rayo-azul.png" type="image/png">
+<style>
+  :root { color-scheme: light; --indigo: #3333C0; --navy: #0C318D; --line: #DCDEF3; --ink: #151519; --soft: #55566A; --bg: #F2F3FB; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Kumbh Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.55; }
+  main { width: min(760px, 100% - 32px); margin: 32px auto 60px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 26px 28px; box-shadow: 0 10px 30px rgba(12,49,141,.08); margin-bottom: 20px; }
+  h1 { color: var(--navy); font-size: 26px; margin: 0 0 6px; }
+  h2 { color: var(--navy); font-size: 19px; margin: 0 0 12px; }
+  p { margin: 0 0 10px; }
+  .muted { color: var(--soft); font-size: 14.5px; }
+  label { display: grid; gap: 6px; font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 12px; }
+  input { font: inherit; padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--line); width: 100%; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 999px; border: 2px solid transparent; font-weight: 700; font-size: 15px; cursor: pointer; text-decoration: none; box-shadow: 0 6px 18px rgba(51,51,192,.25); }
+  .btn-primary { background: linear-gradient(90deg, var(--navy), var(--indigo)); color: #fff; }
+  .btn-ghost { background: #fff; color: var(--ink); border-color: var(--line); }
+  .btn[disabled] { opacity: .55; cursor: not-allowed; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+  .msg { margin-top: 14px; padding: 12px 14px; border-radius: 10px; font-size: 14.5px; display: none; }
+  .msg.ok { display: block; background: #E6F7EC; color: #0F5132; }
+  .msg.err { display: block; background: #FDECEC; color: #842029; }
+  ol { padding-left: 20px; } li { margin-bottom: 6px; }
+  code { background: var(--bg); padding: 2px 6px; border-radius: 6px; font-size: 14px; }
+  details { margin-top: 10px; } summary { cursor: pointer; font-weight: 700; color: var(--navy); }
+  textarea { width: 100%; min-height: 120px; font: 13px/1.4 ui-monospace, Consolas, monospace; border-radius: 10px; border: 1.5px solid var(--line); padding: 10px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <h1>Configurar el acceso de administrador</h1>
+    <p class="muted">Aquí se crea (o se cambia) el usuario y la contraseña con los que se entra a <b>admin.html</b> para publicar eventos. La contraseña nunca se guarda: solo un verificador derivado de ella. Si además pegas un token de GitHub, queda <b>cifrado con la contraseña</b> y la página podrá publicar los eventos e imágenes directamente en el repositorio (sin descargar ni subir archivos a mano).</p>
+  </div>
+
+  <form class="card" id="f">
+    <h2>1. Usuario y contraseña</h2>
+    <div class="row">
+      <label>Usuario<input name="usuario" required autocomplete="off" placeholder="Ej. emprendimiento"></label>
+      <span></span>
+      <label>Contraseña<input name="pw" type="password" required minlength="10" autocomplete="new-password" placeholder="Mínimo 10 caracteres"></label>
+      <label>Confirmar contraseña<input name="pw2" type="password" required minlength="10" autocomplete="new-password"></label>
+    </div>
+    <p class="muted">Usa una contraseña larga y que no uses en otro lado (una frase funciona bien). Como el sitio es público, la contraseña es lo que protege el token.</p>
+
+    <h2 style="margin-top:22px">2. Token de GitHub (recomendado)</h2>
+    <label>Token<input name="token" type="password" autocomplete="off" placeholder="github_pat_…  (déjalo vacío para no publicar desde la página)"></label>
+    <div class="row">
+      <label>Repositorio<input name="repo" value="danielcarrascomen/emprendimiento-tec-ccm" required></label>
+      <label>Rama<input name="rama" value="main" required></label>
+    </div>
+    <details>
+      <summary>Cómo crear el token (2 minutos)</summary>
+      <ol>
+        <li>Entra a <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> con la cuenta dueña del repositorio.</li>
+        <li><b>Token name:</b> «Página de eventos». <b>Expiration:</b> lo más largo posible (cuando venza, se genera otro y se repite este formulario).</li>
+        <li><b>Repository access:</b> <i>Only select repositories</i> → elige <code>emprendimiento-tec-ccm</code>.</li>
+        <li><b>Permissions → Repository permissions → Contents:</b> <i>Read and write</i>. Nada más.</li>
+        <li><b>Generate token</b> y cópialo aquí. Solo se muestra una vez.</li>
+      </ol>
+    </details>
+
+    <h2 style="margin-top:22px">3. Guardar</h2>
+    <p class="muted">Con token: se guarda directo en el repositorio como <code>admin.json</code> y en un minuto ya puedes entrar. Sin token: descarga <code>admin.json</code> y súbelo a la raíz del repositorio.</p>
+    <div class="actions">
+      <button class="btn btn-primary" type="submit" id="save">Guardar en GitHub</button>
+      <button class="btn btn-ghost" type="button" id="download">Descargar admin.json</button>
+      <button class="btn btn-ghost" type="button" id="test">Probar token</button>
+    </div>
+    <div class="msg" id="msg"></div>
+    <details id="rawWrap" style="display:none"><summary>Ver admin.json generado</summary><textarea id="raw" readonly></textarea></details>
+  </form>
+
+  <div class="card muted">
+    <b>Seguridad, en corto.</b> El archivo <code>admin.json</code> es público, pero no contiene la contraseña ni el token en claro: el verificador no permite recuperarla y el token está cifrado (PBKDF2 600 000 iteraciones + AES-GCM). Quien no tenga la contraseña no puede publicar. El token solo puede tocar este repositorio. Si sospechas que la contraseña se filtró, repite este formulario con una nueva y revoca el token en GitHub.
+  </div>
+</main>
+<script>
+(function () {
+  'use strict';
+  const $ = s => document.querySelector(s);
+  const enc = new TextEncoder();
+  const hex = b => Array.from(new Uint8Array(b), x => x.toString(16).padStart(2, '0')).join('');
+  const unhex = h => new Uint8Array((h.match(/../g) || []).map(x => parseInt(x, 16)));
+  const b64 = bytes => { let s = ''; const u = new Uint8Array(bytes); for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000)); return btoa(s); };
+  const b64utf8 = str => b64(enc.encode(str));
+  const msg = (t, ok) => { const m = $('#msg'); m.textContent = t; m.className = 'msg ' + (ok ? 'ok' : 'err'); };
+
+  async function deriveKey(password, saltHex, iterations) {
+    const base = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: unhex(saltHex), iterations }, base, 512);
+    return { aes: bits.slice(0, 32), check: hex(await crypto.subtle.digest('SHA-256', bits.slice(32))) };
+  }
+  async function buildConfig() {
+    const f = $('#f');
+    const usuario = f.usuario.value.trim(), pw = f.pw.value, pw2 = f.pw2.value, token = f.token.value.trim(), repo = f.repo.value.trim(), rama = f.rama.value.trim() || 'main';
+    if (!usuario) throw new Error('Escribe un usuario.');
+    if (pw.length < 10) throw new Error('La contraseña debe tener al menos 10 caracteres.');
+    if (pw !== pw2) throw new Error('Las contraseñas no coinciden.');
+    if (!/^[\w.-]+\/[\w.-]+$/.test(repo)) throw new Error('El repositorio debe tener el formato usuario/nombre.');
+    if (!window.crypto || !crypto.subtle) throw new Error('Este navegador no soporta cifrado. Abre esta página desde https://');
+    const salt = hex(crypto.getRandomValues(new Uint8Array(16)));
+    const iteraciones = 600000;
+    const k = await deriveKey(pw, salt, iteraciones);
+    const cfg = { usuario, salt, iteraciones, verificador: k.check, repo, rama, creado: new Date().toISOString().slice(0, 10) };
+    if (token) {
+      const iv = hex(crypto.getRandomValues(new Uint8Array(12)));
+      const key = await crypto.subtle.importKey('raw', k.aes, 'AES-GCM', false, ['encrypt']);
+      cfg.iv = iv;
+      cfg.token = b64(await crypto.subtle.encrypt({ name: 'AES-GCM', iv: unhex(iv) }, key, enc.encode(token)));
+    }
+    const json = JSON.stringify(cfg, null, 2) + '\n';
+    $('#raw').value = json; $('#rawWrap').style.display = 'block';
+    return { cfg, json, token, repo, rama };
+  }
+  const ghHeaders = token => ({ Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' });
+
+  $('#test').addEventListener('click', async () => {
+    const f = $('#f'); const token = f.token.value.trim(), repo = f.repo.value.trim();
+    if (!token) { msg('Pega un token para probarlo.', false); return; }
+    try {
+      const r = await fetch(`https://api.github.com/repos/${repo}`, { headers: ghHeaders(token) });
+      if (!r.ok) throw new Error(r.status === 401 ? 'Token inválido.' : r.status === 404 ? 'El token no tiene acceso a ese repositorio (revisa "Repository access").' : `GitHub respondió ${r.status}.`);
+      const j = await r.json();
+      msg(j.permissions && j.permissions.push ? `Token correcto: puede escribir en ${j.full_name}.` : `El token entra a ${j.full_name} pero NO puede escribir: falta el permiso Contents: Read and write.`, !!(j.permissions && j.permissions.push));
+    } catch (e) { msg(e.message, false); }
+  });
+
+  $('#download').addEventListener('click', async () => {
+    try {
+      const { json } = await buildConfig();
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([json], { type: 'application/json' })); a.download = 'admin.json'; document.body.appendChild(a); a.click(); a.remove();
+      msg('admin.json descargado. Súbelo a la raíz del repositorio (reemplazando el anterior) y en un minuto ya puedes entrar en admin.html.', true);
+    } catch (e) { msg(e.message, false); }
+  });
+
+  $('#f').addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = $('#save'); btn.disabled = true; btn.textContent = 'Guardando…';
+    try {
+      const { json, token, repo, rama } = await buildConfig();
+      if (!token) throw new Error('Para guardar directo en GitHub necesitas el token. Si no lo tienes, usa «Descargar admin.json».');
+      const url = `https://api.github.com/repos/${repo}/contents/admin.json`;
+      let sha;
+      const g = await fetch(`${url}?ref=${encodeURIComponent(rama)}&t=${Date.now()}`, { headers: ghHeaders(token) });
+      if (g.ok) sha = (await g.json()).sha; else if (g.status !== 404) throw new Error(`GitHub respondió ${g.status} al leer admin.json.`);
+      const p = await fetch(url, { method: 'PUT', headers: { ...ghHeaders(token), 'Content-Type': 'application/json' }, body: JSON.stringify({ message: 'Acceso de administrador actualizado', content: b64utf8(json), branch: rama, sha }) });
+      if (!p.ok) { const t = await p.json().catch(() => ({})); throw new Error(t.message || `GitHub respondió ${p.status}.`); }
+      msg('Listo: admin.json quedó guardado en el repositorio. En 1 a 2 minutos entra en admin.html con tu usuario y contraseña.', true);
+      $('#f').pw.value = ''; $('#f').pw2.value = ''; $('#f').token.value = '';
+    } catch (ex) { msg(ex.message, false); }
+    finally { btn.disabled = false; btn.textContent = 'Guardar en GitHub'; }
+  });
+})();
+</script>
+</body>
+</html>

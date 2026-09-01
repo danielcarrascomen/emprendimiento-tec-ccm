@@ -1,40 +1,42 @@
-# Emprendimiento Tec · Campus Ciudad de México — sitio de eventos
+# Emprendimiento Tec · Campus Ciudad de México
 
-Sitio estático (HTML/CSS/JS, sin dependencias) listo para **GitHub Pages**.
+Sitio estático (HTML/CSS/JS, sin dependencias) publicado en **GitHub Pages**:
+https://danielcarrascomen.github.io/emprendimiento-tec-ccm/
 
-## Publicar en GitHub Pages (una sola vez)
+## Qué contiene
 
-1. Crea un repositorio en GitHub (por ejemplo `emprendimiento-ccm`) y sube **todo el contenido de esta carpeta**
-   (`index.html`, `eventos.json`, `.nojekyll` y la carpeta `assets/`). Puedes arrastrar los archivos en la web de GitHub
-   ("Add file → Upload files").
-2. En el repositorio: **Settings → Pages → Build and deployment → Source: Deploy from a branch → Branch: main / (root) → Save**.
-3. En un minuto la página queda en `https://TU-USUARIO.github.io/emprendimiento-ccm/`.
-   Cada vez que se sube un cambio al repositorio, la página se actualiza sola.
+- **Experiencias de Emprendimiento** (programas estrella del Instituto): tarjetas con etapa, fechas del semestre, para quién es y liga de postulación. Los datos viven en el arreglo `PROGRAMAS` de `index.html` (búscalo y edita textos/fechas cada semestre).
+- **Eventos**: se cargan de `eventos.json`. Cada evento tiene su pantalla individual y liga compartible: `…/#evento/ID`.
+- **Comunidad**: WhatsApp e Instagram.
+- **Panel de administración** con usuario y contraseña (sin botón visible): `…/admin.html`.
 
-## Cómo publica eventos el administrador (sin programar)
+## Cómo publica eventos el administrador
 
-**Opción A — archivo `eventos.json` (la más simple):**
-1. Abre la página, entra a **Admin** (arriba a la derecha), agrega/edita/borra eventos con el formulario.
-2. Da clic en **Descargar eventos.json**.
-3. En GitHub, entra a la carpeta del repositorio, sube el archivo `eventos.json` reemplazando el anterior (Upload files → Commit).
-   En un minuto la página muestra los eventos nuevos. Los eventos pasados se archivan solos por fecha.
+1. Abre `https://danielcarrascomen.github.io/emprendimiento-tec-ccm/admin.html` y entra con tu usuario y contraseña.
+2. Usa **＋ Nuevo evento** o **Editar / Borrar** en cada tarjeta. Puedes poner título, categoría, modalidad, fecha, horario, lugar, liga de registro, descripción corta, información completa, estado (publicado / borrador) e imagen (ilustración de marca, archivo propio o liga).
+3. Al terminar, **Publicar cambios**. La página se actualiza para todo el mundo en 1 a 2 minutos (los eventos pasados se archivan solos por fecha).
+   - Si el acceso no tiene token de GitHub configurado, en lugar de «Publicar» aparece **Descargar eventos.json**: sube ese archivo al repositorio (Add file → Upload files → Commit) reemplazando el anterior.
 
-**Opción B — Google Sheet (recomendada cuando haya varios admins):**
-1. Crea una hoja con estas columnas en la primera fila:
-   `id, titulo, descripcion, categoria, modalidad, fecha, inicio, fin, lugar, registro, imagen, estado`
-   - `categoria`: Taller · Charla · Pitch · Networking · Convocatoria
-   - `modalidad`: Presencial · En línea · Híbrido
-   - `fecha`: AAAA-MM-DD · `inicio`/`fin`: HH:MM · `imagen`: ilu1…ilu5 · `estado`: publicado / borrador
-2. Archivo → Compartir → **Publicar en la web** → toda la hoja, formato CSV → copia la liga.
-3. En `index.html` busca `CONFIG` y pega la liga en `sheetCsvUrl`. Sube el cambio. Desde entonces basta editar la hoja.
+## Crear o cambiar el usuario, la contraseña o el token
+
+Abre `…/configurar-admin.html`, llena usuario y contraseña y (recomendado) un **token fine-grained de GitHub** con permiso *Contents: Read and write* solo sobre este repositorio; la misma página explica cómo crearlo. Con «Guardar en GitHub» queda listo. Sin token, descarga `admin.json` y súbelo a la raíz del repositorio.
+
+`admin.json` es público pero no contiene la contraseña ni el token en claro: guarda un verificador PBKDF2 y el token cifrado con AES-GCM usando la contraseña. Quien no tenga la contraseña no puede publicar.
+
+**Acceso inicial** (cámbialo en cuanto puedas): usuario `admin`, contraseña `EmprendeCCM-2026!` (sin token: solo descarga `eventos.json`).
+
+## Opción alterna: Google Sheet
+
+Si prefieren editar una hoja, publica la Sheet como CSV (columnas `id, titulo, descripcion, detalle, categoria, modalidad, fecha, inicio, fin, lugar, registro, imagen, estado`) y pega la liga en `CONFIG.sheetCsvUrl` dentro de `index.html`. En ese modo la página lee la hoja y el panel no publica.
 
 ## Estructura
 
-- `index.html` — la página completa (estilos y lógica incluidos; Kumbh Sans y Poppins se cargan de Google Fonts).
-- `eventos.json` — los eventos que se muestran (si no existe o falla, se usan los eventos de ejemplo incrustados).
-- `assets/` — logos oficiales (sin modificar), banners GIF originales, gráficos de las experiencias, fotos e ilustraciones.
+- `index.html` — la página completa (estilos, datos de experiencias y lógica).
+- `eventos.json` — eventos publicados. `admin.json` — credenciales (verificador + token cifrado).
+- `admin.html` — atajo de acceso (redirige a `index.html#admin`). `configurar-admin.html` — genera `admin.json`.
+- `sw.js` — service worker: caché para que cargue al instante en visitas repetidas. Si cambias un archivo de `assets/` conservando el nombre, sube `VERSION` en `sw.js`.
+- `assets/` — logos oficiales, ilustraciones, gráficos de las experiencias, fotos; `assets/video/` banners del carrusel en MP4 (versión escritorio y versión recortada para celular); `assets/eventos/` imágenes subidas desde el panel.
 
 ## Marca
 
-Colores y tipografía según el Brand Book Emprendimiento Tec 2022 V2.1. Los logos y GIF se usan tal como fueron entregados.
-Para dudas de aplicación de marca, consultar al contacto indicado en el brandbook.
+Colores y tipografía según el Brand Book Emprendimiento Tec 2022 V2.1 y la UI del sitio de Experiencias del Instituto. Los logos se usan tal como fueron entregados. Los GIF originales de campaña están en la carpeta madre del proyecto; en el sitio van como MP4 para que pese 30 veces menos.

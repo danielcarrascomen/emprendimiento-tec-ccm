@@ -1,0 +1,9 @@
+{
+  "usuario": "admin",
+  "salt": "8f79a7302fd347d6817d58f3ccf5d74f",
+  "iteraciones": 600000,
+  "verificador": "c4ef9b80cffb336b718da9d51c32651f7edff40b4288638dac538ab3a7ea8c1a",
+  "repo": "danielcarrascomen/emprendimiento-tec-ccm",
+  "rama": "main",
+  "creado": "2026-08-31"
+}
