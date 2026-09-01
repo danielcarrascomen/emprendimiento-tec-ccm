@@ -19,7 +19,7 @@
     --line: #DCDEF3;
     --chip-bg: #E8EAFA;
     --chip-ink: #0C318D;
-    --footer-bg: #0B1B4D;
+    --footer-bg: #1B1B1F;
     --footer-ink: #FFFFFF;
     --focus: #33CBFF;
     --shadow: 0 10px 30px rgba(12, 49, 141, .10);
@@ -230,7 +230,9 @@
   .prog-body { display: grid; gap: 12px; align-content: start; font-family: Poppins, "Kumbh Sans", sans-serif; min-width: 0; }
   .prog-stage { display: inline-flex; align-items: center; gap: 8px; width: max-content; max-width: 100%; background: linear-gradient(90deg, var(--xp-blue), var(--xp-lime)); color: var(--xp-navy); font: 700 13px/1.2 Poppins, "Kumbh Sans", sans-serif; padding: 8px 14px; border-radius: 999px; }
   .prog-stage svg { width: 14px; height: 14px; flex: none; fill: var(--xp-navy); }
-  .xp-wm { line-height: .95; text-wrap: balance; }
+  .xp-wm { line-height: .95; text-wrap: balance; display: flex; align-items: center; gap: 12px; }
+  .xp-wm .wm-txt { display: block; min-width: 0; }
+  .xp-rayo { height: clamp(40px, 4.6vw, 58px); width: auto; flex: none; }
   .xp-wm .top { display: block; font-weight: 700; font-size: clamp(30px, 3.4vw, 42px); letter-spacing: -0.02em; text-transform: uppercase; }
   .xp-wm .sub { display: block; font-weight: 400; font-size: clamp(20px, 2.2vw, 27px); }
   .prog-q { font-weight: 700; font-size: 17px; line-height: 1.3; }
@@ -602,3 +604,13 @@
   .xp-nav button:hover { background: var(--cyan); color: var(--xp-navy); border-color: var(--cyan); }
   @media (max-width: 860px) { .xp-panel { grid-template-columns: 1fr; min-height: 0; gap: 8px; } .xp-art { order: -1; justify-content: center; } .xp-art img { max-height: 320px; } }
   @media (max-width: 480px) { .xp-art img { max-height: 250px; } }
+
+  /* ============ Página de inicio de sesión (admin.html) ============ */
+  .login-main { min-height: calc(100vh - 180px); display: grid; place-items: center; padding: 48px 20px; background: var(--bg-soft); }
+  .login-card { width: min(430px, 100%); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-xl); box-shadow: var(--sh-lg); padding: clamp(24px, 5vw, 36px); display: grid; gap: 14px; }
+  .login-card .rayo { width: 34px; height: auto; }
+  .login-card h1 { font-size: clamp(24px, 4vw, 30px); }
+  .login-card .fields { grid-template-columns: 1fr; gap: 12px; }
+  .login-card .form-actions { position: static; display: grid; margin: 4px 0 0; padding: 0; border-top: 0; }
+  .login-card .form-actions .btn { width: 100%; justify-content: center; }
+  .login-back { font-size: 14px; text-align: center; }

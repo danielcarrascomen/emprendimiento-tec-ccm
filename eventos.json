@@ -17,7 +17,7 @@
     "tags": "freelance, automatización, inteligencia artificial",
     "descripcion": "Panel para freelancers, solopreneurs y profesionistas independientes: cómo automatizar tu operación con IA y sistemas que simplifican tu trabajo.",
     "detalle": "Abre la edición agosto–diciembre 2026 de Freeland, el espacio donde conectas, aprendes y profesionalizas tu talento como freelancer, solopreneur o profesionista independiente.\n\nEste semestre el tema es automatización, inteligencia artificial y sistemas: descubrirás cómo transformar tu forma de trabajar delegando tareas a asistentes de IA y construyendo un negocio más organizado, escalable y listo para crecer.\n\nPuedes participar en una o varias actividades de Freeland (paneles, workshops y el programa Pro de noviembre).",
-    "imagen": "ilu3",
+    "imagen": "assets/foto-freelance.webp",
     "estado": "publicado"
   },
   {
@@ -40,7 +40,7 @@
     "tags": "idea, oportunidades, creatividad",
     "descripcion": "¿Quieres emprender pero aún no tienes una idea? Cuatro sesiones para observar tu entorno, detectar oportunidades y construir tu punto de partida emprendedor.",
     "detalle": "Experiencia introductoria de emprendimiento de 4 sesiones. Con herramientas de creatividad e innovación transformas lo que observas en una primera idea de solución con potencial.\n\nJourney: Taller 1, punto de partida e identificación de la problemática · Taller 2, soluciones creativas a partir de productos y servicios existentes · Taller 3, soluciones creativas a partir de la detección de necesidades · Sesión de cierre.\n\nNo es para ti si ya tienes una idea definida o un prototipo: para eso está Explora Basecamp. Al terminar puedes avanzar a Explora, Freeland u otras experiencias del Instituto.",
-    "imagen": "ilu1",
+    "imagen": "assets/foto-taller.webp",
     "estado": "publicado"
   },
   {
@@ -63,7 +63,7 @@
     "tags": "freelance, automatización, inteligencia artificial",
     "descripcion": "Taller práctico de Freeland: optimiza procesos, delega tareas a asistentes de IA y construye un sistema de trabajo independiente más organizado y escalable.",
     "detalle": "Workshop de dos sesiones de 2 horas (14 y 15 de septiembre, 9:00 a 11:00 h) dentro de la edición agosto–diciembre 2026 de Freeland.\n\nPara explorers que están probando el mundo freelance, side hustlers que generan ingresos extra y freelancers de tiempo completo que quieren escalar su impacto e ingresos.\n\nRegístrate antes del 11 de septiembre en la plataforma de Freeland.",
-    "imagen": "ilu2",
+    "imagen": "assets/foto-freelance.webp",
     "estado": "publicado"
   },
   {
@@ -86,7 +86,7 @@
     "tags": "ventas, producto, inversión, demo day",
     "descripcion": "Inicia el programa founder-to-founder de alto rendimiento: 15 sesiones para vender, construir con evidencia y prepararte para levantar capital. Cierra con Demo Day el 24 de noviembre.",
     "detalle": "Founder Mode Basecamp es para quien ya está ejecutando: entrevistas con usuarios, prototipo, entregas manuales o intentos reales de venta. Cada semana hablas con usuarios, vendes, experimentas y decides con evidencia.\n\nJourney: Sesiones 1 a 6, Sell and Build (ICP, canales, customer discovery, ventas manuales, MVP) · Sesiones 7 y 8, Execute (analíticas, retención Día 7, checkpoint de PMF) · Sesiones 9 a 15, Close and Raise (LOIs, procesos comercial y legal, unit economics, pitch y Demo Day).\n\nMartes y jueves de 5:00 a 7:00 pm, del 22 de septiembre al 24 de noviembre. Cupo limitado de 20 a 30 founders; se puede participar en equipo, cada integrante postula de forma individual.",
-    "imagen": "ilu4",
+    "imagen": "assets/foto-clase.webp",
     "estado": "publicado"
   },
   {
@@ -109,7 +109,7 @@
     "tags": "validación, experimentos, evidencia, IA",
     "descripcion": "Para founders que deciden con evidencia, no con supuestos: prioriza tus supuestos más riesgosos y ejecuta experimentos con apoyo de agentes de IA.",
     "detalle": "Lab de especialización del Instituto de Emprendimiento. Aquí no exploras: aquí ejecutas, y sales con un plan accionable para tu proyecto.\n\nParte 1: 28 y 30 de septiembre, 5 y 7 de octubre · Checkpoint: 26 de octubre · Parte 2: 2, 4, 9 y 11 de noviembre. Sesiones de 1:00 a 3:00 pm.\n\nPara founders con una idea validada, un proyecto en desarrollo o un negocio en marcha. Postúlate antes del 21 de septiembre.",
-    "imagen": "ilu5",
+    "imagen": "assets/foto-taller.webp",
     "estado": "publicado"
   }
 ]

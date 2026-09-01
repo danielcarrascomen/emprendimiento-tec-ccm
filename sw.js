@@ -2,8 +2,8 @@
    · index.html, eventos.json, admin.json: primero red, y si no hay conexión, caché (siempre lo más nuevo posible).
    · assets/ (logos, ilustraciones, videos, fuentes): primero caché y se actualiza en segundo plano.
    Para forzar que todo el mundo baje archivos nuevos, sube el número de VERSION. */
-const VERSION = 'etccm-v4';
-const CORE = ['./', 'index.html', 'styles.css', 'programas.js', 'catalogo.js', 'experiencias.html', 'eventos.html', 'assets/logo-emprendimiento-ieegl.png', 'assets/logo-emprendimiento.png', 'assets/rayo-azul.png', 'assets/rayo-blanco.png',
+const VERSION = 'etccm-v5';
+const CORE = ['./', 'index.html', 'styles.css', 'programas.js', 'catalogo.js', 'experiencias.html', 'eventos.html', 'admin.html', 'assets/logo-emprendimiento-ieegl.png', 'assets/logo-emprendimiento.png', 'assets/rayo-azul.png', 'assets/rayo-blanco.png',
   'assets/ilustracion-1.webp', 'assets/ilustracion-2.webp', 'assets/ilustracion-3.webp', 'assets/ilustracion-4.webp', 'assets/ilustracion-5.webp'];
 
 self.addEventListener('install', e => {

@@ -2,10 +2,103 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="robots" content="noindex">
-<title>Acceso administrador · Emprendimiento Tec CCM</title>
-<meta http-equiv="refresh" content="0; url=./#admin">
-<script>location.replace('./#admin');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#3333C0">
+<link rel="icon" href="assets/rayo-azul.png" type="image/png">
+<title>Iniciar sesión · Emprendimiento Tec CCM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&family=Poppins:wght@400;700;800&display=swap">
+<link rel="stylesheet" href="styles.css">
 </head>
-<body style="font-family:sans-serif;padding:24px">Abriendo el acceso de administrador… <a href="./#admin">Continuar</a></body>
+<body>
+
+<a class="skip" href="#loginTitle">Saltar al contenido</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Emprendimiento Tec, inicio">
+      <img class="brand-wide" src="assets/logo-emprendimiento-ieegl.png" width="4624" height="453" alt="Emprendimiento e Instituto de Emprendimiento Eugenio Garza Lagüera">
+      <img class="brand-compact" src="assets/logo-emprendimiento.png" width="2234" height="346" alt="Emprendimiento">
+      <img class="brand-icon" src="assets/rayo-azul.png" width="421" height="507" alt="Emprendimiento">
+    </a>
+    <nav class="main" aria-label="Secciones">
+      <a class="link" href="index.html">Volver al sitio</a>
+    </nav>
+  </div>
+</header>
+
+<main class="login-main">
+  <form class="login-card" id="loginForm">
+    <img class="rayo" src="assets/rayo-azul.png" alt="">
+    <h1 id="loginTitle">Acceso para administradores</h1>
+    <p class="login-note">Solo el equipo del Instituto puede publicar eventos. Si necesitas acceso, escribe a la persona responsable de la página.</p>
+    <div class="fields">
+      <label class="full">Usuario<input name="usuario" autocomplete="username" required autocapitalize="off" autofocus></label>
+      <label class="full">Contraseña<input name="password" type="password" autocomplete="current-password" required></label>
+    </div>
+    <p class="login-error" id="loginError" role="alert" hidden></p>
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit" id="loginSubmit">Entrar</button>
+    </div>
+    <p class="login-back"><a href="index.html">← Volver a la página principal</a></p>
+  </form>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  /* Verifica usuario y contraseña contra admin.json (PBKDF2; la contraseña nunca se guarda).
+     Si admin.json trae un token de GitHub cifrado, se descifra con la contraseña (AES-GCM).
+     Al entrar, la sesión se guarda en sessionStorage y se regresa a la página principal en modo admin. */
+  const REPO_DEFAULT = 'danielcarrascomen/emprendimiento-tec-ccm';
+  const $ = s => document.querySelector(s);
+  const enc = new TextEncoder(), dec = new TextDecoder();
+  const hex = b => Array.from(new Uint8Array(b), x => x.toString(16).padStart(2, '0')).join('');
+  const unhex = h => new Uint8Array((String(h).match(/../g) || []).map(x => parseInt(x, 16)));
+  const unb64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+
+  async function deriveKey(password, saltHex, iterations) {
+    const base = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: unhex(saltHex), iterations }, base, 512);
+    return { aes: bits.slice(0, 32), check: hex(await crypto.subtle.digest('SHA-256', bits.slice(32))) };
+  }
+  async function login(usuario, password) {
+    let cfg = null;
+    try { const r = await fetch(`admin.json?t=${Date.now()}`, { cache: 'no-store' }); if (r.ok) cfg = await r.json(); } catch (e) { /* sin archivo */ }
+    if (!cfg || !cfg.verificador) throw new Error('Falta configurar el acceso: abre configurar-admin.html para crear usuario y contraseña.');
+    if (!window.crypto || !crypto.subtle) throw new Error('Este navegador no permite verificar la contraseña. Abre la página desde https://');
+    const k = await deriveKey(password, cfg.salt, cfg.iteraciones || 600000);
+    if (usuario.trim().toLowerCase() !== String(cfg.usuario || '').toLowerCase() || k.check !== cfg.verificador) throw new Error('Usuario o contraseña incorrectos.');
+    let token = null;
+    if (cfg.token) {
+      const key = await crypto.subtle.importKey('raw', k.aes, 'AES-GCM', false, ['decrypt']);
+      token = dec.decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: unhex(cfg.iv) }, key, unb64(cfg.token)));
+    }
+    return { usuario: cfg.usuario, token, repo: cfg.repo || REPO_DEFAULT, rama: cfg.rama || 'main' };
+  }
+
+  // Si ya hay sesión, directo a la página en modo admin.
+  try { if (sessionStorage.getItem('adminSession')) { location.replace('index.html'); return; } } catch (e) { /* sin almacenamiento */ }
+
+  const form = $('#loginForm');
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = $('#loginSubmit'), err = $('#loginError');
+    btn.disabled = true; btn.textContent = 'Verificando…'; err.hidden = true;
+    try {
+      const session = await login(form.elements.usuario.value, form.elements.password.value);
+      try { sessionStorage.setItem('adminSession', JSON.stringify(session)); }
+      catch (ex) { throw new Error('Tu navegador bloquea el almacenamiento de sesión. Permítelo e inténtalo de nuevo.'); }
+      location.replace('index.html');
+    } catch (ex) {
+      err.textContent = ex.message || 'No se pudo iniciar sesión.'; err.hidden = false;
+      btn.disabled = false; btn.textContent = 'Entrar';
+    }
+  });
+})();
+</script>
+
+</body>
 </html>

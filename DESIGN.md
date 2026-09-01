@@ -83,3 +83,6 @@ Los valores viven como variables CSS en `index.html` (`:root`); si cambias algo 
 | 2026-08-31 | Portada con la mínima información por tarjeta; detalle en pantalla de evento o desplegable | "Nadie lee todo" (usuario) |
 | 2026-08-31 | DESIGN.md creado por /design-consultation | Documenta el sistema ya construido; no se cambiaron tipografías ni colores porque los fija el brand book |
 | 2026-08-31 | /design-review: 7 arreglos (revelado con respaldo, sin banda cinética, texto ≥13 px, 44 px táctil, footer con tokens y h3) | Auditoría en vivo + subagente; Codex no disponible en Windows. Diferido: migrar px sueltos a `--sp-*` y sombras sobre navy a un token |
+| 2026-09-01 | Footer gris negro (`--footer-bg: #1B1B1F`) | Petición del usuario, con la referencia del footer negro 2023 |
+| 2026-09-01 | Rayito de color del catálogo junto al wordmark en el carrusel de experiencias (`assets/catalogo-rayo-*.png`) | Petición del usuario "como en el canvas"; lab→verde, explora/spark→azul-lima, founder/labs→venture, freeland/entrenamiento→freeland |
+| 2026-09-01 | Login de admin como página propia (`admin.html`) en vez de diálogo | Petición del usuario; misma verificación PBKDF2 contra admin.json, sesión en sessionStorage |

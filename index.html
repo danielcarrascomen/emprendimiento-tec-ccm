@@ -51,17 +51,6 @@
 <section class="event-view" id="eventView" aria-live="polite"></section>
 
 <main id="top">
-  <section class="def-sec" aria-labelledby="defTitle">
-    <div class="wrap">
-      <h2 class="rule-title" id="defTitle"><span>¿Qué es emprender en el Tec?</span></h2>
-      <div class="definicion" aria-label="Qué es emprender para el Instituto">
-        <img class="def-rayo" src="assets/rayo-azul.png" alt="">
-        <p>El proceso <mark class="m-cyan">consciente</mark> de <mark class="m-indigo">generar</mark> <mark class="m-indigo">oportunidades</mark> que <mark class="m-cyan">crean valor</mark> con <mark class="m-lila">impacto positivo</mark></p>
-      </div>
-      <div class="rule-end" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></div>
-    </div>
-  </section>
-
   <!-- ================= HERO ================= -->
   <section class="hero">
     <div class="wrap">
@@ -70,18 +59,6 @@
         <div class="dots" id="dots" role="group" aria-label="Elegir banner"></div>
       </div>
     </div>
-  </section>
-
-  <section class="test-sec" aria-labelledby="testTitle">
-    <div class="wrap test-grid">
-      <div class="test-copy">
-        <span class="rule-short" aria-hidden="true"></span>
-        <h2 id="testTitle">¿Aún no sabes cómo empezar?<br>Descubre aquí tu perfil emprendedor.</h2>
-        <a class="btn btn-primary test-btn" href="https://parqueorion.typeform.com/to/hkThaSVR" target="_blank" rel="noopener">Completa el test</a>
-      </div>
-      <img class="test-photo" src="assets/foto-estudiantes.webp" width="350" height="215" alt="Tres estudiantes del Tec sentados en unas escaleras con una laptop" loading="lazy">
-    </div>
-    <div class="wrap"><div class="rule-end" aria-hidden="true"><span class="circle"></span></div></div>
   </section>
 
   <section class="hero hero-copy-sec">
@@ -102,6 +79,17 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <section class="def-sec" aria-labelledby="defTitle">
+    <div class="wrap">
+      <h2 class="rule-title" id="defTitle"><span>¿Qué es emprender en el Tec?</span></h2>
+      <div class="definicion" aria-label="Qué es emprender para el Instituto">
+        <img class="def-rayo" src="assets/rayo-azul.png" alt="">
+        <p>El proceso <mark class="m-cyan">consciente</mark> de <mark class="m-indigo">generar</mark> <mark class="m-indigo">oportunidades</mark> que <mark class="m-cyan">crean valor</mark> con <mark class="m-lila">impacto positivo</mark></p>
+      </div>
+      <div class="rule-end" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></div>
     </div>
   </section>
 
@@ -198,6 +186,18 @@
     </div>
   </section>
 
+  <section class="test-sec" aria-labelledby="testTitle">
+    <div class="wrap test-grid">
+      <div class="test-copy">
+        <span class="rule-short" aria-hidden="true"></span>
+        <h2 id="testTitle">¿Aún no sabes cómo empezar?<br>Descubre aquí tu perfil emprendedor.</h2>
+        <a class="btn btn-primary test-btn" href="https://parqueorion.typeform.com/to/hkThaSVR" target="_blank" rel="noopener">Completa el test</a>
+      </div>
+      <img class="test-photo" src="assets/foto-estudiantes.webp" width="350" height="215" alt="Tres estudiantes del Tec sentados en unas escaleras con una laptop" loading="lazy">
+    </div>
+    <div class="wrap"><div class="rule-end" aria-hidden="true"><span class="circle"></span></div></div>
+  </section>
+
   <!-- ================= COMUNIDAD ================= -->
   <section id="comunidad" aria-labelledby="coTitle">
     <div class="wrap">
@@ -217,7 +217,7 @@
           Comunidad
           <svg class="join-cursor" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 3.5 27 15.2l-8.6 1.9 4.8 9.3-4.2 2.1-4.7-9.3L7 25.6Z" fill="#33CBFF" stroke="#061D5D" stroke-width="1.6" stroke-linejoin="round"/></svg>
         </a>
-        <span class="join-note"><span class="live" aria-hidden="true"></span>Grupo de WhatsApp · Campus Ciudad de México · <a href="https://www.instagram.com/emprendimientoccm/" target="_blank" rel="noopener" style="color:var(--lila)">Instagram @emprendimientoccm</a></span>
+        <span class="join-note">Grupo de WhatsApp · Campus Ciudad de México</span>
       </div>
     </div>
   </section>
@@ -337,23 +337,6 @@
     <div class="form-actions">
       <button class="btn btn-ghost" type="button" id="cancelDlg">Cancelar</button>
       <button class="btn btn-primary" type="submit" id="saveDlg">Guardar evento</button>
-    </div>
-  </form>
-</dialog>
-
-<!-- ================= ADMIN: acceso ================= -->
-<dialog id="loginDialog" aria-labelledby="loginTitle">
-  <form id="loginForm" method="dialog">
-    <h3 id="loginTitle">Acceso para administradores</h3>
-    <p class="login-note">Solo el equipo del Instituto puede publicar eventos. Si necesitas acceso, escribe a la persona responsable de la página.</p>
-    <div class="fields">
-      <label class="full">Usuario<input name="usuario" autocomplete="username" required autocapitalize="off"></label>
-      <label class="full">Contraseña<input name="password" type="password" autocomplete="current-password" required></label>
-    </div>
-    <p class="login-error" id="loginError" role="alert" hidden></p>
-    <div class="form-actions">
-      <button class="btn btn-ghost" type="button" id="cancelLogin">Cancelar</button>
-      <button class="btn btn-primary" type="submit" id="loginSubmit">Entrar</button>
     </div>
   </form>
 </dialog>
@@ -643,45 +626,18 @@
   }
   window.addEventListener('hashchange', viewFromHash);
 
-  /* ---- Acceso de administrador (usuario + contraseña) ----
-     Las credenciales viven en admin.json (se genera con configurar-admin.html):
-     · verificador: derivado de la contraseña con PBKDF2 (nunca se guarda la contraseña).
-     · token (opcional): token de GitHub cifrado con la contraseña (AES-GCM). Con él, la página publica
-       eventos.json y las imágenes directamente en el repositorio. Sin él, se descarga eventos.json.
-     Se entra desde admin.html (o agregando #admin a la liga de la página). */
-  const enc = new TextEncoder(), dec = new TextDecoder();
-  const hex = b => Array.from(new Uint8Array(b), x => x.toString(16).padStart(2, '0')).join('');
-  const unhex = h => new Uint8Array((String(h).match(/../g) || []).map(x => parseInt(x, 16)));
-  const unb64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+  /* ---- Acceso de administrador ----
+     El inicio de sesión vive en admin.html (usuario + contraseña verificados contra admin.json).
+     Al entrar, admin.html guarda la sesión en sessionStorage y regresa a esta página. */
+  const enc = new TextEncoder();
   const b64 = bytes => { let s = ''; const u = new Uint8Array(bytes); for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000)); return btoa(s); };
   const b64utf8 = str => b64(enc.encode(str));
-
-  async function deriveKey(password, saltHex, iterations) {
-    const base = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveBits']);
-    const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: unhex(saltHex), iterations }, base, 512);
-    return { aes: bits.slice(0, 32), check: hex(await crypto.subtle.digest('SHA-256', bits.slice(32))) };
-  }
-  async function login(usuario, password) {
-    let cfg = null;
-    try { const r = await fetch(`admin.json?t=${Date.now()}`, { cache: 'no-store' }); if (r.ok) cfg = await r.json(); } catch (e) { /* sin archivo */ }
-    if (!cfg || !cfg.verificador) throw new Error('Falta configurar el acceso: abre configurar-admin.html para crear usuario y contraseña.');
-    if (!window.crypto || !crypto.subtle) throw new Error('Este navegador no permite verificar la contraseña. Abre la página desde https://');
-    const k = await deriveKey(password, cfg.salt, cfg.iteraciones || 600000);
-    if (usuario.trim().toLowerCase() !== String(cfg.usuario || '').toLowerCase() || k.check !== cfg.verificador) throw new Error('Usuario o contraseña incorrectos.');
-    let token = null;
-    if (cfg.token) {
-      const key = await crypto.subtle.importKey('raw', k.aes, 'AES-GCM', false, ['decrypt']);
-      token = dec.decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: unhex(cfg.iv) }, key, unb64(cfg.token)));
-    }
-    return { usuario: cfg.usuario, token, repo: cfg.repo || REPO_DEFAULT, rama: cfg.rama || 'main' };
-  }
 
   let session = null;
   try { session = JSON.parse(sessionStorage.getItem('adminSession') || 'null'); } catch (e) { session = null; }
   function saveSession() { try { if (session) sessionStorage.setItem('adminSession', JSON.stringify(session)); else sessionStorage.removeItem('adminSession'); } catch (e) { /* sin almacenamiento */ } }
 
   const publishBtn = $('#publishBtn'), downloadBtn = $('#downloadBtn');
-  const loginDlg = $('#loginDialog'), loginForm = $('#loginForm');
   function setAdmin(on) {
     document.body.classList.toggle('admin', on);
     if (on && session) {
@@ -692,24 +648,11 @@
   }
   function openAdmin() {
     if (session) { setAdmin(true); return; }
-    $('#loginError').hidden = true; loginForm.reset();
-    if (!loginDlg.open) loginDlg.showModal();
+    location.href = 'admin.html'; // página de inicio de sesión
   }
   $('#exitAdmin').addEventListener('click', () => {
     if (dirty && !confirm('Tienes cambios sin publicar. ¿Cerrar sesión de todos modos?')) return;
     session = null; saveSession(); dirty = false; setAdmin(false); toast('Sesión cerrada.');
-  });
-  $('#cancelLogin').addEventListener('click', () => loginDlg.close());
-  loginForm.addEventListener('submit', async e => {
-    e.preventDefault();
-    const btn = $('#loginSubmit'), err = $('#loginError');
-    btn.disabled = true; btn.textContent = 'Verificando…'; err.hidden = true;
-    try {
-      session = await login(loginForm.elements.usuario.value, loginForm.elements.password.value);
-      saveSession(); loginDlg.close(); setAdmin(true);
-      toast(session.token ? `Hola, ${session.usuario}. Tus cambios se publican con «Publicar cambios».` : `Hola, ${session.usuario}. Al terminar, descarga eventos.json y súbelo al repositorio.`);
-    } catch (ex) { err.textContent = ex.message || 'No se pudo iniciar sesión.'; err.hidden = false; }
-    finally { btn.disabled = false; btn.textContent = 'Entrar'; }
   });
   $('#newEvent').addEventListener('click', () => openDialog(null));
 
@@ -868,7 +811,7 @@
     xpIndex = (i + PROGRAMAS.length) % PROGRAMAS.length;
     const x = PROGRAMAS[xpIndex];
     xpCopy.innerHTML = `
-      <h3 class="xp-wm"><span class="top">${esc(x.top)}</span>${x.sub ? ` <span class="sub">${esc(x.sub)}</span>` : ''}</h3>
+      <h3 class="xp-wm">${x.rayo ? `<img class="xp-rayo" src="${x.rayo}" alt="">` : ''}<span class="wm-txt"><span class="top">${esc(x.top)}</span>${x.sub ? ` <span class="sub">${esc(x.sub)}</span>` : ''}</span></h3>
       ${x.by ? `<span class="prog-by">${esc(x.by)}</span>` : ''}
       <p class="prog-q">${esc(x.q)}</p>
       ${x.punch ? punchHTML(x.punch) : ''}
