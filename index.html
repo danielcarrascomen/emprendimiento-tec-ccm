@@ -181,14 +181,18 @@
   .hero-copy h1 span { color: var(--accent); display: inline-block; }
   .cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
   @media (max-width: 480px) { .cta-row .btn { width: 100%; } }
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .stats { display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 12px; }
+  .stats .stat:first-child { background: var(--navy); color: #fff; }
+  .stats .stat:first-child b { color: var(--xp-lime); font-size: 38px; }
+  .stats .stat:first-child span { color: rgba(255,255,255,.85); }
   .stat { background: var(--surface-2); border-radius: 12px; padding: 16px 18px; }
   .stat b { display: block; font-size: 30px; color: var(--heading); font-variant-numeric: tabular-nums; line-height: 1.1; }
   .stat span { font-size: 14px; color: var(--ink-soft); }
   @media (max-width: 480px) { .stats { grid-template-columns: 1fr 1fr; } .stats .stat:last-child { grid-column: 1 / -1; } }
 
   .definicion { display: flex; align-items: center; gap: 24px; margin-top: 48px; }
-  .def-rayo { height: 70px; width: auto; flex: none; }
+  .def-rayo { height: 70px; width: auto; flex: none; animation: float 5s var(--ease) infinite; }
+  @keyframes float { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-6px) rotate(2deg); } }
   .definicion p { font-weight: 700; font-size: clamp(19px, 2.1vw, 27px); line-height: 1.55; color: var(--ink); max-width: 46ch; }
   .definicion mark { color: #FFFFFF; padding: 1px 12px 3px; border-radius: 999px; font-weight: 700; white-space: nowrap; }
   .m-cyan { background: var(--cyan); } .m-indigo { background: var(--indigo); } .m-lila { background: var(--lila); color: var(--navy) !important; }
@@ -226,6 +230,7 @@
   .prog:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(0, 0, 0, .35); border-color: rgba(204, 240, 32, .55); }
   .prog.hl { border-color: var(--xp-lime); box-shadow: 0 0 0 3px rgba(204, 240, 32, .35), 0 18px 40px rgba(0, 0, 0, .35); }
   .prog.compact { grid-template-columns: 1fr; }
+  @media (min-width: 901px) { .prog.featured { grid-column: 1 / -1; grid-template-columns: 1.25fr 340px; padding: 32px; } .prog.featured .prog-art img { max-height: 340px; } .prog.featured .xp-wm .top { font-size: clamp(38px, 4.2vw, 54px); } .prog.featured .prog-desc { font-size: 16px; max-width: 60ch; } }
   .prog-art { display: flex; align-items: flex-end; justify-content: center; min-height: 250px; }
   .prog-art img { max-height: 250px; width: auto; max-width: 100%; object-fit: contain; margin-inline: auto; filter: drop-shadow(0 12px 22px rgba(0,0,0,.35)); }
   @media (max-width: 560px) { .prog { grid-template-columns: 1fr; padding: 20px; } .prog-art { order: -1; min-height: 190px; } .prog-art img { max-height: 190px; } }
@@ -256,8 +261,11 @@
   .xp-foot { margin-top: 18px; font-size: 13.5px; color: rgba(255,255,255,.7); }
 
   /* Recursos: tarjetas-botón con el degradado oficial */
-  .resources { margin-top: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  @media (max-width: 860px) { .resources { grid-template-columns: 1fr; } }
+  .resources { margin-top: 40px; display: grid; grid-template-columns: 1.5fr 1fr; gap: 16px; }
+  .resources .res:first-child { grid-row: span 2; background: linear-gradient(180deg, var(--indigo) 0%, rgba(51,51,192,.85) 34%, rgba(51,51,192,.25) 70%, rgba(51,51,192,.1) 100%), url("assets/catalogo-portada.webp") center bottom / cover no-repeat; min-height: 380px; }
+  .resources .res:first-child .go { background: #fff; }
+  .resources .res:first-child b { font-size: 26px; }
+  @media (max-width: 860px) { .resources { grid-template-columns: 1fr; } .resources .res:first-child { grid-row: auto; } }
   .res {
     position: relative; display: flex; flex-direction: column; gap: 10px; padding: 24px 24px 22px; border-radius: 18px;
     background: linear-gradient(135deg, var(--indigo) 0%, var(--electric) 100%); color: #FFFFFF; text-decoration: none;
@@ -485,8 +493,22 @@
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+  /* Revelado escalonado al hacer scroll (solo transform/opacity) */
+  .js-reveal .reveal { opacity: 0; transform: translateY(16px); transition: opacity .55s var(--ease), transform .55s var(--ease); transition-delay: calc(var(--i, 0) * 70ms); }
+  .js-reveal .reveal.in { opacity: 1; transform: none; }
+  /* Esqueleto de carga de eventos */
+  .skel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
+  .skel .ph { background: linear-gradient(90deg, var(--surface-2) 25%, #E6E8F7 50%, var(--surface-2) 75%); background-size: 200% 100%; animation: shimmer 1.4s linear infinite; border-radius: 8px; }
+  .skel .ph.media { aspect-ratio: 16 / 9; border-radius: 0; }
+  .skel .body { padding: 18px 20px 20px; display: grid; gap: 12px; }
+  .skel .ph.line { height: 14px; } .skel .ph.title { height: 22px; width: 80%; } .skel .ph.btn { height: 40px; width: 120px; border-radius: 999px; }
+  @keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+  .load-error { grid-column: 1 / -1; display: grid; gap: 10px; justify-items: start; }
+
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
+    .js-reveal .reveal { opacity: 1; transform: none; transition: none; }
+    .def-rayo, .skel .ph { animation: none; }
     .carousel .slide { transition: none; }
     .card, .btn, .prog, .res, .chip, input, select, textarea { transition: none; }
     dialog[open], dialog::backdrop { animation: none; }
@@ -582,19 +604,19 @@
       <p class="xp-foot">Las fechas corresponden al semestre agosto–diciembre 2026 y pueden cambiar; la información vigente siempre está en el sitio oficial de cada experiencia.</p>
 
       <div class="resources">
-        <a class="res" href="https://heyzine.com/flip-book/97c2691988.html" target="_blank" rel="noopener">
+        <a class="res reveal" style="--i:0" href="https://heyzine.com/flip-book/97c2691988.html" target="_blank" rel="noopener">
           <small>Catálogo</small>
           <b>Conoce nuestra oferta (IEEGL)</b>
           <span>Programas, Círculo Emprendedor, alianzas, competencias y espacios del Instituto en un solo documento interactivo.</span>
           <span class="go">Abrir el catálogo <span class="arrow">→</span></span>
         </a>
-        <a class="res" href="https://sites.google.com/tec.mx/emprendimiento-tec/" target="_blank" rel="noopener">
+        <a class="res reveal" style="--i:1" href="https://sites.google.com/tec.mx/emprendimiento-tec/" target="_blank" rel="noopener">
           <small>Experiencias</small>
           <b>Experiencias de emprendimiento Tec</b>
           <span>Lab, Explora, Founder Mode, Labs, Freeland y SparkCamp: postulación, fechas, preguntas frecuentes y contactos.</span>
           <span class="go">Ver experiencias <span class="arrow">→</span></span>
         </a>
-        <a class="res" href="https://emprendimiento.tec.mx/es" target="_blank" rel="noopener">
+        <a class="res reveal" style="--i:2" href="https://emprendimiento.tec.mx/es" target="_blank" rel="noopener">
           <small>Sitio nacional</small>
           <b>emprendimiento.tec.mx</b>
           <span>Programas, servicios en campus, becas, convocatorias y el test de perfil emprendedor.</span>
@@ -844,21 +866,7 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <!-- ================= DATOS de respaldo (si eventos.json no se puede leer) ================= -->
-<script id="events-data" type="application/json">[
- {
-  "id": "e1",
-  "titulo": "Taller: de la idea al primer experimento",
-  "categoria": "Taller",
-  "modalidad": "Presencial",
-  "fecha": "2026-09-08",
-  "inicio": "13:00",
-  "fin": "15:00",
-  "lugar": "Espacio de Emprendimiento, Campus CCM",
-  "registro": "",
-  "descripcion": "Convierte tu idea en una hipótesis y pruébala en una semana, al estilo Explora Basecamp. Trae tu idea, aunque esté a medias.",
-  "imagen": "ilu2"
- }
-]</script>
+<script id="events-data" type="application/json">[]</script>
 
 <script>
 (function () {
@@ -884,6 +892,7 @@
   const CONFIG = { eventsJson: 'eventos.json', sheetCsvUrl: '' };
   let events = JSON.parse(document.getElementById('events-data').textContent);
   let externalSource = null;
+  let loadState = 'idle'; // idle | loading | error | ok
   let filterMod = 'Todos';
   let filterCat = 'Todas';
   let editingId = null;
@@ -973,9 +982,13 @@
     const past = vis.filter(e => !isUpcoming(e)).sort((a, b) => toDate(b.fecha, b.inicio) - toDate(a.fecha, a.inicio));
     const shown = upcoming.filter(e => (filterMod === 'Todos' || e.modalidad === filterMod) && (filterCat === 'Todas' || e.categoria === filterCat));
 
+    const skel = '<div class="skel" aria-hidden="true"><div class="ph media"></div><div class="body"><div class="ph line" style="width:40%"></div><div class="ph title"></div><div class="ph line"></div><div class="ph line" style="width:70%"></div><div class="ph btn"></div></div></div>';
     $('#eventGrid').innerHTML = shown.length
-      ? shown.map(cardHTML).join('')
-      : `<div class="empty" style="grid-column:1/-1">Por ahora no hay eventos con ese filtro. Prueba con «Todos» o únete a la comunidad para enterarte de los próximos.</div>`;
+      ? shown.map((ev, i) => cardHTML(ev).replace('<article class="card"', `<article class="card reveal" style="--i:${i % 6}"`)).join('')
+      : loadState === 'loading' ? skel + skel + skel
+      : loadState === 'error' ? `<div class="empty load-error"><b style="color:var(--heading)">No pudimos cargar los eventos.</b><span>Revisa tu conexión e inténtalo de nuevo.</span><button class="btn btn-secondary btn-sm" type="button" id="retryLoad">Reintentar</button></div>`
+      : `<div class="empty" style="grid-column:1/-1">${events.length ? 'Por ahora no hay eventos con ese filtro. Prueba con «Todos» o únete a la comunidad para enterarte de los próximos.' : 'Todavía no hay eventos publicados. Únete a la comunidad de WhatsApp para enterarte de los próximos.'}</div>`;
+    observeReveal();
 
     $('#pastList').innerHTML = past.length
       ? past.map(ev => `<a class="past-item" href="${eventHref(ev)}"><b style="color:var(--heading)">${esc(cap(new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'long', year: 'numeric' }).format(toDate(ev.fecha, ev.inicio))))}</b><span>${esc(ev.titulo)} · <span class="muted">${esc(ev.modalidad)}</span></span><span class="muted">${esc(ev.categoria || '')}</span></a>`).join('')
@@ -984,6 +997,14 @@
     $('#statUpcoming').textContent = upcoming.length;
     $('#statOnline').textContent = upcoming.filter(e => e.modalidad !== 'Presencial').length;
   }
+
+  /* ---- Revelado escalonado (IntersectionObserver; sin él, todo visible) ---- */
+  let io = null;
+  if ('IntersectionObserver' in window && !reduce) {
+    document.documentElement.classList.add('js-reveal');
+    io = new IntersectionObserver(entries => { entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+  }
+  function observeReveal() { if (io) $$('.reveal:not(.in)').forEach(el => io.observe(el)); }
 
   /* ---- Filtros ---- */
   $$('.filters .chip').forEach(btn => btn.addEventListener('click', () => {
@@ -1380,8 +1401,8 @@
       return li === p.length - 1 ? `<span class="oval">${inner}${OVAL}</span>` : `<span>${inner}</span>`;
     }).join('') + '</p>';
   }
-  $('#progGrid').innerHTML = PROGRAMAS.map(x => `
-    <article class="prog${x.compact ? ' compact' : ''}" id="prog-${x.id}" data-id="${x.id}">
+  $('#progGrid').innerHTML = PROGRAMAS.map((x, i) => `
+    <article class="prog reveal${x.compact ? ' compact' : ''}${i === 0 ? ' featured' : ''}" id="prog-${x.id}" data-id="${x.id}" style="--i:${i % 4}">
       <div class="prog-body">
         <span class="prog-stage">${BOLT}${esc(x.stage)}</span>
         <h3 class="xp-wm"><span class="top">${esc(x.top)}</span>${x.sub ? `<span class="sub">${esc(x.sub)}</span>` : ''}</h3>
@@ -1469,7 +1490,10 @@
 
   /* ---- Arranque ---- */
   try { const c = JSON.parse(localStorage.getItem('eventosCache') || 'null'); if (Array.isArray(c) && c.length) events = normalize(c); } catch (e) { /* sin caché */ }
+  if (!events.length && location.protocol !== 'file:') loadState = 'loading';
   if (session) setAdmin(true); else { render(); viewFromHash(); }
+  observeReveal();
+  document.addEventListener('click', e => { if (e.target.closest('#retryLoad')) { loadState = 'loading'; render(); loadEvents(); } });
 
   /* ---- Carga de eventos externos (sitio publicado) ---- */
   function parseCSV(text) {
@@ -1490,7 +1514,7 @@
     return list.filter(e => e && e.titulo && e.fecha)
       .map(e => ({ ...e, inicio: e.inicio || '00:00', imagen: (ILUS[e.imagen] || /^(https?:|data:|assets\/)/.test(e.imagen || '')) ? e.imagen : 'ilu1' }));
   }
-  (async () => {
+  async function loadEvents() {
     if (location.protocol === 'file:') return;
     try {
       let list = null;
@@ -1498,11 +1522,12 @@
       else if (CONFIG.eventsJson) { const r = await fetch(`${CONFIG.eventsJson}?t=${Date.now()}`, { cache: 'no-store' }); if (r.ok) { list = await r.json(); externalSource = 'json'; } }
       if (Array.isArray(list)) {
         if (dirty) return; // el admin ya está editando: no pisar sus cambios
-        events = normalize(list); render(); viewFromHash();
+        loadState = 'ok'; events = normalize(list); render(); viewFromHash();
         try { localStorage.setItem('eventosCache', JSON.stringify(list)); } catch (e) { /* sin almacenamiento */ }
-      }
-    } catch (e) { /* sin conexión o sin archivo: se quedan los eventos en caché o incrustados */ }
-  })();
+      } else { loadState = events.length ? 'ok' : 'error'; render(); }
+    } catch (e) { loadState = events.length ? 'ok' : 'error'; render(); }
+  }
+  loadEvents();
 
   /* ---- Caché para cargas rápidas (service worker) ---- */
   if ('serviceWorker' in navigator && location.protocol === 'https:') {
