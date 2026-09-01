@@ -215,9 +215,9 @@
   .xp-tab[aria-pressed="true"] { background: var(--xp-lime); color: var(--xp-navy); border-color: var(--xp-lime); }
   @media (max-width: 480px) { .xp-tab { padding: 9px 13px; font-size: 13px; } }
 
-  .xp-note { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px; }
+  .xp-note { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 40px; margin-top: 30px; }
   @media (max-width: 720px) { .xp-note { grid-template-columns: 1fr; } }
-  .xp-note div { background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .14); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; line-height: 1.45; }
+  .xp-note div { border-left: 3px solid var(--xp-lime); padding: 2px 0 2px 16px; font-size: 14.5px; line-height: 1.5; max-width: 52ch; }
   .xp-note b { color: var(--xp-lime); display: block; margin-bottom: 4px; font-family: Poppins, "Kumbh Sans", sans-serif; }
 
   .prog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 26px; }
@@ -493,6 +493,27 @@
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+  /* Banda cinética (marquee) con frases de campaña */
+  .marquee { background: var(--xp-lime); color: var(--xp-navy); overflow: hidden; padding-block: 12px; border-block: 1px solid rgba(6,29,93,.12); }
+  .marquee .track { display: flex; width: max-content; gap: 0; animation: marquee 34s linear infinite; will-change: transform; }
+  .marquee:hover .track { animation-play-state: paused; }
+  .marquee span { display: inline-flex; align-items: center; gap: 18px; padding-inline: 18px; font: 800 15px/1 Poppins, "Kumbh Sans", sans-serif; text-transform: uppercase; letter-spacing: .08em; white-space: nowrap; }
+  .marquee svg { width: 14px; height: 14px; fill: var(--xp-navy); flex: none; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  /* Spotlight que sigue el cursor en las tarjetas de programas */
+  @media (hover: hover) {
+    .prog::after { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit; opacity: 0; transition: opacity .35s var(--ease);
+      background: radial-gradient(460px circle at var(--mx, 50%) var(--my, 50%), rgba(204, 240, 32, .16), transparent 62%); }
+    .prog:hover::after { opacity: 1; }
+  }
+  /* El óvalo de la frase de impacto se dibuja al aparecer */
+  .js-reveal .xp-punch .oval ellipse { stroke-dasharray: 100; stroke-dashoffset: 100; }
+  .js-reveal .reveal.in .xp-punch .oval ellipse { animation: draw .9s .35s var(--ease) forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  /* Punto que respira */
+  .live { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--xp-lime); margin-right: 8px; vertical-align: middle; position: relative; }
+  .live::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid var(--xp-lime); animation: breathe 2.4s var(--ease) infinite; }
+  @keyframes breathe { 0% { transform: scale(.6); opacity: .9; } 70%, 100% { transform: scale(1.5); opacity: 0; } }
   /* Revelado escalonado al hacer scroll (solo transform/opacity) */
   .js-reveal .reveal { opacity: 0; transform: translateY(16px); transition: opacity .55s var(--ease), transform .55s var(--ease); transition-delay: calc(var(--i, 0) * 70ms); }
   .js-reveal .reveal.in { opacity: 1; transform: none; }
@@ -508,7 +529,8 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .js-reveal .reveal { opacity: 1; transform: none; transition: none; }
-    .def-rayo, .skel .ph { animation: none; }
+    .def-rayo, .skel .ph, .marquee .track, .live::after { animation: none; }
+    .prog::after { display: none; }
     .carousel .slide { transition: none; }
     .card, .btn, .prog, .res, .chip, input, select, textarea { transition: none; }
     dialog[open], dialog::backdrop { animation: none; }
@@ -579,6 +601,8 @@
       </div>
     </div>
   </section>
+
+  <div class="marquee" aria-hidden="true"><div class="track" id="marqueeTrack"></div></div>
 
   <!-- ================= EXPERIENCIAS DE EMPRENDIMIENTO (programas estrella) ================= -->
   <section id="programas" class="xp" aria-labelledby="prTitle">
@@ -688,7 +712,7 @@
           Comunidad
           <svg class="join-cursor" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 3.5 27 15.2l-8.6 1.9 4.8 9.3-4.2 2.1-4.7-9.3L7 25.6Z" fill="#CCF020" stroke="#061D5D" stroke-width="1.6" stroke-linejoin="round"/></svg>
         </a>
-        <span class="join-note">Grupo de WhatsApp · Campus Ciudad de México · <a href="https://www.instagram.com/emprendimientoccm/" target="_blank" rel="noopener" style="color:var(--lila)">Instagram @emprendimientoccm</a></span>
+        <span class="join-note"><span class="live" aria-hidden="true"></span>Grupo de WhatsApp · Campus Ciudad de México · <a href="https://www.instagram.com/emprendimientoccm/" target="_blank" rel="noopener" style="color:var(--lila)">Instagram @emprendimientoccm</a></span>
       </div>
     </div>
   </section>
@@ -1393,7 +1417,7 @@
       facts: ['5 semanas · 2 sesiones por semana', 'Grupos matutinos (9–11 am) y vespertinos (5–7 pm)', 'Se inscribe como materia electiva: WA3080'],
       para: 'Estudiantes activos de Profesional', img: '', url: XP_URL.entrenamiento, contacto: '', compact: true }
   ];
-  const OVAL = '<svg viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="50" cy="20" rx="48" ry="17" fill="none" stroke="#497DE2" stroke-width="2.2" vector-effect="non-scaling-stroke"/></svg>';
+  const OVAL = '<svg viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="50" cy="20" rx="48" ry="17" pathLength="100" fill="none" stroke="#497DE2" stroke-width="2.2" vector-effect="non-scaling-stroke"/></svg>';
   const BOLT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>';
   function punchHTML(p) {
     return '<p class="xp-punch">' + p.map((line, li) => {
@@ -1427,6 +1451,21 @@
     const card = document.getElementById('prog-' + b.dataset.id);
     if (card) card.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
   });
+
+  /* ---- Banda cinética ---- */
+  const FRASES = ['En el Tec, todas y todos podemos emprender', 'Yo emprendo', 'Experiencias de Emprendimiento', 'Campus Ciudad de México', 'Sacudamos el futuro', '#EmprendimientoTec'];
+  const marqueeItems = FRASES.map(f => `<span>${BOLT}${esc(f)}</span>`).join('');
+  $('#marqueeTrack').innerHTML = marqueeItems + marqueeItems;
+
+  /* ---- Spotlight en tarjetas de programas (solo con cursor) ---- */
+  if (window.matchMedia('(hover: hover)').matches) {
+    $('#progGrid').addEventListener('pointermove', e => {
+      const card = e.target.closest('.prog'); if (!card) return;
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+    }, { passive: true });
+  }
 
   /* ---- Carrusel (videos ligeros en lugar de GIF; versión recortada en celular) ---- */
   const SLIDES = [
