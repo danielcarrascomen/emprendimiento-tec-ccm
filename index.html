@@ -73,6 +73,13 @@
   img, video { display: block; max-width: 100%; }
   button { font: inherit; }
   :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+  a, button, input, select, textarea, label { touch-action: manipulation; }
+  section[id], [id="top"] { scroll-margin-top: 84px; }
+  .skip { position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--navy); color: #fff; padding: 10px 14px; border-radius: 8px; font-weight: 700; text-decoration: none; transition: top .15s; }
+  .skip:focus { top: 12px; }
+  .card:has(h3 a:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .card h3 a:focus-visible { outline: none; }
+  .ilu-pick label:has(input:focus-visible), .ilu-preview:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
   .wrap { width: min(1120px, 100% - 40px); margin-inline: auto; }
   @media (max-width: 480px) { .wrap { width: min(1120px, 100% - 28px); } }
   .muted { color: var(--ink-soft); }
@@ -104,7 +111,8 @@
   .btn:hover .arrow { transform: translateX(3px); }
   .btn-secondary { background: var(--surface); color: var(--indigo); border-color: var(--indigo); }
   .btn-white { background: #FFFFFF; color: var(--indigo); box-shadow: 0 6px 18px rgba(0, 0, 0, .25); }
-  .btn-sm { padding: 9px 14px; font-size: 14px; border-radius: 8px; }
+  .btn-sm { padding: 9px 14px; font-size: 14px; border-radius: 8px; min-height: 40px; }
+  @media (pointer: coarse) { .btn-sm { min-height: 44px; } .chip { min-height: 44px; padding-block: 8px; } .xp-tab { min-height: 44px; } nav.main a { padding: 12px 4px; } }
   .btn-ghost { background: var(--surface); color: var(--ink); border-color: var(--line); }
   .btn-danger { background: var(--surface); color: var(--danger); border-color: var(--line); }
   .btn[disabled] { opacity: .55; cursor: not-allowed; transform: none; }
@@ -137,9 +145,15 @@
   .carousel .slide { position: absolute; inset: 0; opacity: 0; transition: opacity .8s ease; }
   .carousel .slide.on { opacity: 1; }
   .carousel img, .carousel video { width: 100%; height: 100%; object-fit: cover; object-position: center; background: var(--indigo); }
-  .carousel .dots { position: absolute; right: 14px; bottom: 10px; display: flex; gap: 6px; }
-  .carousel .dots button { width: 10px; height: 10px; border-radius: 50%; border: 0; background: rgba(255,255,255,.55); cursor: pointer; padding: 0; }
-  .carousel .dots button[aria-current="true"] { background: #FFFFFF; }
+  .carousel .dots { position: absolute; right: 8px; bottom: 0; display: flex; gap: 0; align-items: center; }
+  .carousel .dots button { width: 24px; height: 32px; border: 0; background: transparent; cursor: pointer; padding: 0; display: grid; place-items: center; }
+  .carousel .dots button::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.55); transition: transform .15s, background .15s; }
+  .carousel .dots button[aria-current="true"]::before { background: #FFFFFF; transform: scale(1.25); }
+  .carousel .dots button:focus-visible { outline-offset: -3px; }
+  .carousel .pause { position: absolute; left: 10px; bottom: 6px; width: 36px; height: 36px; border-radius: 50%; border: 0; background: rgba(6, 29, 93, .55); color: #fff; cursor: pointer; display: grid; place-items: center; padding: 0; backdrop-filter: blur(4px); }
+  .carousel .pause svg { width: 16px; height: 16px; fill: currentColor; }
+  .carousel .pause:hover { background: rgba(6, 29, 93, .8); }
+  @media (pointer: coarse) { .carousel .dots button { width: 28px; height: 44px; } .carousel .pause { width: 44px; height: 44px; } }
   /* Celular: el banner ocupa todo el ancho y se recorta al lado del texto (versión "movil" del video, 3:1) */
   @media (max-width: 640px) {
     .hero { padding-top: 0; }
@@ -198,9 +212,9 @@
   .prog:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(0, 0, 0, .35); border-color: rgba(204, 240, 32, .55); }
   .prog.hl { border-color: var(--xp-lime); box-shadow: 0 0 0 3px rgba(204, 240, 32, .35), 0 18px 40px rgba(0, 0, 0, .35); }
   .prog.compact { grid-template-columns: 1fr; }
-  .prog-art { display: flex; align-items: flex-end; justify-content: center; }
+  .prog-art { display: flex; align-items: flex-end; justify-content: center; min-height: 250px; }
   .prog-art img { max-height: 250px; width: auto; max-width: 100%; object-fit: contain; margin-inline: auto; filter: drop-shadow(0 12px 22px rgba(0,0,0,.35)); }
-  @media (max-width: 560px) { .prog { grid-template-columns: 1fr; padding: 20px; } .prog-art { order: -1; } .prog-art img { max-height: 190px; } }
+  @media (max-width: 560px) { .prog { grid-template-columns: 1fr; padding: 20px; } .prog-art { order: -1; min-height: 190px; } .prog-art img { max-height: 190px; } }
   .prog-body { display: grid; gap: 12px; align-content: start; font-family: Poppins, "Kumbh Sans", sans-serif; min-width: 0; }
   .prog-stage { display: inline-flex; align-items: center; gap: 8px; width: max-content; max-width: 100%; background: linear-gradient(90deg, var(--xp-blue), var(--xp-lime)); color: var(--xp-navy); font: 700 13px/1.2 Poppins, "Kumbh Sans", sans-serif; padding: 8px 14px; border-radius: 999px; }
   .prog-stage svg { width: 14px; height: 14px; flex: none; fill: var(--xp-navy); }
@@ -375,7 +389,7 @@
   .ft-legal a { color: #FFFFFF; text-decoration: none; }
   .ft-legal a:hover { text-decoration: underline; }
   .ft-social { display: flex; gap: 10px; }
-  .ft-social a { width: 38px; height: 38px; border-radius: 50%; background: #FFFFFF; color: #0B1B4D; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,.3); transition: transform .15s ease; }
+  .ft-social a { width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; color: #0B1B4D; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,.3); transition: transform .15s ease; }
   .ft-social a:hover { transform: translateY(-2px); }
   .ft-social svg { width: 18px; height: 18px; fill: currentColor; }
 
@@ -438,11 +452,12 @@
 </head>
 <body>
 
+<a class="skip" href="#programas">Saltar al contenido</a>
 <header class="site">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Emprendimiento Tec, inicio">
-      <img class="brand-wide" src="assets/logo-emprendimiento-ieegl.png" alt="Emprendimiento e Instituto de Emprendimiento Eugenio Garza Lagüera">
-      <img class="brand-compact" src="assets/logo-emprendimiento.png" alt="Emprendimiento">
+      <img class="brand-wide" src="assets/logo-emprendimiento-ieegl.png" width="4624" height="453" alt="Emprendimiento e Instituto de Emprendimiento Eugenio Garza Lagüera">
+      <img class="brand-compact" src="assets/logo-emprendimiento.png" width="2234" height="346" alt="Emprendimiento">
     </a>
     <nav class="main" aria-label="Secciones">
       <a class="link" href="#programas">Experiencias</a>
@@ -472,7 +487,8 @@
   <section class="hero">
     <div class="wrap">
       <div class="carousel" id="carousel" aria-roledescription="carrusel" aria-label="Campañas del Instituto de Emprendimiento">
-        <div class="dots" id="dots"></div>
+        <button class="pause" id="carPause" type="button" aria-label="Pausar el carrusel" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg></button>
+        <div class="dots" id="dots" role="group" aria-label="Elegir banner"></div>
       </div>
 
       <div class="hero-grid">
@@ -590,7 +606,7 @@
   <!-- ================= COMUNIDAD ================= -->
   <section id="comunidad" aria-labelledby="coTitle">
     <div class="wrap">
-      <img class="strip" src="assets/foto-comunidad.webp" alt="Equipo de la comunidad emprendedora uniendo las manos sobre una mesa de trabajo" loading="lazy">
+      <img class="strip" src="assets/foto-comunidad.webp" width="1380" height="215" alt="Equipo de la comunidad emprendedora uniendo las manos sobre una mesa de trabajo" loading="lazy">
     </div>
     <div class="wrap band">
       <div class="copy">
@@ -1272,7 +1288,7 @@
     } else {
       const im = document.createElement('img'); im.src = s.img; im.alt = s.alt; im.loading = 'lazy'; im.decoding = 'async'; slide.appendChild(im);
     }
-    carousel.insertBefore(slide, dots);
+    carousel.insertBefore(slide, $('#carPause'));
     const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', `Ir al banner ${i + 1}`);
     b.addEventListener('click', () => { go(i); restart(); }); dots.appendChild(b);
   });
@@ -1283,15 +1299,28 @@
     slides.forEach((s, k) => {
       s.classList.toggle('on', k === cur);
       const v = s.querySelector('video');
-      if (v) { if (k === cur && !reduce) { v.preload = 'auto'; v.play().catch(() => {}); } else v.pause(); }
+      if (v) { if (k === cur && !paused) { v.preload = 'auto'; v.play().catch(() => {}); } else v.pause(); }
     });
-    const nxt = slides[(cur + 1) % slides.length].querySelector('video'); if (nxt && !reduce) nxt.preload = 'auto';
+    const nxt = slides[(cur + 1) % slides.length].querySelector('video'); if (nxt && !paused) nxt.preload = 'auto';
     $$('#dots button').forEach((b, k) => b.setAttribute('aria-current', String(k === cur)));
   }
-  function restart() { clearInterval(timer); if (!reduce) timer = setInterval(() => go(cur + 1), 6000); }
-  go(0); restart();
+  let paused = reduce;
+  const pauseBtn = $('#carPause');
+  const ICON_PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>';
+  const ICON_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+  function restart() { clearInterval(timer); if (!paused) timer = setInterval(() => go(cur + 1), 6000); }
+  function setPaused(p) {
+    paused = p; pauseBtn.innerHTML = p ? ICON_PLAY : ICON_PAUSE;
+    pauseBtn.setAttribute('aria-label', p ? 'Reanudar el carrusel' : 'Pausar el carrusel'); pauseBtn.setAttribute('aria-pressed', String(p));
+    slides.forEach(s => { const v = s.querySelector('video'); if (v) { if (p) v.pause(); else if (s.classList.contains('on')) v.play().catch(() => {}); } });
+    restart();
+  }
+  pauseBtn.addEventListener('click', () => setPaused(!paused));
+  go(0); setPaused(reduce);
   carousel.addEventListener('mouseenter', () => clearInterval(timer));
   carousel.addEventListener('mouseleave', restart);
+  carousel.addEventListener('focusin', () => clearInterval(timer));
+  carousel.addEventListener('focusout', restart);
   document.addEventListener('visibilitychange', () => { if (document.hidden) clearInterval(timer); else restart(); });
 
   /* ---- Arranque ---- */
