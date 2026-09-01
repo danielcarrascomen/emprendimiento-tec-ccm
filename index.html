@@ -1430,7 +1430,7 @@
     <article class="prog reveal${x.compact ? ' compact' : ''}${i === 0 ? ' featured' : ''}" id="prog-${x.id}" data-id="${x.id}" style="--i:${i % 4}">
       <div class="prog-body">
         <span class="prog-stage">${BOLT}${esc(x.stage)}</span>
-        <h3 class="xp-wm"><span class="top">${esc(x.top)}</span>${x.sub ? `<span class="sub">${esc(x.sub)}</span>` : ''}</h3>
+        <h3 class="xp-wm"><span class="top">${esc(x.top)}</span>${x.sub ? ` <span class="sub">${esc(x.sub)}</span>` : ''}</h3>
         ${x.by ? `<span class="prog-by">${esc(x.by)}</span>` : ''}
         <p class="prog-q">${esc(x.q)}</p>
         <div class="prog-cta">
