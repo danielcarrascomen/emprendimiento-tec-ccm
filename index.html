@@ -430,11 +430,23 @@
   .ilu-custom { display: grid; gap: 8px; margin-top: 10px; }
   .ilu-custom .row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-items: center; }
   @media (max-width: 560px) { .ilu-custom .row { grid-template-columns: 1fr; } }
-  .ilu-custom .hint { font-size: 13px; color: var(--ink-soft); font-weight: 400; }
+  .hint { font-size: 13px; color: var(--ink-soft); font-weight: 400; line-height: 1.4; }
+  .card .media { position: relative; }
+  .card .media .logo { position: absolute; left: 10px; bottom: 10px; height: 44px; width: auto; max-width: 120px; object-fit: contain; border-radius: 8px; background: #fff; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,.22); }
+  .ev-logo { height: 64px; width: auto; max-width: 180px; object-fit: contain; border-radius: 10px; background: #fff; border: 1px solid var(--line); padding: 6px; }
   .ilu-preview { max-width: 240px; }
   .form-actions { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
   .login-note { font-size: 14px; color: var(--ink-soft); }
   .login-error { font-size: 14px; color: var(--danger); font-weight: 700; }
+  .chk-group { border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 12px 10px; margin: 0; min-width: 0; }
+  .chk-group legend { font-size: 14px; font-weight: 700; color: var(--heading); padding-inline: 4px; }
+  .chk-group .opts { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+  .chk-group label { display: inline-flex; align-items: center; gap: 6px; font-weight: 400; color: var(--ink); font-size: 14.5px; min-height: 32px; }
+  .chk-group input { width: 18px; height: 18px; margin: 0; accent-color: var(--indigo); }
+  .card .extra { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip.soft { background: var(--surface-2); color: var(--ink-soft); cursor: default; font-size: 12.5px; padding: 3px 9px; }
+  .chip.free { background: #E3F8EA; color: #0F5132; cursor: default; font-size: 12.5px; padding: 3px 9px; }
+  .ev-sub { font-size: 13px; color: var(--ink-soft); font-weight: 700; margin-top: 4px; }
   .toast {
     position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px);
     background: var(--dark); color: #FFFFFF; padding: 12px 18px; border-radius: 12px; font-size: 15px;
@@ -589,7 +601,7 @@
           Categoría
           <select id="catFilter" style="width:auto;padding:7px 10px;font-size:14px">
             <option value="Todas">Todas</option>
-            <option>Taller</option><option>Charla</option><option>Pitch</option><option>Networking</option><option>Convocatoria</option>
+            <option>Taller</option><option>Charla</option><option>Pitch</option><option>Networking</option><option>Convocatoria</option><option>Concurso</option><option>Mentoría</option>
           </select>
         </label>
       </div>
@@ -715,21 +727,43 @@
     <div class="fields">
       <label class="full">Título<input name="titulo" required maxlength="90" placeholder="Ej. Taller: de la idea al primer experimento"></label>
       <label>Categoría
-        <select name="categoria"><option>Taller</option><option>Charla</option><option>Pitch</option><option>Networking</option><option>Convocatoria</option></select>
+        <select name="categoria"><option>Taller</option><option>Charla</option><option>Pitch</option><option>Networking</option><option>Convocatoria</option><option>Concurso</option><option>Mentoría</option></select>
       </label>
       <label>Modalidad
         <select name="modalidad"><option>Presencial</option><option>En línea</option><option>Híbrido</option></select>
       </label>
-      <label>Fecha<input name="fecha" type="date" required></label>
+      <label class="full">Tipo de fecha
+        <select name="periodicidad" id="periodicidad"><option value="fija">Fecha establecida (sucede en cierta fecha: taller, charla, concurso)</option><option value="convocatoria">Convocatoria con fecha de apertura y cierre</option><option value="porconfirmar">En proceso de lanzamiento (se mostrará «Fecha por confirmar»)</option></select>
+      </label>
+      <label><span id="lblFecha">Fecha</span><input name="fecha" type="date" required></label>
       <label>Estado
         <select name="estado"><option value="publicado">Publicado</option><option value="borrador">Borrador (solo lo ve el admin)</option></select>
       </label>
-      <label>Hora de inicio<input name="inicio" type="time" required></label>
+      <label><span id="lblInicio">Hora de inicio</span><input name="inicio" type="time"></label>
       <label>Hora de fin<input name="fin" type="time"></label>
-      <label class="full">Lugar o plataforma<input name="lugar" placeholder="Ej. Espacio de Emprendimiento, Campus CCM · Zoom"></label>
-      <label class="full">Liga de registro<input name="registro" type="url" placeholder="https://forms.gle/…"></label>
-      <label class="full">Descripción corta<textarea name="descripcion" maxlength="220" placeholder="Qué va a pasar y para quién es (máx. 220 caracteres). Se ve en la tarjeta."></textarea></label>
-      <label class="full">Información completa (opcional)<textarea name="detalle" maxlength="3000" placeholder="Agenda, ponentes, requisitos, a quién va dirigido… Se muestra en la pantalla del evento. Deja una línea en blanco para separar párrafos."></textarea></label>
+      <label class="full">Lugar (si es presencial: edificio y salón) o plataforma (si es en línea)<input name="lugar" placeholder="Ej. Edificio Sur, 2do piso, Yarda 40 · Zoom (la liga llega al registrarte)"></label>
+      <label class="full">Liga de registro (si aplica)<input name="registro" type="url" placeholder="https://forms.gle/… · si no hay registro, déjalo vacío"></label>
+      <label class="full">Página web o red social del evento (opcional)<input name="web" type="url" placeholder="https://instagram.com/…"></label>
+      <label>Registro hasta (fecha límite, opcional)<input name="limiteRegistro" type="date"></label>
+      <label><span id="lblFechaFin">Fecha de fin (solo si dura varios días)</span><input name="fechaFin" type="date"></label>
+      <label>Costo<select name="costo"><option value="">Sin especificar</option><option>Sin costo</option><option>Con costo</option></select></label>
+      <label>Precio (si tiene costo)<input name="precio" placeholder="Ej. $200 MXN"></label>
+      <label>Cupo (opcional)<input name="cupo" placeholder="Ej. 40 lugares"></label>
+      <label class="full">Correo de contacto (opcional)<input name="contacto" type="email" placeholder="nombre@tec.mx"><span class="hint">De preferencia un correo institucional: @tec.mx, @itesm.mx, @servicios.tec.mx o @exatec.mx.</span></label>
+      <fieldset class="full chk-group"><legend>Público al que va dirigido</legend><div class="opts">
+        <label><input type="checkbox" name="publico" value="Profesional y Posgrado">Profesional y Posgrado</label>
+        <label><input type="checkbox" name="publico" value="PrepaTec">PrepaTec</label>
+        <label><input type="checkbox" name="publico" value="Profesores y colaboradores">Profesores y colaboradores</label>
+        <label><input type="checkbox" name="publico" value="EXATEC">EXATEC</label>
+        <label><input type="checkbox" name="publico" value="Investigadores">Investigadores</label>
+        <label><input type="checkbox" name="publico" value="Público externo">Público externo</label>
+        <label><input type="checkbox" name="publico" value="Toda la comunidad Tec">Toda la comunidad Tec</label>
+      </div></fieldset>
+      <label>¿Tiene premio?<select name="premio"><option value="">No aplica</option><option>Monetario</option><option>En especie</option></select></label>
+      <label>Detalle del premio (opcional)<input name="premioDetalle" placeholder="Ej. $10,000 MXN y mentoría"></label>
+      <label class="full">Palabras clave (separadas por coma, opcional)<input name="tags" placeholder="Ej. validación, ventas, inteligencia artificial"></label>
+      <label class="full">Descripción corta (máximo 300 caracteres)<textarea name="descripcion" maxlength="300" required placeholder="Qué va a pasar y para quién es. Se ve en la tarjeta del evento."></textarea></label>
+      <label class="full">Descripción detallada (máximo 2500 caracteres, opcional)<textarea name="detalle" maxlength="2500" placeholder="Agenda, ponentes, requisitos, qué llevar… Se muestra en la pantalla del evento. Deja una línea en blanco para separar párrafos."></textarea></label>
       <div class="full">
         <span class="field-title">Imagen del evento</span>
         <div class="ilu-pick" id="iluPick"></div>
@@ -738,8 +772,16 @@
             <input type="file" id="imgFile" accept="image/*" aria-label="Subir imagen propia">
             <input type="url" id="imgUrl" placeholder="…o pega la liga de una imagen (https://…)">
           </div>
-          <span class="hint">Elige una ilustración de marca, sube tu propia imagen (se ajusta sola a 1400 px) o pega una liga. Recomendado: horizontal 16:9.</span>
+          <span class="hint">Se usa como banner en la tarjeta y en la pantalla del evento: foto horizontal (modo paisaje), tamaño recomendado 1400 × 790 px (16:9); se ajusta sola al subirla. Si no tienes banner, usa una ilustración de marca o pega una liga.</span>
           <label class="ilu-preview" id="imgPreview" hidden><input type="radio" name="imagen" value="custom"><img alt="Imagen propia"></label>
+        </div>
+      </div>
+      <div class="full">
+        <span class="field-title">Logo del evento u organizador (opcional)</span>
+        <div class="ilu-custom">
+          <div class="row"><input type="file" id="logoFile" accept="image/*" aria-label="Subir logo"><button class="btn btn-ghost btn-sm" type="button" id="logoClear">Quitar logo</button></div>
+          <span class="hint">Recomendamos fondo de color; si subes un PNG transparente, que el logo no sea blanco. Tamaño recomendado 280 × 230 px.</span>
+          <img id="logoPreview" alt="" hidden style="height:72px;width:auto;max-width:200px;object-fit:contain;border-radius:10px;border:1px solid var(--line);background:#fff;padding:4px">
         </div>
       </div>
     </div>
@@ -837,29 +879,50 @@
     const pad = n => String(n).padStart(2, '0');
     const stamp = d => `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
     const start = toDate(ev.fecha, ev.inicio);
-    const end = ev.fin ? toDate(ev.fecha, ev.fin) : new Date(start.getTime() + 60 * 60 * 1000);
+    const endDay = ev.fechaFin || ev.fecha;
+    const end = ev.fin ? toDate(endDay, ev.fin) : (ev.fechaFin ? toDate(endDay, ev.inicio) : new Date(start.getTime() + 60 * 60 * 1000));
     const p = new URLSearchParams({ action: 'TEMPLATE', text: ev.titulo, dates: `${stamp(start)}/${stamp(end)}`, details: (ev.descripcion || '') + '\n' + eventUrl(ev), location: ev.lugar || '', ctz: 'America/Mexico_City' });
     return 'https://calendar.google.com/calendar/render?' + p.toString();
   }
-  function isUpcoming(ev) { return toDate(ev.fecha, ev.fin || ev.inicio) >= today; }
+  function isUpcoming(ev) { return toDate(ev.fechaFin || ev.fecha, ev.fin || ev.inicio) >= today; }
+  const list = v => Array.isArray(v) ? v.filter(Boolean) : String(v || '').split(/\s*[;,·|]\s*/).filter(Boolean);
+  const fmtShort = new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'short' });
+  const shortDate = f => clean(fmtShort.format(toDate(f, '12:00')));
   const eventUrl = ev => location.origin + location.pathname + '#evento/' + encodeURIComponent(ev.id);
   const eventHref = ev => '#evento/' + encodeURIComponent(ev.id);
 
+  function metaLine(ev, hora) {
+    const lugar = esc(ev.lugar || 'Lugar por confirmar') + (ev.categoria ? ' · ' + esc(ev.categoria) : '');
+    if (ev.periodicidad === 'porconfirmar') return 'Próximamente · ' + lugar;
+    if (ev.periodicidad === 'convocatoria') return `Convocatoria del ${esc(shortDate(ev.fecha))} al ${esc(shortDate(ev.fechaFin || ev.fecha))} · ` + lugar;
+    return (ev.fechaFin && ev.fechaFin !== ev.fecha ? 'Hasta el ' + esc(shortDate(ev.fechaFin)) + ' · ' : '') + esc(hora) + ' h · ' + lugar;
+  }
+  function cardExtras(ev) {
+    const chips = [];
+    if (ev.costo === 'Sin costo') chips.push('<span class="chip free">Sin costo</span>');
+    else if (ev.costo === 'Con costo') chips.push(`<span class="chip soft">${esc(ev.precio ? 'Costo: ' + ev.precio : 'Con costo')}</span>`);
+    if (ev.limiteRegistro) chips.push(`<span class="chip soft">Registro hasta el ${esc(shortDate(ev.limiteRegistro))}</span>`);
+    if (ev.cupo) chips.push(`<span class="chip soft">${esc(ev.cupo)}</span>`);
+    if (ev.premio) chips.push(`<span class="chip soft">Premio ${esc(ev.premio.toLowerCase())}${ev.premioDetalle ? ': ' + esc(ev.premioDetalle) : ''}</span>`);
+    const pub = list(ev.publico); if (pub.length) chips.push(`<span class="chip soft">${esc(pub.length > 2 ? pub.slice(0, 2).join(', ') + ' y más' : pub.join(', '))}</span>`);
+    return chips.length ? `<div class="extra">${chips.join('')}</div>` : '';
+  }
   function cardHTML(ev) {
     const d = toDate(ev.fecha, ev.inicio);
     const img = imgOf(ev);
     const hora = ev.fin ? `${ev.inicio}–${ev.fin}` : ev.inicio;
     return `
       <article class="card" data-id="${esc(ev.id)}">
-        <div class="media"><img src="${esc(img.src)}" alt="${esc(img.alt)}" loading="lazy" decoding="async"></div>
+        <div class="media"><img src="${esc(img.src)}" alt="${esc(img.alt)}" loading="lazy" decoding="async">${logoOf(ev) ? `<img class="logo" src="${esc(logoOf(ev))}" alt="">` : ''}</div>
         <div class="body">
           <div class="top">
-            <div class="date"><span class="rest">${esc(clean(fmtDay.format(d)))}</span><span class="day">${d.getDate()}</span><span class="rest">${esc(clean(fmtMon.format(d)))}</span></div>
+            ${ev.periodicidad === 'porconfirmar' ? '<div class="date"><span class="rest">Fecha por confirmar</span></div>' : ev.periodicidad === 'convocatoria' && ev.fechaFin ? `<div class="date"><span class="rest">cierra</span><span class="day">${toDate(ev.fechaFin, '12:00').getDate()}</span><span class="rest">${esc(clean(fmtMon.format(toDate(ev.fechaFin, '12:00'))))}</span></div>` : `<div class="date"><span class="rest">${esc(clean(fmtDay.format(d)))}</span><span class="day">${d.getDate()}</span><span class="rest">${esc(clean(fmtMon.format(d)))}</span></div>`}
             <span style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">${isDraft(ev) ? '<span class="chip modal-pill draft">Borrador</span>' : ''}<span class="chip modal-pill" aria-label="Modalidad"><span class="dot"></span>${esc(ev.modalidad)}</span></span>
           </div>
           <h3><a href="${eventHref(ev)}">${esc(ev.titulo)}</a></h3>
-          <p class="meta">${esc(hora)} h · ${esc(ev.lugar || 'Lugar por confirmar')}${ev.categoria ? ' · ' + esc(ev.categoria) : ''}</p>
+          <p class="meta">${metaLine(ev, hora)}</p>
           <p class="desc">${esc(ev.descripcion || '')}</p>
+          ${cardExtras(ev)}
           <div class="actions">
             <button class="btn btn-primary btn-sm" type="button" data-reg="${esc(ev.id)}">Registrarme</button>
             <a class="cal" href="${eventHref(ev)}">Ver más</a>
@@ -937,11 +1000,20 @@
   /* ---- Pantalla individual del evento (#evento/ID) ---- */
   const eventView = $('#eventView');
   const ICON = {
+    mail: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
+    link: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>',
+    award: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.5 13 17 22l-5-3-5 3 1.5-9"/></svg>',
+    coin: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.5a2.5 2.5 0 0 0-2.5-1.5c-1.5 0-2.5.8-2.5 2s1 1.7 2.5 2 2.5.8 2.5 2-1 2-2.5 2a2.5 2.5 0 0 1-2.5-1.5M12 6v2M12 16v2"/></svg>',
     cal: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',
     clock: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
     pin: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
     tag: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.5"/></svg>'
   };
+  function audienceHTML(ev) {
+    const pub = list(ev.publico), tg = list(ev.tags);
+    const row = (label, items, cls) => items.length ? `<p class="ev-sub">${label}</p><div class="ev-chips">${items.map(x => `<span class="chip ${cls}">${esc(x)}</span>`).join('')}</div>` : '';
+    return row('Dirigido a', pub, 'modal-pill') + row('Temas', tg, 'soft');
+  }
   function eventViewHTML(ev) {
     const d = toDate(ev.fecha, ev.inicio), img = imgOf(ev);
     const hora = ev.fin ? `${ev.inicio}–${ev.fin} h` : `${ev.inicio} h`;
@@ -955,6 +1027,7 @@
           <div>
             <div class="ev-media"><img src="${esc(img.src)}" alt="${esc(img.alt)}" decoding="async"></div>
             <div class="ev-head">
+              ${logoOf(ev) ? `<img class="ev-logo" src="${esc(logoOf(ev))}" alt="Logo del evento">` : ''}
               <div class="ev-chips">
                 <span class="chip modal-pill"><span class="dot"></span>${esc(ev.modalidad || '')}</span>
                 ${ev.categoria ? `<span class="chip modal-pill">${esc(ev.categoria)}</span>` : ''}
@@ -963,13 +1036,21 @@
               </div>
               <h1 class="ev-title">${esc(ev.titulo)}</h1>
               ${ev.descripcion ? `<p class="ev-desc">${esc(ev.descripcion)}</p>` : ''}
+              ${audienceHTML(ev)}
               ${ev.detalle ? `<div class="ev-detalle">${String(ev.detalle).split(/\n{2,}/).map(p => `<p>${esc(p)}</p>`).join('')}</div>` : ''}
             </div>
           </div>
           <aside class="ev-aside" aria-label="Datos del evento">
-            <div class="ev-fact">${ICON.cal}<div><b>Fecha</b>${esc(cap(fmtLong.format(d)))}</div></div>
-            <div class="ev-fact">${ICON.clock}<div><b>Horario</b>${esc(hora)} (hora de la Ciudad de México)</div></div>
+            ${ev.periodicidad === 'porconfirmar' ? `<div class="ev-fact">${ICON.cal}<div><b>Fecha</b>Por confirmar. Síguenos en Instagram o WhatsApp para enterarte.</div></div>`
+              : ev.periodicidad === 'convocatoria' ? `<div class="ev-fact">${ICON.cal}<div><b>Convocatoria</b>Del ${esc(fmtLong.format(d))} al ${esc(fmtLong.format(toDate(ev.fechaFin || ev.fecha, '12:00')))}${ev.inicio && ev.inicio !== '23:59' && ev.inicio !== '00:00' ? ' · cierra a las ' + esc(ev.inicio) + ' h' : ''}</div></div>`
+              : `<div class="ev-fact">${ICON.cal}<div><b>Fecha</b>${esc(cap(fmtLong.format(d)))}${ev.fechaFin && ev.fechaFin !== ev.fecha ? ' al ' + esc(fmtLong.format(toDate(ev.fechaFin, '12:00'))) : ''}</div></div>
+            <div class="ev-fact">${ICON.clock}<div><b>Horario</b>${esc(hora)} (hora de la Ciudad de México)</div></div>`}
             <div class="ev-fact">${ICON.pin}<div><b>${ev.modalidad === 'En línea' ? 'Plataforma' : 'Lugar'}</b>${esc(ev.lugar || 'Por confirmar')}</div></div>
+            ${ev.limiteRegistro ? `<div class="ev-fact">${ICON.tag}<div><b>Registro hasta</b>${esc(cap(fmtLong.format(toDate(ev.limiteRegistro, '12:00'))))}</div></div>` : ''}
+            ${ev.costo || ev.cupo ? `<div class="ev-fact">${ICON.coin}<div><b>Costo y cupo</b>${esc([ev.costo === 'Con costo' ? (ev.precio ? 'Con costo: ' + ev.precio : 'Con costo') : ev.costo, ev.cupo].filter(Boolean).join(' · '))}</div></div>` : ''}
+            ${ev.premio ? `<div class="ev-fact">${ICON.award}<div><b>Premio</b>${esc(ev.premio)}${ev.premioDetalle ? ' · ' + esc(ev.premioDetalle) : ''}</div></div>` : ''}
+            ${ev.web ? `<div class="ev-fact">${ICON.link}<div><b>Más información</b><a href="${esc(ev.web)}" target="_blank" rel="noopener">${esc(ev.web.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))}</a></div></div>` : ''}
+            ${ev.contacto ? `<div class="ev-fact">${ICON.mail}<div><b>Dudas</b><a href="mailto:${esc(ev.contacto)}">${esc(ev.contacto)}</a></div></div>` : ''}
             <div class="ev-actions">
               ${past ? '' : `<button class="btn btn-primary" type="button" data-reg="${esc(ev.id)}">Registrarme</button>`}
               <a class="btn btn-secondary" href="${gcalLink(ev)}" target="_blank" rel="noopener">Agregar a mi calendario</a>
@@ -1092,14 +1173,14 @@
     if (customImg) { imgPreview.querySelector('img').src = customImg.src; imgPreview.querySelector('input').checked = true; }
     else { const r = form.querySelector('input[name="imagen"][value="ilu1"]'); if (r) r.checked = true; }
   }
-  function shrinkImage(file) {
+  function shrinkImage(file, max = 1400, type = 'image/jpeg') {
     return new Promise((resolve, reject) => {
       const img = new Image(); const url = URL.createObjectURL(file);
       img.onload = () => {
-        const max = 1400, s = Math.min(1, max / Math.max(img.width, img.height));
+        const s = Math.min(1, max / Math.max(img.width, img.height));
         const c = document.createElement('canvas'); c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
-        const ctx = c.getContext('2d'); ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, c.width, c.height); ctx.drawImage(img, 0, 0, c.width, c.height);
-        URL.revokeObjectURL(url); resolve(c.toDataURL('image/jpeg', 0.85));
+        const ctx = c.getContext('2d'); if (type === 'image/jpeg') { ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, c.width, c.height); } ctx.drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url); resolve(c.toDataURL(type, 0.85));
       };
       img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('No se pudo leer la imagen. Prueba con JPG, PNG o WebP.')); };
       img.src = url;
@@ -1116,14 +1197,28 @@
     else if (customImg && !customImg.pending) setCustom(null);
   });
 
+  const logoFile = $('#logoFile'), logoPreview = $('#logoPreview');
+  let logoData = null, logoKeep = '';
+  function setLogo(src, pending) { logoData = pending ? src : null; logoKeep = pending ? '' : (src || ''); logoPreview.hidden = !src; if (src) logoPreview.src = src; }
+  logoFile.addEventListener('change', async () => {
+    const f = logoFile.files && logoFile.files[0]; if (!f) return;
+    try { setLogo(await shrinkImage(f, 600, 'image/png'), true); } catch (ex) { toast(ex.message); }
+  });
+  $('#logoClear').addEventListener('click', () => { logoFile.value = ''; setLogo('', false); });
+  const logoOf = ev => ev._pendingLogo || ev.logo || '';
+
   function openDialog(id) {
     editingId = id;
-    form.reset(); imgFile.value = ''; imgUrl.value = ''; setCustom(null);
+    form.reset(); imgFile.value = ''; imgUrl.value = ''; setCustom(null); logoFile.value = ''; setLogo('', false); syncPeriodicidad();
     $('#dlgTitle').textContent = id ? 'Editar evento' : 'Nuevo evento';
     $('#saveDlg').textContent = id ? 'Guardar cambios' : 'Guardar evento';
     if (id) {
       const ev = events.find(x => x.id === id);
-      ['titulo', 'categoria', 'modalidad', 'fecha', 'inicio', 'fin', 'lugar', 'registro', 'descripcion', 'detalle'].forEach(k => { if (form.elements[k]) form.elements[k].value = ev[k] || ''; });
+      ['titulo', 'categoria', 'modalidad', 'fecha', 'inicio', 'fin', 'lugar', 'registro', 'descripcion', 'detalle', 'limiteRegistro', 'fechaFin', 'costo', 'precio', 'cupo', 'contacto', 'web', 'periodicidad', 'premio', 'premioDetalle', 'tags'].forEach(k => { if (form.elements[k]) form.elements[k].value = ev[k] || ''; });
+      const pub = list(ev.publico);
+      $$('input[name="publico"]', form).forEach(c => { c.checked = pub.includes(c.value); });
+      setLogo(ev._pendingLogo || ev.logo || '', !!ev._pendingLogo);
+      syncPeriodicidad();
       form.elements.estado.value = isDraft(ev) ? 'borrador' : 'publicado';
       if (ILUS[ev.imagen]) { const r = form.querySelector(`input[name="imagen"][value="${ev.imagen}"]`); if (r) r.checked = true; }
       else if (ev._pending) setCustom(ev._pending, ev._pending);
@@ -1131,11 +1226,24 @@
     }
     dlg.showModal();
   }
+  const perSel = $('#periodicidad');
+  function syncPeriodicidad() {
+    const v = perSel.value;
+    $('#lblFecha').textContent = v === 'convocatoria' ? 'Fecha de apertura de la convocatoria' : v === 'porconfirmar' ? 'Fecha estimada (solo para ordenar; no se muestra)' : 'Fecha';
+    $('#lblFechaFin').textContent = v === 'convocatoria' ? 'Fecha de cierre de la convocatoria' : 'Fecha de fin (solo si dura varios días)';
+    $('#lblInicio').textContent = v === 'convocatoria' ? 'Hora de cierre (opcional)' : v === 'porconfirmar' ? 'Hora (opcional)' : 'Hora de inicio';
+    form.elements.inicio.required = v === 'fija';
+  }
+  perSel.addEventListener('change', syncPeriodicidad);
   $('#cancelDlg').addEventListener('click', () => dlg.close());
   form.addEventListener('submit', e => {
     e.preventDefault();
-    const data = Object.fromEntries(new FormData(form).entries());
-    if (!data.titulo || !data.fecha || !data.inicio) { toast('Faltan título, fecha u hora de inicio.'); return; }
+    const fd = new FormData(form);
+    const data = Object.fromEntries(fd.entries());
+    data.publico = fd.getAll('publico');
+    if (data.periodicidad === 'convocatoria' && !data.fechaFin) { toast('Falta la fecha de cierre de la convocatoria.'); return; }
+    if (!data.inicio) data.inicio = data.periodicidad === 'convocatoria' ? '23:59' : '00:00';
+    if (!data.titulo || !data.fecha || (data.periodicidad === 'fija' && !data.inicio)) { toast('Faltan título, fecha u hora de inicio.'); return; }
     let pending = null;
     if (data.imagen === 'custom') {
       if (!customImg) data.imagen = 'ilu1';
@@ -1146,13 +1254,14 @@
     if (editingId) { const i = events.findIndex(x => x.id === editingId); ev = events[i] = { ...events[i], ...data }; }
     else { ev = { id: 'e' + Date.now().toString(36), ...data }; events.push(ev); }
     if (pending) { ev._pending = pending; ev.imagen = `assets/eventos/${ev.id}.jpg`; } else delete ev._pending;
+    if (logoData) { ev._pendingLogo = logoData; ev.logo = `assets/eventos/${ev.id}-logo.png`; } else if (!logoKeep) { delete ev.logo; delete ev._pendingLogo; }
     dlg.close(); markDirty(); render(); viewFromHash();
     toast(editingId ? 'Cambios guardados. Recuerda publicar.' : 'Evento agregado. Recuerda publicar.');
     if (!document.body.classList.contains('viewing-event')) document.getElementById('eventos').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
   function markDirty() { dirty = true; }
   window.addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
-  const exportEvents = () => events.map(({ _pending, ...ev }) => ev);
+  const exportEvents = () => events.map(({ _pending, _pendingLogo, ...ev }) => ev);
 
   /* ---- Publicar en GitHub (con token) ---- */
   const GH = 'https://api.github.com';
@@ -1170,7 +1279,10 @@
     if (externalSource === 'sheet') { toast('Los eventos vienen de la Google Sheet: edítalos ahí.'); return; }
     publishBtn.disabled = true; publishBtn.textContent = 'Publicando…';
     try {
-      for (const ev of events) if (ev._pending) { await ghPut(ev.imagen, ev._pending.split(',')[1], `Imagen del evento: ${ev.titulo}`); delete ev._pending; }
+      for (const ev of events) {
+        if (ev._pending) { await ghPut(ev.imagen, ev._pending.split(',')[1], `Imagen del evento: ${ev.titulo}`); delete ev._pending; }
+        if (ev._pendingLogo) { await ghPut(ev.logo, ev._pendingLogo.split(',')[1], `Logo del evento: ${ev.titulo}`); delete ev._pendingLogo; }
+      }
       await ghPut('eventos.json', b64utf8(JSON.stringify(exportEvents(), null, 2) + '\n'), `Eventos actualizados por ${session.usuario}`);
       dirty = false;
       try { localStorage.setItem('eventosCache', JSON.stringify(exportEvents())); } catch (e) { /* sin almacenamiento */ }
@@ -1180,7 +1292,7 @@
     } finally { publishBtn.disabled = false; publishBtn.textContent = 'Publicar cambios'; }
   });
   downloadBtn.addEventListener('click', () => {
-    const list = events.map(({ _pending, ...ev }) => _pending ? { ...ev, imagen: _pending } : ev);
+    const list = events.map(({ _pending, _pendingLogo, ...ev }) => ({ ...ev, ...(_pending ? { imagen: _pending } : {}), ...(_pendingLogo ? { logo: _pendingLogo } : {}) }));
     const blob = new Blob([JSON.stringify(list, null, 2)], { type: 'application/json' });
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'eventos.json'; document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 2000);

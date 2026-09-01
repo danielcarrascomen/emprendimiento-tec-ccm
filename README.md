@@ -13,7 +13,7 @@ https://danielcarrascomen.github.io/emprendimiento-tec-ccm/
 ## Cómo publica eventos el administrador
 
 1. Abre `https://danielcarrascomen.github.io/emprendimiento-tec-ccm/admin.html` y entra con tu usuario y contraseña.
-2. Usa **＋ Nuevo evento** o **Editar / Borrar** en cada tarjeta. Puedes poner título, categoría, modalidad, fecha, horario, lugar, liga de registro, descripción corta, información completa, estado (publicado / borrador) e imagen (ilustración de marca, archivo propio o liga).
+2. Usa **＋ Nuevo evento** o **Editar / Borrar** en cada tarjeta. Campos (inspirados en el registro de experiencias de Nerix, solo lo esencial para eventos de campus): título, categoría, modalidad, tipo de fecha (fecha establecida · convocatoria con apertura y cierre · fecha por confirmar), fecha, horario, fecha de fin, lugar o plataforma, liga de registro, página web o red social, registro hasta, costo y precio, cupo, correo de contacto, público dirigido, premio, palabras clave, descripción corta (300), descripción detallada (2500), estado (publicado / borrador), imagen banner (ilustración de marca, archivo propio o liga) y logo opcional.
 3. Al terminar, **Publicar cambios**. La página se actualiza para todo el mundo en 1 a 2 minutos (los eventos pasados se archivan solos por fecha).
    - Si el acceso no tiene token de GitHub configurado, en lugar de «Publicar» aparece **Descargar eventos.json**: sube ese archivo al repositorio (Add file → Upload files → Commit) reemplazando el anterior.
 
@@ -27,7 +27,7 @@ Abre `…/configurar-admin.html`, llena usuario y contraseña y (recomendado) un
 
 ## Opción alterna: Google Sheet
 
-Si prefieren editar una hoja, publica la Sheet como CSV (columnas `id, titulo, descripcion, detalle, categoria, modalidad, fecha, inicio, fin, lugar, registro, imagen, estado`) y pega la liga en `CONFIG.sheetCsvUrl` dentro de `index.html`. En ese modo la página lee la hoja y el panel no publica.
+Si prefieren editar una hoja, publica la Sheet como CSV (columnas `id, titulo, descripcion, detalle, categoria, modalidad, periodicidad, fecha, fechaFin, inicio, fin, lugar, registro, web, limiteRegistro, costo, precio, cupo, contacto, publico, premio, premioDetalle, tags, imagen, logo, estado`; `publico` y `tags` separados por coma) y pega la liga en `CONFIG.sheetCsvUrl` dentro de `index.html`. En ese modo la página lee la hoja y el panel no publica.
 
 ## Estructura
 
