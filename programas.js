@@ -1,0 +1,41 @@
+/* Experiencias de Emprendimiento — datos del semestre (editar aquí cada semestre). Compartido por index.html y experiencias.html. */
+const SITE_XP = 'https://sites.google.com/tec.mx/emprendimiento-tec/';
+const XP_URL = { lab: SITE_XP + 'lab-idea-trailing', explora: SITE_XP + 'EBC', founder: SITE_XP + 'founder-mode-basecamp', labs: SITE_XP + 'labs', freeland: SITE_XP + 'freeland', spark: SITE_XP + 'sparkcamp', entrenamiento: SITE_XP + 'entrenamiento-para-profesionistas-independientes' };
+const PROGRAMAS = [
+  { id: 'lab', stage: 'Aún no tengo una idea', top: 'LAB:', sub: 'idea trailing', q: '¿Quieres emprender pero aún no sabes por dónde empezar?',
+    punch: [[['¡ENCUENTRA', 'lime']], [['OPORTUNIDADES Y', 'white']], [['DESCUBRE TU IDEA!', 'green']]],
+    desc: 'Explora tus intereses, observa tu entorno con otros ojos y detecta oportunidades para construir tu punto de partida emprendedor. No necesitas tener una idea.',
+    facts: ['4 sesiones · 100 % virtual', 'Grupos: 14–18 sep · 6–15 oct · 26–29 oct · 9–23 nov', 'Postúlate antes del 10 de septiembre (primer grupo)'],
+    para: 'Profesional, Posgrado, PrepaTec, colaboradores y docentes del Tec', img: 'assets/experiencia-lab.webp', alt: 'Lab: idea trailing — excursionista con bastones frente al rayo azul y verde', url: XP_URL.lab, contacto: 'prenteria@tec.mx' },
+  { id: 'explora', stage: 'Tengo una idea', top: 'EXPLORA', sub: 'basecamp', q: '¿Tienes una idea de emprendimiento y quieres saber si tiene potencial?',
+    punch: [[['¡VALIDA,', 'lime']], [['SU POTENCIAL', 'white']], [['EMPRENDEDOR!', 'green']]],
+    desc: 'Ocho sesiones para validar tu idea con experimentos reales: entiende el problema y a tu usuario, y toma decisiones con evidencia antes de construir nada.',
+    facts: ['8 sesiones de 2 h · 100 % virtual', 'Periodo 2: 21 sep–15 oct (postúlate antes del 17 sep)', 'Periodo 3: 2–30 nov (postúlate antes del 29 oct)'],
+    para: 'Profesional, Posgrado, PrepaTec, colaboradores y docentes · con idea o con un problema identificado', img: 'assets/experiencia-explora.webp', alt: 'Explora basecamp — excursionista sobre una roca frente al rayo azul y verde', url: XP_URL.explora, contacto: 'prenteria@tec.mx' },
+  { id: 'founder', stage: 'Ya estoy ejecutando', top: 'FOUNDER MODE', sub: 'basecamp', q: 'Si ya estás ejecutando, este es tu siguiente paso.',
+    punch: [[['¡ACTIVA TU', 'lime']], [['FOUNDER', 'white']], [['MODE!', 'green']]],
+    desc: 'Programa founder-to-founder de alto rendimiento: cada semana hablas con usuarios, vendes, experimentas y decides con evidencia. Cierra con Demo Day frente a jueces y aliados.',
+    facts: ['15 sesiones + trabajo independiente · 100 % virtual', '22 sep–24 nov · martes y jueves 5:00–7:00 pm', 'Cupo limitado: de 20 a 30 founders'],
+    para: 'Founders de la comunidad Tec con evidencia de ejecución (entrevistas, prototipo, entregas manuales o ventas)', img: 'assets/experiencia-founder.webp', alt: 'Founder Mode basecamp — persona con los brazos abiertos en la cima', url: XP_URL.founder, contacto: 'rafael.lorenzo@tec.mx' },
+  { id: 'labs', stage: 'Tengo un reto crítico', top: 'LABS', sub: '', q: '¿Eres founder y enfrentas en tu emprendimiento un reto crítico?',
+    punch: [[['¡FORTALECE TUS', 'lime']], [['CAPACIDADES Y LLEVA TU', 'white']], [['PROYECTO AL SIGUIENTE NIVEL!', 'green']]],
+    desc: 'Experiencias de especialización: aquí no exploras, aquí ejecutas. Sales con un plan accionable. Este semestre: Lab Validation Sprint y Lab Fiscal Fundamentals (en colaboración con el SAT).',
+    facts: ['Validation Sprint: 28 sep–11 nov (postúlate antes del 21 sep)', 'Fiscal Fundamentals: 1, 6, 8 y 13 oct (postúlate antes del 28 sep)', 'Sesiones de 1:00 a 3:00 pm · 100 % virtual'],
+    para: 'Founders con idea validada, proyecto en desarrollo o negocio en marcha', img: 'assets/experiencia-labs.webp', alt: 'Labs — excursionista con mochila y bastones', url: XP_URL.labs, contacto: 'imedinac@tec.mx' },
+  { id: 'freeland', stage: 'Trabajo por mi cuenta', top: 'FREELAND', sub: '', q: '¿Trabajas por tu cuenta o sueñas con hacerlo?',
+    punch: [[['¡CONECTA, APRENDE Y', 'lime']], [['FORTALECE TU CAMINO', 'white']], [['LABORAL CON LIBERTAD!', 'green']]],
+    desc: 'Tu talento, tu negocio, tu sistema inteligente. Paneles y talleres para freelancers, solopreneurs y profesionistas independientes. Edición ago–dic 2026: automatización, IA y sistemas que simplifican tu operación.',
+    facts: ['Panel 1 sep · Taller 14–15 sep · Panel 6 oct · Taller 27–28 oct', 'Programa Pro: 10, 12, 17 y 19 nov (regístrate antes del 6 nov)', 'Participa en una o varias actividades · 100 % virtual'],
+    para: 'Comunidad Tec y EXATEC: explorers, side hustlers y freelancers de tiempo completo', img: 'assets/experiencia-freeland.webp', alt: 'Freeland — mano sosteniendo un teléfono del que salen islas con personas trabajando', url: XP_URL.freeland, contacto: 'angelica.caudillo@tec.mx' },
+  { id: 'spark', stage: 'Estoy en PrepaTec', top: 'SPARK', sub: 'camp', q: '¿Estudias tu 3° semestre en PrepaTec y quieres iniciar tu camino emprendedor?',
+    punch: [[['¡ENCIENDE', 'lime'], [' TU', 'white']], [['MENTALIDAD', 'lime']], [['EMPRENDEDORA!', 'orange']]],
+    desc: 'Trece talleres grupales con mentores para desarrollar observación, creatividad, pensamiento crítico y creación de valor. No necesitas una idea ni experiencia previa.',
+    facts: ['13 sesiones de 1.5 h · 5:00–6:30 pm', 'Grupo 1: 21 sep–9 nov (lunes y miércoles) · Grupo 2: 22 sep–10 nov (martes y jueves)', 'Regístrate antes del 17 de septiembre · becas del 100 %'],
+    para: 'Exclusivo para estudiantes de 3° semestre de PrepaTec', img: 'assets/experiencia-spark.webp', alt: 'Spark camp — estudiante celebrando con el puño en alto', url: XP_URL.spark, contacto: 'cristina.torres.espinosa@tec.mx' },
+  { id: 'entrenamiento', stage: 'Quiero vivir de mi talento', top: 'ENTRENAMIENTO', sub: 'para profesionistas independientes', q: '¿Quieres convertir tu talento en una opción profesional real?',
+    by: 'by Freeland', punch: [[['¡DISEÑA,', 'lime'], [' COMUNICA', 'white']], [['Y LANZA TU', 'lime']], [['OFERTA PROFESIONAL!', 'green']]],
+    desc: 'Experiencia formativa de 5 semanas para transformar tu talento en una oferta de valor: posicionamiento, portafolio inicial, primera cotización y confianza para comunicar tus servicios. Después puedes continuar en Freeland.',
+    facts: ['5 semanas · 2 sesiones por semana', 'Grupos matutinos (9–11 am) y vespertinos (5–7 pm)', 'Se inscribe como materia electiva: WA3080'],
+    para: 'Estudiantes activos de Profesional', img: 'assets/experiencia-entrenamiento.webp', alt: 'Entrenamiento para profesionistas independientes — manos escribiendo en una laptop', url: XP_URL.entrenamiento, contacto: 'angelica.caudillo@tec.mx' }
+];
+window.PROGRAMAS = PROGRAMAS; window.XP_URL = XP_URL;
