@@ -541,7 +541,10 @@
   .rule-end::before, .rule-end::after { content: ""; flex: 1; height: 2px; background: var(--navy); }
   .rule-end svg { width: 22px; height: 22px; flex: none; }
   .rule-end .circle { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--navy); flex: none; }
-  .test-sec { padding-block: 40px 20px; background: var(--bg); }
+  .test-sec { padding-block: 24px 8px; background: var(--bg); }
+  .hero-copy-sec { padding-top: 24px; }
+  .hero-copy-sec .hero-grid { margin-top: 0; }
+  .hero:not(.hero-copy-sec) { padding-bottom: 0; }
   .test-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-bottom: 36px; }
   @media (max-width: 760px) { .test-grid { grid-template-columns: 1fr; gap: 24px; } }
   .test-copy { display: grid; gap: 18px; justify-items: start; }
