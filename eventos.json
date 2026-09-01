@@ -1,0 +1,93 @@
+[
+  {
+    "id": "e1",
+    "titulo": "Taller: de la idea al primer experimento",
+    "categoria": "Taller",
+    "modalidad": "Presencial",
+    "fecha": "2026-09-08",
+    "inicio": "13:00",
+    "fin": "15:00",
+    "lugar": "Espacio de Emprendimiento, Campus CCM",
+    "registro": "",
+    "descripcion": "Convierte tu idea en una hipótesis y pruébala en una semana, al estilo Explora Basecamp. Trae tu idea, aunque esté a medias.",
+    "imagen": "ilu2"
+  },
+  {
+    "id": "e2",
+    "titulo": "Charla en línea: valida tu idea con cero pesos",
+    "categoria": "Charla",
+    "modalidad": "En línea",
+    "fecha": "2026-09-10",
+    "inicio": "17:00",
+    "fin": "18:00",
+    "lugar": "Zoom (la liga llega al registrarte)",
+    "registro": "",
+    "descripcion": "Herramientas gratuitas para hablar con clientes y medir interés real antes de construir nada.",
+    "imagen": "ilu3"
+  },
+  {
+    "id": "e3",
+    "titulo": "Convocatoria abierta: Lab Idea Trailing",
+    "categoria": "Convocatoria",
+    "modalidad": "Híbrido",
+    "fecha": "2026-09-15",
+    "inicio": "23:59",
+    "fin": "",
+    "lugar": "Cierre de inscripciones",
+    "registro": "",
+    "descripcion": "Cuatro sesiones para observar tu entorno y detectar oportunidades, aunque todavía no tengas una idea de negocio.",
+    "imagen": "ilu1"
+  },
+  {
+    "id": "e4",
+    "titulo": "Sesión informativa Freeland",
+    "categoria": "Charla",
+    "modalidad": "En línea",
+    "fecha": "2026-09-22",
+    "inicio": "19:00",
+    "fin": "20:00",
+    "lugar": "Zoom",
+    "registro": "",
+    "descripcion": "Para freelancers y solopreneurs que quieren profesionalizar y conectar su talento. Resolvemos dudas en vivo.",
+    "imagen": "ilu5"
+  },
+  {
+    "id": "e5",
+    "titulo": "Pitch Night CCM",
+    "categoria": "Pitch",
+    "modalidad": "Presencial",
+    "fecha": "2026-09-24",
+    "inicio": "18:00",
+    "fin": "20:30",
+    "lugar": "Auditorio, Campus CCM",
+    "registro": "",
+    "descripcion": "Diez proyectos del campus presentan en tres minutos frente a mentores y comunidad. Hay lugar para público.",
+    "imagen": "ilu4"
+  },
+  {
+    "id": "e6",
+    "titulo": "Café con emprendedores",
+    "categoria": "Networking",
+    "modalidad": "Presencial",
+    "fecha": "2026-10-01",
+    "inicio": "12:00",
+    "fin": "13:30",
+    "lugar": "Cafetería central, Campus CCM",
+    "registro": "",
+    "descripcion": "Conoce a quienes ya están emprendiendo en el campus y encuentra equipo para tu proyecto.",
+    "imagen": "ilu5"
+  },
+  {
+    "id": "e0",
+    "titulo": "Bienvenida a la comunidad de emprendimiento CCM",
+    "categoria": "Networking",
+    "modalidad": "Presencial",
+    "fecha": "2026-08-20",
+    "inicio": "13:00",
+    "fin": "14:30",
+    "lugar": "Espacio de Emprendimiento, Campus CCM",
+    "registro": "",
+    "descripcion": "Arrancamos el semestre presentando programas, espacios y el calendario de eventos.",
+    "imagen": "ilu1"
+  }
+]

@@ -1,0 +1,1039 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Eventos, programas y comunidad de emprendimiento del Tec de Monterrey, Campus Ciudad de México.">
+<meta name="theme-color" content="#3333C0">
+<link rel="icon" href="assets/rayo-azul.png" type="image/png">
+<title>Emprendimiento Tec CCM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&family=Poppins:wght@400;700;800&display=swap">
+<style>
+  /* ============ Tokens — Brand Book Emprendimiento Tec 2022 V2.1 ============ */
+  :root {
+    --indigo: #3333C0;      /* Azul Lila / Indigo — uso primario ~60% */
+    --navy: #0C318D;        /* Azul Marino */
+    --electric: #3838F1;    /* Azul Eléctrico */
+    --cyan: #33CBFF;        /* Cyan — solo acentos, nunca texto */
+    --lila: #CBCFF0;        /* Lila */
+    --dark: #151519;        /* Gris Oscuro */
+
+    --bg: #FFFFFF;
+    --bg-soft: #F2F3FB;
+    --surface: #FFFFFF;
+    --surface-2: #F2F3FB;
+    --ink: #151519;
+    --ink-soft: #55566A;
+    --heading: #0C318D;
+    --accent: #3333C0;
+    --accent-ink: #FFFFFF;
+    --line: #DCDEF3;
+    --chip-bg: #E8EAFA;
+    --chip-ink: #0C318D;
+    --band-bg: #3333C0;     /* bloque comunidad */
+    --band-ink: #FFFFFF;
+    --footer-bg: #0C318D;
+    --footer-ink: #FFFFFF;
+    --focus: #33CBFF;
+    --shadow: 0 10px 30px rgba(12, 49, 141, .10);
+    --btn-secondary-ink: #3333C0;
+    --btn-secondary-line: #3333C0;
+    --danger: #B3261E;
+    --show-light: block;
+    --show-dark: none;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0B1440;
+      --bg-soft: #0F1D5A;
+      --surface: #12256C;
+      --surface-2: #0C318D;
+      --ink: #FFFFFF;
+      --ink-soft: #CBCFF0;
+      --heading: #FFFFFF;
+      --accent: #FFFFFF;
+      --accent-ink: #0C318D;
+      --line: rgba(203, 207, 240, .28);
+      --chip-bg: rgba(203, 207, 240, .18);
+      --chip-ink: #FFFFFF;
+      --band-bg: #3333C0;
+      --band-ink: #FFFFFF;
+      --footer-bg: #071033;
+      --footer-ink: #FFFFFF;
+      --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+      --btn-secondary-ink: #FFFFFF;
+      --btn-secondary-line: #CBCFF0;
+      --danger: #FFB4AB;
+      --show-light: none;
+      --show-dark: block;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0B1440;
+    --bg-soft: #0F1D5A;
+    --surface: #12256C;
+    --surface-2: #0C318D;
+    --ink: #FFFFFF;
+    --ink-soft: #CBCFF0;
+    --heading: #FFFFFF;
+    --accent: #FFFFFF;
+    --accent-ink: #0C318D;
+    --line: rgba(203, 207, 240, .28);
+    --chip-bg: rgba(203, 207, 240, .18);
+    --chip-ink: #FFFFFF;
+    --band-bg: #3333C0;
+    --band-ink: #FFFFFF;
+    --footer-bg: #071033;
+    --footer-ink: #FFFFFF;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+    --btn-secondary-ink: #FFFFFF;
+    --btn-secondary-line: #CBCFF0;
+    --danger: #FFB4AB;
+    --show-light: none;
+    --show-dark: block;
+  }
+
+  /* ============ Base ============ */
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Kumbh Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+    text-align: left;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { margin: 0; color: var(--heading); font-weight: 700; line-height: 1.12; text-wrap: balance; }
+  h1 { font-size: clamp(34px, 5vw, 56px); letter-spacing: -0.015em; }
+  h2 { font-size: clamp(26px, 3.2vw, 34px); letter-spacing: -0.01em; }
+  h3 { font-size: 20px; }
+  p { margin: 0; }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  :root[data-theme="dark"] a, .dark-links a { color: var(--lila); }
+  img, video { display: block; max-width: 100%; }
+  button { font: inherit; }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+  .wrap { width: min(1120px, 100% - 40px); margin-inline: auto; }
+  .muted { color: var(--ink-soft); }
+  .lede { font-size: clamp(18px, 1.6vw, 20px); max-width: 62ch; color: var(--ink-soft); }
+  .stack { display: grid; gap: 14px; }
+  section { padding-block: 72px; }
+  @media (max-width: 720px) { section { padding-block: 52px; } }
+
+  /* ============ Botones y chips ============ */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 13px 20px; border-radius: 10px; border: 2px solid transparent;
+    font-weight: 700; font-size: 16px; line-height: 1; cursor: pointer; text-decoration: none;
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  /* Botón primario: degradado oficial Indigo → Azul Eléctrico (brandbook p.12), texto blanco en ambos temas */
+  .btn-primary {
+    background: linear-gradient(90deg, var(--navy) 0%, var(--indigo) 55%, var(--electric) 100%);
+    color: #FFFFFF; border-color: transparent; border-radius: 999px; padding-inline: 24px;
+    box-shadow: 0 6px 18px rgba(51, 51, 192, .28);
+  }
+  .btn-primary.btn-sm { padding-inline: 18px; }
+  .btn .hand { width: 20px; height: 20px; flex: none; }
+  .btn-primary:hover { box-shadow: 0 12px 28px rgba(56, 56, 241, .40); transform: translateY(-2px); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn .arrow { transition: transform .15s ease; }
+  .btn:hover .arrow { transform: translateX(3px); }
+  .btn-secondary { background: transparent; color: var(--btn-secondary-ink); border-color: var(--btn-secondary-line); }
+  .btn-white { background: #FFFFFF; color: var(--indigo); }
+  .btn-sm { padding: 9px 14px; font-size: 14px; border-radius: 8px; }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn-danger { background: transparent; color: var(--danger); border-color: var(--line); }
+  .btn[disabled] { opacity: .55; cursor: not-allowed; transform: none; }
+
+  .chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px; border-radius: 999px; font-size: 14px; font-weight: 700;
+    background: var(--chip-bg); color: var(--chip-ink); border: 1px solid transparent; cursor: pointer;
+  }
+  .chip[aria-pressed="true"] { background: var(--indigo); color: #FFFFFF; }
+  :root[data-theme="dark"] .chip[aria-pressed="true"] { background: #FFFFFF; color: var(--navy); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .chip[aria-pressed="true"] { background: #FFFFFF; color: var(--navy); } }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+
+  /* ============ Header ============ */
+  header.site {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--bg); border-bottom: 1px solid var(--line);
+  }
+  header.site .wrap { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 76px; }
+  .brand { display: flex; align-items: center; padding-block: 6px; }
+  .brand img { height: 44px; width: auto; }
+  /* qué versión del logo se ve: tema (light/dark) × ancho (wide/compact); siempre el archivo original */
+  .brand-wide.brand-light { display: var(--show-light); }
+  .brand-wide.brand-dark { display: var(--show-dark); }
+  .brand-compact { display: none; }
+  @media (max-width: 900px) {
+    .brand-wide.brand-light, .brand-wide.brand-dark { display: none; }
+    .brand-compact.brand-light { display: var(--show-light); }
+    .brand-compact.brand-dark { display: var(--show-dark); }
+  }
+  @media (max-width: 760px) { .brand img { height: 38px; } }
+  nav.main { display: flex; gap: 26px; align-items: center; }
+  nav.main a { color: var(--ink); text-decoration: none; font-weight: 700; font-size: 16px; }
+  nav.main a:hover { color: var(--accent); text-decoration: underline; }
+  @media (max-width: 760px) { nav.main .link { display: none; } }
+
+  /* ============ Hero ============ */
+  .hero { padding-block: 28px 64px; }
+  .carousel { position: relative; aspect-ratio: 5 / 1; border-radius: 14px; overflow: hidden; background: var(--indigo); box-shadow: var(--shadow); }
+  .carousel .slide { position: absolute; inset: 0; opacity: 0; transition: opacity .8s ease; }
+  .carousel .slide.on { opacity: 1; }
+  .carousel img, .carousel video { width: 100%; height: 100%; object-fit: cover; }
+  .carousel .dots { position: absolute; right: 14px; bottom: 10px; display: flex; gap: 6px; }
+  .carousel .dots button { width: 10px; height: 10px; border-radius: 50%; border: 0; background: rgba(255,255,255,.55); cursor: pointer; padding: 0; }
+  .carousel .dots button[aria-current="true"] { background: #FFFFFF; }
+  .hero-grid { display: grid; grid-template-columns: 1.3fr .9fr; gap: 40px; align-items: end; margin-top: 44px; }
+  @media (max-width: 860px) { .hero-grid { grid-template-columns: 1fr; gap: 26px; } }
+  .hero-copy { display: grid; gap: 20px; }
+  .hero-copy h1 span { color: var(--accent); display: inline-block; }
+  :root[data-theme="dark"] .hero-copy h1 span { color: var(--lila); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .hero-copy h1 span { color: var(--lila); } }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .stat { background: var(--surface-2); border-radius: 12px; padding: 16px 18px; }
+  .stat b { display: block; font-size: 30px; color: var(--heading); font-variant-numeric: tabular-nums; line-height: 1.1; }
+  .stat span { font-size: 14px; color: var(--ink-soft); }
+  @media (max-width: 480px) { .stats { grid-template-columns: 1fr 1fr; } }
+
+  .definicion { display: flex; align-items: center; gap: 24px; margin-top: 48px; }
+  .def-rayo { height: 70px; width: auto; flex: none; }
+  .def-light { display: var(--show-light); } .def-dark { display: var(--show-dark); }
+  .definicion p { font-weight: 700; font-size: clamp(19px, 2.1vw, 27px); line-height: 1.55; color: var(--ink); max-width: 46ch; }
+  .definicion mark { color: #FFFFFF; padding: 1px 12px 3px; border-radius: 999px; font-weight: 700; white-space: nowrap; }
+  .m-cyan { background: var(--cyan); } .m-indigo { background: var(--indigo); } .m-lila { background: var(--lila); }
+  @media (max-width: 560px) { .definicion { flex-direction: column; align-items: flex-start; gap: 14px; margin-top: 36px; } .def-rayo { height: 52px; } }
+
+  /* ============ Eventos ============ */
+  #eventos { background: var(--bg-soft); }
+  .sec-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 26px; }
+  .filters { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 28px; }
+  .filters .sep { width: 1px; height: 22px; background: var(--line); margin-inline: 6px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  @media (max-width: 980px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--surface); border-radius: 16px; overflow: hidden; border: 1px solid var(--line);
+    display: flex; flex-direction: column; transition: transform .18s ease, box-shadow .18s ease; position: relative;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .card .media { aspect-ratio: 16 / 9; background: #FFFFFF; }
+  .card .media img { width: 100%; height: 100%; object-fit: cover; }
+  .card .body { padding: 18px 20px 20px; display: grid; gap: 12px; flex: 1; }
+  .card .top { display: flex; justify-content: space-between; align-items: start; gap: 10px; }
+  .date { display: flex; align-items: baseline; gap: 7px; color: var(--heading); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .date .day { font-size: 34px; line-height: 1; }
+  .date .rest { font-size: 15px; }
+  .meta { font-size: 15px; color: var(--ink-soft); }
+  .card .desc { font-size: 15.5px; }
+  .card .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 6px; align-items: center; }
+  .card .actions a.cal { font-size: 14px; font-weight: 700; }
+  .card .admin-tools { display: none; gap: 8px; }
+  body.admin .card .admin-tools { display: flex; }
+  .modal-pill { font-size: 13px; padding: 4px 10px; }
+  .empty { padding: 36px; text-align: left; background: var(--surface); border: 1px dashed var(--line); border-radius: 14px; color: var(--ink-soft); }
+  details.past { margin-top: 36px; }
+  details.past summary { cursor: pointer; font-weight: 700; color: var(--heading); font-size: 18px; list-style: none; display: flex; align-items: center; gap: 10px; }
+  details.past summary::-webkit-details-marker { display: none; }
+  details.past summary::before { content: ""; width: 10px; height: 10px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(-45deg); transition: transform .2s; }
+  details.past[open] summary::before { transform: rotate(45deg); }
+  .past-list { margin-top: 16px; display: grid; gap: 10px; }
+  .past-item { display: grid; grid-template-columns: 120px 1fr auto; gap: 14px; align-items: center; padding: 12px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; font-size: 15px; }
+  @media (max-width: 640px) { .past-item { grid-template-columns: 1fr; } }
+
+  /* ============ Experiencias de Emprendimiento — UI de las páginas del Instituto ============ */
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .xp { background: #061D5D; color: #FFFFFF; --xp-navy: #061D5D; --xp-lime: #CCF020; --xp-green: #82F35C; --xp-orange: #FFB548; --xp-oval: #497DE2; }
+  .xp h2, .xp h3, .xp p { color: #FFFFFF; }
+  .xp .lede { color: rgba(255, 255, 255, .86); }
+  .xp-eyebrow { font-family: Poppins, "Kumbh Sans", sans-serif; font-size: 15.5px; color: rgba(255, 255, 255, .85); margin-bottom: 12px; }
+  .xp-outline { color: #FFFFFF; border-color: rgba(255, 255, 255, .7); background: transparent; }
+  .xp-outline:hover { border-color: #FFFFFF; background: rgba(255, 255, 255, .08); }
+  .xp-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0 22px; }
+  .xp-tab { font: 700 14px/1 Poppins, "Kumbh Sans", sans-serif; color: #FFFFFF; background: transparent; border: 1.5px solid rgba(255, 255, 255, .55); border-radius: 999px; padding: 11px 16px; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+  .xp-tab:hover { border-color: #FFFFFF; }
+  .xp-tab[aria-selected="true"] { background: var(--xp-lime); color: var(--xp-navy); border-color: var(--xp-lime); }
+  .xp-panel { display: grid; grid-template-columns: 1.05fr 1fr; gap: 24px; align-items: center; min-height: 460px; }
+  .xp-copy { font-family: Poppins, "Kumbh Sans", sans-serif; display: grid; gap: 18px; padding-block: 8px; }
+  .xp-wm { line-height: .95; text-wrap: balance; }
+  .xp-wm .top { display: block; font-weight: 700; font-size: clamp(40px, 5.2vw, 68px); letter-spacing: -0.02em; text-transform: uppercase; }
+  .xp-wm .sub { display: block; font-weight: 400; font-size: clamp(26px, 3.2vw, 42px); }
+  .xp-q { font-weight: 700; font-size: clamp(19px, 2vw, 25px); line-height: 1.3; max-width: 30ch; }
+  .xp-punch { font-weight: 800; text-transform: uppercase; font-size: clamp(22px, 2.6vw, 32px); line-height: 1.08; letter-spacing: -0.01em; display: grid; gap: 4px; max-width: 24ch; }
+  .xp-punch .lime { color: var(--xp-lime); } .xp-punch .green { color: var(--xp-green); } .xp-punch .orange { color: var(--xp-orange); } .xp-punch .white { color: #FFFFFF; }
+  .xp-punch .oval { position: relative; display: inline-block; }
+  .xp-punch .oval svg { position: absolute; left: -5%; top: -22%; width: 110%; height: 144%; pointer-events: none; overflow: visible; }
+  .xp-tag { font-weight: 400; font-size: clamp(18px, 1.9vw, 24px); line-height: 1.35; max-width: 34ch; }
+  .xp-cta { display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center; margin-top: 4px; }
+  .xp-pill { display: inline-flex; align-items: center; gap: 12px; background: #FFFFFF; color: var(--xp-navy); font: 700 clamp(17px, 1.6vw, 21px)/1 Poppins, "Kumbh Sans", sans-serif; padding: 16px 28px; border-radius: 999px; text-decoration: none; box-shadow: 0 10px 26px rgba(0, 0, 0, .28); transition: transform .15s ease, box-shadow .15s ease; }
+  .xp-pill:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(0, 0, 0, .35); }
+  .xp-pill .tick { color: var(--xp-green); font-size: 1.15em; line-height: 0; }
+  .xp-more { font-family: Poppins, "Kumbh Sans", sans-serif; color: rgba(255, 255, 255, .9); font-size: 14.5px; }
+  .xp-art { display: flex; justify-content: flex-end; align-items: flex-end; height: 100%; }
+  .xp-art img { max-height: 480px; width: auto; max-width: 100%; object-fit: contain; }
+  .xp-nav { display: flex; align-items: center; gap: 12px; margin-top: 14px; font-family: Poppins, "Kumbh Sans", sans-serif; font-size: 14px; color: rgba(255, 255, 255, .8); }
+  .xp-nav button { width: 42px; height: 42px; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, .6); background: transparent; color: #FFFFFF; font-size: 22px; line-height: 1; cursor: pointer; }
+  .xp-nav button:hover { background: rgba(255, 255, 255, .1); }
+  @media (max-width: 860px) {
+    .xp-panel { grid-template-columns: 1fr; min-height: 0; gap: 8px; }
+    .xp-art { order: -1; justify-content: center; }
+    .xp-art img { max-height: 320px; }
+  }
+  @media (max-width: 480px) { .xp-art img { max-height: 250px; } .xp-tab { padding: 9px 13px; font-size: 13px; } }
+
+  /* Recursos: tarjetas-botón con el degradado oficial */
+  .resources { margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 860px) { .resources { grid-template-columns: 1fr; } }
+  .res {
+    position: relative; display: flex; flex-direction: column; gap: 10px; padding: 24px 24px 22px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--indigo) 0%, var(--electric) 100%); color: #FFFFFF; text-decoration: none;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .25); transition: transform .18s ease, box-shadow .18s ease; overflow: hidden;
+  }
+  .res:nth-child(2) { background: linear-gradient(135deg, var(--navy) 0%, var(--indigo) 100%); border: 1px solid rgba(255,255,255,.14); }
+  .res:hover { transform: translateY(-3px); box-shadow: 0 16px 34px rgba(0, 0, 0, .35); }
+  .res small { font-size: 13px; font-weight: 700; color: var(--lila); }
+  .res b { color: #FFFFFF; font-size: 21px; line-height: 1.15; }
+  .res span { font-size: 14.5px; color: rgba(255, 255, 255, .88); }
+  .res .go { margin-top: auto; padding-top: 8px; display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; color: var(--indigo); font-weight: 700; font-size: 14px; padding: 9px 14px; border-radius: 999px; width: max-content; }
+  .res .go .arrow { transition: transform .15s ease; }
+  .res:hover .go .arrow { transform: translateX(3px); }
+
+  /* Círculo Emprendedor: tarjeta con foto de comunidad */
+  .circulo { margin-top: 22px; display: grid; grid-template-columns: 300px 1fr; gap: 0; background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .16); border-radius: 18px; overflow: hidden; }
+  .circulo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .circulo .txt { padding: 22px 26px; font-size: 15.5px; align-self: center; }
+  .circulo .txt b { color: var(--xp-lime); }
+  @media (max-width: 760px) { .circulo { grid-template-columns: 1fr; } .circulo img { max-height: 220px; } }
+  .sec-head .btn { margin-bottom: 4px; }
+
+  /* ============ Comunidad ============ */
+  #comunidad { background: var(--navy); color: #FFFFFF; }
+  #comunidad h2, #comunidad p { color: #FFFFFF; }
+  #comunidad .strip { width: 100%; border-radius: 16px; display: block; margin-bottom: 40px; box-shadow: 0 12px 30px rgba(0,0,0,.25); }
+  .band { display: grid; grid-template-columns: 1.1fr .9fr; gap: 44px; align-items: center; }
+  @media (max-width: 860px) { .band { grid-template-columns: 1fr; gap: 30px; } }
+  .band .copy { display: grid; gap: 18px; }
+  .band .rayo { height: 44px; width: auto; }
+  .band .lila { color: var(--lila); }
+  #comunidad .wa-note { font-size: 14.5px; opacity: .92; }
+  /* Botón grande al estilo "VISITA MÁS → EXPERIENCIAS" del Instituto */
+  .join { display: grid; justify-items: start; gap: 4px; font-family: Poppins, "Kumbh Sans", sans-serif; padding: 26px 26px 26px 10px; justify-self: center; }
+  @media (max-width: 860px) { .join { justify-self: start; padding-inline: 6px 24px; } }
+  .join-hollow { font-weight: 800; text-transform: uppercase; font-size: clamp(24px, 3vw, 40px); letter-spacing: .05em; line-height: 1; color: transparent; -webkit-text-stroke: 2px #FFFFFF; paint-order: stroke fill; padding-left: 8px; }
+  @supports not (-webkit-text-stroke: 1px #fff) { .join-hollow { color: #FFFFFF; } }
+  .join-btn {
+    position: relative; display: inline-block; margin-top: 16px; background: #003BBC; color: #FFFFFF;
+    font-weight: 800; text-transform: uppercase; font-size: clamp(30px, 4.4vw, 56px); letter-spacing: .02em; line-height: 1;
+    padding: 20px 54px 20px 42px; border-radius: 40px; text-decoration: none; transform: skewX(-4deg);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, .35); transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .join-btn:hover { transform: skewX(-4deg) translateY(-3px); box-shadow: 0 20px 44px rgba(0, 0, 0, .45); }
+  .join-btn:focus-visible { outline: 3px solid var(--cyan); outline-offset: 6px; }
+  .join-outline { position: absolute; inset: -12px -18px -14px -14px; border: 3px solid #CCF020; border-radius: 48px; transform: rotate(-2.5deg); pointer-events: none; }
+  .join-cursor { position: absolute; right: -8px; bottom: -16px; width: clamp(34px, 3.4vw, 48px); height: auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,.35)); }
+  .join-note { margin-top: 26px; font-family: "Kumbh Sans", sans-serif; font-size: 15px; color: var(--lila); padding-left: 8px; }
+
+  /* ============ Footer ============ */
+  footer.site { background: var(--footer-bg); color: var(--footer-ink); padding-block: 44px 34px; }
+  footer.site .wrap { display: grid; grid-template-columns: 1.3fr 1fr; gap: 30px; }
+  @media (max-width: 760px) { footer.site .wrap { grid-template-columns: 1fr; } }
+  footer.site img { height: 48px; width: auto; }
+  footer.site p, footer.site a { color: var(--footer-ink); font-size: 14.5px; }
+  footer.site .tags { color: var(--lila); font-weight: 700; }
+  footer.site .col { display: grid; gap: 10px; align-content: start; }
+  footer.site h4 { color: var(--footer-ink); font-size: 15px; }
+
+  /* ============ Admin ============ */
+  .adminbar { display: none; background: var(--navy); color: #FFFFFF; }
+  body.admin .adminbar { display: block; }
+  .adminbar .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-block: 12px; }
+  .adminbar p { font-size: 15px; }
+  .adminbar .tools { display: flex; flex-wrap: wrap; gap: 8px; }
+  .adminbar .btn-white { border-color: #FFFFFF; }
+  .adminbar .btn-outline { background: transparent; color: #FFFFFF; border-color: rgba(255,255,255,.6); }
+  dialog {
+    border: 0; border-radius: 18px; padding: 0; width: min(640px, 100% - 32px);
+    background: var(--surface); color: var(--ink); box-shadow: 0 30px 80px rgba(0,0,0,.35);
+  }
+  dialog::backdrop { background: rgba(12, 49, 141, .55); }
+  dialog form { padding: 26px 28px 24px; display: grid; gap: 16px; }
+  dialog h3 { font-size: 22px; }
+  .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 14px; }
+  .fields .full { grid-column: 1 / -1; }
+  @media (max-width: 560px) { .fields { grid-template-columns: 1fr; } }
+  label { display: grid; gap: 6px; font-size: 14px; font-weight: 700; color: var(--heading); }
+  input, select, textarea {
+    font: inherit; font-size: 15.5px; font-weight: 400; color: var(--ink);
+    padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--bg);
+    width: 100%;
+  }
+  textarea { min-height: 88px; resize: vertical; }
+  .ilu-pick { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .ilu-pick label { display: block; cursor: pointer; border-radius: 10px; overflow: hidden; border: 3px solid transparent; }
+  .ilu-pick label:has(input:checked) { border-color: var(--indigo); }
+  .ilu-pick input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .ilu-pick img { aspect-ratio: 16 / 9; object-fit: cover; width: 100%; background: #FFFFFF; }
+  .form-actions { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
+  .toast {
+    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px);
+    background: var(--dark); color: #FFFFFF; padding: 12px 18px; border-radius: 12px; font-size: 15px;
+    opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; z-index: 50; max-width: min(560px, 90vw);
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .demo-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--ink-soft); background: var(--surface); border: 1px solid var(--line); padding: 5px 10px; border-radius: 999px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .carousel .slide { transition: none; }
+    .card, .btn { transition: none; }
+    .card:hover, .btn:hover { transform: none; }
+  }
+</style>
+<style>img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<!-- ================= HEADER ================= -->
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Emprendimiento · Instituto de Emprendimiento Eugenio Garza Lagüera">
+      <img class="brand-light brand-wide" src="assets/logo-emprendimiento-ieegl.png" alt="Emprendimiento e Instituto de Emprendimiento Eugenio Garza Lagüera">
+      <img class="brand-dark brand-wide" src="assets/logo-emprendimiento-ieegl-blanco.png" alt="">
+      <img class="brand-light brand-compact" src="assets/logo-emprendimiento.png" alt="Emprendimiento">
+      <img class="brand-dark brand-compact" src="assets/logo-emprendimiento-blanco.png" alt="">
+    </a>
+    <nav class="main" aria-label="Secciones">
+      <a class="link" href="#eventos">Eventos</a>
+      <a class="link" href="#programas">Programas</a>
+      <a class="link" href="#comunidad">Comunidad</a>
+      <button class="btn btn-ghost btn-sm" id="adminToggle" type="button" aria-pressed="false">Admin</button>
+    </nav>
+  </div>
+</header>
+
+<div class="adminbar" role="region" aria-label="Modo administrador">
+  <div class="wrap">
+    <p><b>Modo administrador.</b> Así agrega o corrige eventos el equipo del instituto: sin tocar código. Los cambios se ven al instante en la página.</p>
+    <div class="tools">
+      <button class="btn btn-sm btn-white" type="button" id="newEvent">＋ Nuevo evento</button>
+      <button class="btn btn-sm btn-outline" type="button" id="publishBtn" hidden>Publicar cambios</button>
+      <button class="btn btn-sm btn-outline" type="button" id="downloadBtn" hidden>Descargar eventos.json</button>
+      <button class="btn btn-sm btn-outline" type="button" id="exitAdmin">Salir</button>
+    </div>
+  </div>
+</div>
+
+<main id="top">
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="carousel" id="carousel" aria-roledescription="carrusel" aria-label="Campañas del Instituto de Emprendimiento">
+        <div class="slide on"><img src="assets/todas-y-todos.gif" alt="En el Tec, todas y todos podemos emprender."></div>
+        <div class="slide"><img src="assets/yo-emprendo-1.gif" alt="Yo emprendo cuando elijo vivir de mi talento y creatividad." loading="lazy"></div>
+        <div class="slide"><img src="assets/yo-emprendo-2.gif" alt="Yo emprendo cuando propongo ideas diferentes para generar un mayor beneficio." loading="lazy"></div>
+        <div class="slide"><img src="assets/yo-emprendo-3.gif" alt="Yo emprendo porque las mejores ideas nacen de la curiosidad." loading="lazy"></div>
+        <div class="slide"><img src="assets/ranking-10.png" alt="#10 en el ranking de universidades emprendedoras, The Princeton Review."></div>
+        <div class="dots" id="dots"></div>
+      </div>
+
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <h1>Todo el emprendimiento del campus, <span>en un solo lugar.</span></h1>
+          <p class="lede">Eventos presenciales y en línea, programas para cada etapa de tu proyecto y la comunidad de emprendimiento de Campus Ciudad de México. Ya eres parte de la comunidad de emprendedores, solo necesitamos encontrarte.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#eventos"><svg class="hand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V5.5a2 2 0 1 1 4 0V11"/><path d="M12 11V9.5a2 2 0 1 1 4 0V12"/><path d="M16 12v-.5a2 2 0 1 1 4 0V16a6 6 0 0 1-6 6h-3a6 6 0 0 1-5-2.7L3.6 15.9a2 2 0 0 1 3.3-2.2L8 15"/><path d="M6 5 4.6 3.6M10 3V1.2M14 5l1.4-1.4"/></svg>Ver próximos eventos</a>
+            <a class="btn btn-secondary" href="https://chat.whatsapp.com/FTodgXKLPKj4xesST2lMVT" target="_blank" rel="noopener">Unirme a la comunidad</a>
+          </div>
+        </div>
+        <div class="stats" aria-label="Resumen">
+          <div class="stat"><b id="statUpcoming">0</b><span>eventos próximos</span></div>
+          <div class="stat"><b id="statOnline">0</b><span>en línea o híbridos</span></div>
+          <div class="stat"><b>4</b><span>programas por etapa</span></div>
+        </div>
+      </div>
+
+      <div class="definicion" aria-label="Qué es emprender para el Instituto">
+        <img class="def-rayo def-light" src="assets/rayo-azul.png" alt="">
+        <img class="def-rayo def-dark" src="assets/rayo-blanco.png" alt="">
+        <p>El proceso <mark class="m-cyan">consciente</mark> de <mark class="m-indigo">generar</mark> <mark class="m-indigo">oportunidades</mark> que <mark class="m-cyan">crean valor</mark> con <mark class="m-lila">impacto positivo</mark></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EVENTOS ================= -->
+  <section id="eventos" aria-labelledby="evTitle">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="stack" style="gap:8px">
+          <h2 id="evTitle">Próximos eventos</h2>
+          <p class="muted">Presenciales en Campus Ciudad de México y en línea. Regístrate y agrégalos a tu calendario.</p>
+        </div>
+        <span class="demo-tag" title="Los eventos de esta maqueta son ejemplos">Eventos de muestra para la maqueta</span>
+      </div>
+
+      <div class="filters" role="group" aria-label="Filtros">
+        <button class="chip" data-mod="Todos" aria-pressed="true" type="button">Todos</button>
+        <button class="chip" data-mod="Presencial" aria-pressed="false" type="button"><span class="dot"></span>Presencial</button>
+        <button class="chip" data-mod="En línea" aria-pressed="false" type="button"><span class="dot"></span>En línea</button>
+        <button class="chip" data-mod="Híbrido" aria-pressed="false" type="button"><span class="dot"></span>Híbrido</button>
+        <span class="sep" aria-hidden="true"></span>
+        <label style="display:inline-grid;grid-auto-flow:column;align-items:center;gap:8px;font-size:14px">
+          Categoría
+          <select id="catFilter" style="width:auto;padding:7px 10px;font-size:14px">
+            <option value="Todas">Todas</option>
+            <option>Taller</option><option>Charla</option><option>Pitch</option><option>Networking</option><option>Convocatoria</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="grid" id="eventGrid" aria-live="polite"></div>
+
+      <details class="past">
+        <summary>Eventos pasados</summary>
+        <div class="past-list" id="pastList"></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ================= EXPERIENCIAS DE EMPRENDIMIENTO ================= -->
+  <section id="programas" class="xp" aria-labelledby="prTitle">
+    <div class="wrap">
+      <p class="xp-eyebrow">Experiencias de Emprendimiento</p>
+      <div class="sec-head">
+        <div class="stack" style="gap:10px;max-width:70ch">
+          <h2 id="prTitle">¿En qué punto estás?</h2>
+          <p class="lede">Hay una experiencia del Instituto para cada etapa. Elige la tuya: aquí está la información, las fechas y el registro.</p>
+        </div>
+        <a class="btn btn-secondary xp-outline" href="https://sites.google.com/tec.mx/emprendimiento-tec/" target="_blank" rel="noopener">Ver todas las experiencias <span class="arrow">→</span></a>
+      </div>
+
+      <div class="xp-tabs" id="xpTabs" role="tablist" aria-label="Elige tu etapa"></div>
+
+      <article class="xp-panel" id="xpPanel" role="tabpanel" aria-live="polite">
+        <div class="xp-copy" id="xpCopy"></div>
+        <div class="xp-art"><img id="xpImg" src="" alt=""></div>
+      </article>
+      <div class="xp-nav">
+        <button type="button" id="xpPrev" aria-label="Experiencia anterior">‹</button>
+        <button type="button" id="xpNext" aria-label="Siguiente experiencia">›</button>
+        <span id="xpCount"></span>
+      </div>
+
+      <div class="resources">
+        <a class="res" href="https://heyzine.com/flip-book/97c2691988.html" target="_blank" rel="noopener">
+          <small>Catálogo</small>
+          <b>Oferta IEEGL (flipbook)</b>
+          <span>Todos los programas, públicos y contactos del instituto en un solo documento interactivo.</span>
+          <span class="go">Abrir el catálogo <span class="arrow">→</span></span>
+        </a>
+        <a class="res" href="https://sites.google.com/tec.mx/emprendimiento-tec/" target="_blank" rel="noopener">
+          <small>Experiencias</small>
+          <b>Experiencias de emprendimiento Tec</b>
+          <span>EBC, Founder Mode, Labs, Freeland y SparkCamp: fechas, requisitos y becas.</span>
+          <span class="go">Ver experiencias <span class="arrow">→</span></span>
+        </a>
+        <a class="res" href="https://emprendimiento.tec.mx/es" target="_blank" rel="noopener">
+          <small>Sitio nacional</small>
+          <b>emprendimiento.tec.mx</b>
+          <span>Programas, servicios en campus, becas, convocatorias y el test de perfil emprendedor.</span>
+          <span class="go">Ir al sitio <span class="arrow">→</span></span>
+        </a>
+      </div>
+
+      <div class="circulo">
+        <img src="assets/foto-estudiantes.webp" alt="Tres estudiantes del Tec sentados en unas escaleras con una laptop">
+        <p class="txt"><b>Círculo Emprendedor en el campus:</b> mentorías personalizadas, asesorías especializadas, convocatorias y premios, espacios de coworking y conexiones con el ecosistema. Pregunta por ellos en cualquier evento o en la comunidad.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COMUNIDAD ================= -->
+  <section id="comunidad" aria-labelledby="coTitle">
+    <div class="wrap">
+      <img class="strip" src="assets/foto-comunidad.webp" alt="Equipo de la comunidad emprendedora uniendo las manos sobre una mesa de trabajo">
+    </div>
+    <div class="wrap band">
+      <div class="copy">
+        <img class="rayo" src="assets/rayo-blanco.png" alt="">
+        <h2 id="coTitle">Comunidad de emprendimiento de Campus Ciudad de México</h2>
+        <p style="max-width:56ch">En el grupo de WhatsApp anunciamos eventos, convocatorias y oportunidades antes que en ningún otro lado, y ahí encuentras equipo, mentores y a quienes ya están emprendiendo. ¡Sacudamos el futuro!</p>
+        <p class="wa-note lila">También estamos en Instagram: sigue al instituto para ver los eventos de la semana.</p>
+      </div>
+      <div class="join">
+        <span class="join-hollow" aria-hidden="true">Únete a la</span>
+        <a class="join-btn" href="https://chat.whatsapp.com/FTodgXKLPKj4xesST2lMVT" target="_blank" rel="noopener" aria-label="Únete a la comunidad: entrar al grupo de WhatsApp">
+          <span class="join-outline" aria-hidden="true"></span>
+          Comunidad
+          <svg class="join-cursor" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 3.5 27 15.2l-8.6 1.9 4.8 9.3-4.2 2.1-4.7-9.3L7 25.6Z" fill="#CCF020" stroke="#061D5D" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </a>
+        <span class="join-note">Grupo de WhatsApp · Campus Ciudad de México</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site">
+  <div class="wrap">
+    <div class="col">
+      <img src="assets/logo-emprendimiento-ieegl-blanco.png" alt="Emprendimiento e Instituto de Emprendimiento Eugenio Garza Lagüera">
+      <p>Instituto de Emprendimiento Eugenio Garza Lagüera · Tecnológico de Monterrey, Campus Ciudad de México.</p>
+      <p class="tags">#EmprendimientoTec #ComunidadTec #SomosEmprendedores</p>
+    </div>
+    <div class="col">
+      <h4>Contacto de programas</h4>
+      <p>Lab Idea Trailing y Explora Basecamp: <a href="mailto:prenteria@tec.mx">prenteria@tec.mx</a></p>
+      <p>Freeland: <a href="mailto:angelica.caudillo@tec.mx">angelica.caudillo@tec.mx</a></p>
+      <p style="opacity:.75">Maqueta de propuesta · Los eventos mostrados son ejemplos.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= ADMIN: formulario ================= -->
+<dialog id="eventDialog" aria-labelledby="dlgTitle">
+  <form method="dialog" id="eventForm">
+    <h3 id="dlgTitle">Nuevo evento</h3>
+    <div class="fields">
+      <label class="full">Título<input name="titulo" required maxlength="90" placeholder="Ej. Taller: de la idea al primer experimento"></label>
+      <label>Categoría
+        <select name="categoria"><option>Taller</option><option>Charla</option><option>Pitch</option><option>Networking</option><option>Convocatoria</option></select>
+      </label>
+      <label>Modalidad
+        <select name="modalidad"><option>Presencial</option><option>En línea</option><option>Híbrido</option></select>
+      </label>
+      <label>Fecha<input name="fecha" type="date" required></label>
+      <label>Hora de inicio<input name="inicio" type="time" required></label>
+      <label>Hora de fin<input name="fin" type="time"></label>
+      <label>Lugar o plataforma<input name="lugar" placeholder="Ej. Espacio de Emprendimiento, Campus CCM · Zoom"></label>
+      <label class="full">Liga de registro<input name="registro" type="url" placeholder="https://forms.gle/…"></label>
+      <label class="full">Descripción corta<textarea name="descripcion" maxlength="220" placeholder="Qué va a pasar y para quién es (máx. 220 caracteres)."></textarea></label>
+      <div class="full">
+        <span style="display:block;font-size:14px;font-weight:700;color:var(--heading);margin-bottom:6px">Imagen (ilustraciones de marca)</span>
+        <div class="ilu-pick" id="iluPick"></div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-ghost" type="button" id="cancelDlg">Cancelar</button>
+      <button class="btn btn-primary" type="submit" id="saveDlg">Guardar evento</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ================= DATOS (lo que en el sitio real vive en la Google Sheet) ================= -->
+<script id="events-data" type="application/json">[
+ {
+  "id": "e1",
+  "titulo": "Taller: de la idea al primer experimento",
+  "categoria": "Taller",
+  "modalidad": "Presencial",
+  "fecha": "2026-09-08",
+  "inicio": "13:00",
+  "fin": "15:00",
+  "lugar": "Espacio de Emprendimiento, Campus CCM",
+  "registro": "",
+  "descripcion": "Convierte tu idea en una hipótesis y pruébala en una semana, al estilo Explora Basecamp. Trae tu idea, aunque esté a medias.",
+  "imagen": "ilu2"
+ },
+ {
+  "id": "e2",
+  "titulo": "Charla en línea: valida tu idea con cero pesos",
+  "categoria": "Charla",
+  "modalidad": "En línea",
+  "fecha": "2026-09-10",
+  "inicio": "17:00",
+  "fin": "18:00",
+  "lugar": "Zoom (la liga llega al registrarte)",
+  "registro": "",
+  "descripcion": "Herramientas gratuitas para hablar con clientes y medir interés real antes de construir nada.",
+  "imagen": "ilu3"
+ },
+ {
+  "id": "e3",
+  "titulo": "Convocatoria abierta: Lab Idea Trailing",
+  "categoria": "Convocatoria",
+  "modalidad": "Híbrido",
+  "fecha": "2026-09-15",
+  "inicio": "23:59",
+  "fin": "",
+  "lugar": "Cierre de inscripciones",
+  "registro": "",
+  "descripcion": "Cuatro sesiones para observar tu entorno y detectar oportunidades, aunque todavía no tengas una idea de negocio.",
+  "imagen": "ilu1"
+ },
+ {
+  "id": "e4",
+  "titulo": "Sesión informativa Freeland",
+  "categoria": "Charla",
+  "modalidad": "En línea",
+  "fecha": "2026-09-22",
+  "inicio": "19:00",
+  "fin": "20:00",
+  "lugar": "Zoom",
+  "registro": "",
+  "descripcion": "Para freelancers y solopreneurs que quieren profesionalizar y conectar su talento. Resolvemos dudas en vivo.",
+  "imagen": "ilu5"
+ },
+ {
+  "id": "e5",
+  "titulo": "Pitch Night CCM",
+  "categoria": "Pitch",
+  "modalidad": "Presencial",
+  "fecha": "2026-09-24",
+  "inicio": "18:00",
+  "fin": "20:30",
+  "lugar": "Auditorio, Campus CCM",
+  "registro": "",
+  "descripcion": "Diez proyectos del campus presentan en tres minutos frente a mentores y comunidad. Hay lugar para público.",
+  "imagen": "ilu4"
+ },
+ {
+  "id": "e6",
+  "titulo": "Café con emprendedores",
+  "categoria": "Networking",
+  "modalidad": "Presencial",
+  "fecha": "2026-10-01",
+  "inicio": "12:00",
+  "fin": "13:30",
+  "lugar": "Cafetería central, Campus CCM",
+  "registro": "",
+  "descripcion": "Conoce a quienes ya están emprendiendo en el campus y encuentra equipo para tu proyecto.",
+  "imagen": "ilu5"
+ },
+ {
+  "id": "e0",
+  "titulo": "Bienvenida a la comunidad de emprendimiento CCM",
+  "categoria": "Networking",
+  "modalidad": "Presencial",
+  "fecha": "2026-08-20",
+  "inicio": "13:00",
+  "fin": "14:30",
+  "lugar": "Espacio de Emprendimiento, Campus CCM",
+  "registro": "",
+  "descripcion": "Arrancamos el semestre presentando programas, espacios y el calendario de eventos.",
+  "imagen": "ilu1"
+ }
+]</script>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---- Snapshot del documento para la función "Publicar cambios" (antes de renderizar nada) ---- */
+  // Quita lo que inyecta el visor (runtime, tema activo) para que la versión publicada sea solo la página.
+  const cleanSource = s => s
+    .replace(/<!--\s*frame-runtime\s*-->[\s\S]*?<!--\s*\/frame-runtime\s*-->/g, '')
+    .replace(/^\s*(<!doctype html>\s*)?<html([^>]*)>/i, (m, dt, attrs) =>
+      '<!doctype html>\n<html' + attrs.replace(/\s+data-theme="[^"]*"/g, '').replace(/\s+style="[^"]*"/g, '') + '>');
+  const SOURCE_SNAPSHOT = cleanSource(document.documentElement.outerHTML);
+
+  const ILUS = {
+    ilu1: { src: 'assets/ilustracion-1.webp', alt: 'Ilustración: comunidad celebrando con rayos' },
+    ilu2: { src: 'assets/ilustracion-2.webp', alt: 'Ilustración: taller con laptop y matraz' },
+    ilu3: { src: 'assets/ilustracion-3.webp', alt: 'Ilustración: persona hablando con megáfono' },
+    ilu4: { src: 'assets/ilustracion-4.webp', alt: 'Ilustración: presentación de una gráfica' },
+    ilu5: { src: 'assets/ilustracion-5.webp', alt: 'Ilustración: dos personas chocando las manos' }
+  };
+
+  /* ---- Fuente de datos ----
+     En el sitio publicado (GitHub Pages) los eventos viven fuera del HTML:
+     · eventsJson: archivo eventos.json en el repositorio (el admin lo reemplaza y la página se actualiza), o
+     · sheetCsvUrl: una Google Sheet publicada como CSV (el admin solo edita filas). Si está vacío, se usa eventos.json.
+     Si ninguno se puede leer (p. ej. en esta maqueta), se usan los eventos incrustados abajo. */
+  const CONFIG = { eventsJson: 'eventos.json', sheetCsvUrl: '' };
+  let events = JSON.parse(document.getElementById('events-data').textContent);
+  let externalSource = null;
+  let filterMod = 'Todos';
+  let filterCat = 'Todas';
+  let editingId = null;
+  let dirty = false;
+
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const toDate = (fecha, hora) => { const [y, m, d] = fecha.split('-').map(Number); const [hh, mm] = (hora || '00:00').split(':').map(Number); return new Date(y, m - 1, d, hh || 0, mm || 0); };
+  const fmtDay = new Intl.DateTimeFormat('es-MX', { weekday: 'short' });
+  const fmtMon = new Intl.DateTimeFormat('es-MX', { month: 'short' });
+  const fmtLong = new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'long', year: 'numeric' });
+  const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+  const clean = s => s.replace('.', '');
+
+  function gcalLink(ev) {
+    const pad = n => String(n).padStart(2, '0');
+    const stamp = d => `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
+    const start = toDate(ev.fecha, ev.inicio);
+    const end = ev.fin ? toDate(ev.fecha, ev.fin) : new Date(start.getTime() + 60 * 60 * 1000);
+    const p = new URLSearchParams({ action: 'TEMPLATE', text: ev.titulo, dates: `${stamp(start)}/${stamp(end)}`, details: ev.descripcion || '', location: ev.lugar || '', ctz: 'America/Mexico_City' });
+    return 'https://calendar.google.com/calendar/render?' + p.toString();
+  }
+
+  function isUpcoming(ev) { return toDate(ev.fecha, ev.fin || ev.inicio) >= today; }
+
+  function cardHTML(ev) {
+    const d = toDate(ev.fecha, ev.inicio);
+    const ilu = ILUS[ev.imagen] || ILUS.ilu1;
+    const hora = ev.fin ? `${ev.inicio}–${ev.fin}` : ev.inicio;
+    return `
+      <article class="card" data-id="${esc(ev.id)}">
+        <div class="media"><img src="${ilu.src}" alt="${esc(ilu.alt)}" loading="lazy"></div>
+        <div class="body">
+          <div class="top">
+            <div class="date"><span class="rest">${esc(clean(fmtDay.format(d)))}</span><span class="day">${d.getDate()}</span><span class="rest">${esc(clean(fmtMon.format(d)))}</span></div>
+            <span class="chip modal-pill" aria-label="Modalidad"><span class="dot"></span>${esc(ev.modalidad)}</span>
+          </div>
+          <h3>${esc(ev.titulo)}</h3>
+          <p class="meta">${esc(hora)} h · ${esc(ev.lugar || 'Lugar por confirmar')}${ev.categoria ? ' · ' + esc(ev.categoria) : ''}</p>
+          <p class="desc">${esc(ev.descripcion || '')}</p>
+          <div class="actions">
+            <button class="btn btn-primary btn-sm" type="button" data-reg="${esc(ev.id)}">Registrarme</button>
+            <a class="cal" href="${gcalLink(ev)}" target="_blank" rel="noopener">Agregar a mi calendario</a>
+            <div class="admin-tools">
+              <button class="btn btn-ghost btn-sm" type="button" data-edit="${esc(ev.id)}">Editar</button>
+              <button class="btn btn-danger btn-sm" type="button" data-del="${esc(ev.id)}">Borrar</button>
+            </div>
+          </div>
+        </div>
+      </article>`;
+  }
+
+  function render() {
+    const upcoming = events.filter(isUpcoming).sort((a, b) => toDate(a.fecha, a.inicio) - toDate(b.fecha, b.inicio));
+    const past = events.filter(e => !isUpcoming(e)).sort((a, b) => toDate(b.fecha, b.inicio) - toDate(a.fecha, a.inicio));
+    const shown = upcoming.filter(e => (filterMod === 'Todos' || e.modalidad === filterMod) && (filterCat === 'Todas' || e.categoria === filterCat));
+
+    $('#eventGrid').innerHTML = shown.length
+      ? shown.map(cardHTML).join('')
+      : `<div class="empty" style="grid-column:1/-1">Por ahora no hay eventos con ese filtro. Prueba con «Todos» o únete a la comunidad para enterarte de los próximos.</div>`;
+
+    $('#pastList').innerHTML = past.length
+      ? past.map(ev => `<div class="past-item"><b style="color:var(--heading)">${esc(cap(fmtLong.format(toDate(ev.fecha, ev.inicio))))}</b><span>${esc(ev.titulo)} · <span class="muted">${esc(ev.modalidad)}</span></span><span class="muted">${esc(ev.categoria)}</span></div>`).join('')
+      : `<div class="muted">Todavía no hay eventos pasados.</div>`;
+
+    $('#statUpcoming').textContent = upcoming.length;
+    $('#statOnline').textContent = upcoming.filter(e => e.modalidad !== 'Presencial').length;
+  }
+
+  /* ---- Filtros ---- */
+  $$('.filters .chip').forEach(btn => btn.addEventListener('click', () => {
+    filterMod = btn.dataset.mod;
+    $$('.filters .chip').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+    render();
+  }));
+  $('#catFilter').addEventListener('change', e => { filterCat = e.target.value; render(); });
+
+  /* ---- Acciones en tarjetas ---- */
+  document.addEventListener('click', e => {
+    const reg = e.target.closest('[data-reg]');
+    if (reg) {
+      const ev = events.find(x => x.id === reg.dataset.reg);
+      if (ev && ev.registro) window.open(ev.registro, '_blank', 'noopener');
+      else toast('En el sitio real este botón abre la liga de registro del evento (Google Forms, Eventbrite, etc.).');
+    }
+    const ed = e.target.closest('[data-edit]'); if (ed) openDialog(ed.dataset.edit);
+    const del = e.target.closest('[data-del]');
+    if (del) {
+      const ev = events.find(x => x.id === del.dataset.del);
+      if (ev && confirm(`¿Borrar «${ev.titulo}»?`)) { events = events.filter(x => x.id !== ev.id); markDirty(); render(); toast('Evento borrado.'); }
+    }
+  });
+
+  /* ---- Toast ---- */
+  let toastTimer;
+  function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 4200); }
+
+  /* ---- Modo admin ---- */
+  const adminToggle = $('#adminToggle');
+  function setAdmin(on) {
+    document.body.classList.toggle('admin', on);
+    adminToggle.setAttribute('aria-pressed', String(on));
+    adminToggle.textContent = on ? 'Admin activo' : 'Admin';
+    if (on) toast('Modo administrador: agrega, edita o borra eventos. En el sitio real, esto sería la Google Sheet o un formulario.');
+  }
+  adminToggle.addEventListener('click', () => setAdmin(!document.body.classList.contains('admin')));
+  $('#exitAdmin').addEventListener('click', () => setAdmin(false));
+  $('#newEvent').addEventListener('click', () => openDialog(null));
+
+  const dlg = $('#eventDialog'), form = $('#eventForm');
+  $('#iluPick').innerHTML = Object.entries(ILUS).map(([k, v], i) => `<label><input type="radio" name="imagen" value="${k}" ${i === 0 ? 'checked' : ''}><img src="${v.src}" alt="${esc(v.alt)}"></label>`).join('');
+
+  function openDialog(id) {
+    editingId = id;
+    form.reset();
+    $('#dlgTitle').textContent = id ? 'Editar evento' : 'Nuevo evento';
+    $('#saveDlg').textContent = id ? 'Guardar cambios' : 'Guardar evento';
+    if (id) {
+      const ev = events.find(x => x.id === id);
+      ['titulo', 'categoria', 'modalidad', 'fecha', 'inicio', 'fin', 'lugar', 'registro', 'descripcion'].forEach(k => { if (form.elements[k]) form.elements[k].value = ev[k] || ''; });
+      const r = form.querySelector(`input[name="imagen"][value="${ev.imagen}"]`); if (r) r.checked = true;
+    }
+    dlg.showModal();
+  }
+  $('#cancelDlg').addEventListener('click', () => dlg.close());
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const data = Object.fromEntries(fd.entries());
+    if (!data.titulo || !data.fecha || !data.inicio) { toast('Faltan título, fecha u hora de inicio.'); return; }
+    if (editingId) { const i = events.findIndex(x => x.id === editingId); events[i] = { ...events[i], ...data }; }
+    else { events.push({ id: 'e' + Date.now().toString(36), ...data }); }
+    dlg.close(); markDirty(); render();
+    toast(editingId ? 'Cambios guardados. Ya se ven en la página.' : 'Evento publicado en la página.');
+    document.getElementById('eventos').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  /* ---- Persistencia (capacidad "artifact": la propia página guarda una nueva versión) ---- */
+  let artifactApi = null;
+  const publishBtn = $('#publishBtn');
+  function markDirty() { dirty = true; if (artifactApi) publishBtn.hidden = false; }
+  if (window.claude && typeof window.claude.use === 'function') {
+    window.claude.use('artifact').then(api => {
+      artifactApi = api || null;
+      if (artifactApi && dirty) publishBtn.hidden = false;
+    }).catch(() => {});
+  }
+  publishBtn.addEventListener('click', async () => {
+    if (!artifactApi) return;
+    publishBtn.disabled = true; publishBtn.textContent = 'Publicando…';
+    try {
+      const json = JSON.stringify(events, null, 1).replace(/</g, '\\u003c');
+      let source = SOURCE_SNAPSHOT;
+      try { const r = await fetch(location.href, { cache: 'no-store' }); if (r.ok) { const t = await r.text(); if (t.includes('id="events-data"')) source = cleanSource(t); } } catch (e) { /* usamos el snapshot */ }
+      const html = source.replace(/(<script id="events-data" type="application\/json">)[\s\S]*?(<\/script>)/, `$1${json}$2`);
+      await artifactApi.publish(html);
+      toast('Publicado: todas las personas verán la nueva versión.');
+      dirty = false;
+    } catch (err) {
+      const code = err && err.code;
+      if (code === 'not_writer' || code === 'not_granted') toast('Solo quien administra esta página puede publicar. En el sitio real, ese permiso lo da la cuenta @tec.mx.');
+      else if (code === 'conflict') toast('Alguien más publicó antes; la página se actualizará con esa versión.');
+      else toast('No se pudo publicar en este momento. Los cambios siguen visibles en esta pantalla.');
+    } finally {
+      publishBtn.disabled = false; publishBtn.textContent = 'Publicar cambios';
+    }
+  });
+
+  /* ---- Experiencias de Emprendimiento: selector por etapa ---- */
+  const SITE_XP = 'https://sites.google.com/tec.mx/emprendimiento-tec/';
+  const XP_URL = { lab: SITE_XP + 'lab-idea-trailing', explora: SITE_XP + 'EBC', founder: SITE_XP + 'founder-mode-basecamp', labs: SITE_XP + 'labs', freeland: SITE_XP + 'freeland', spark: SITE_XP + 'sparkcamp', entrenamiento: SITE_XP + 'entrenamiento-para-profesionistas-independientes' };
+  const XP = [
+    { id: 'lab', stage: 'Aún no tengo una idea', top: 'LAB:', sub: 'idea trailing', q: '¿Quieres encontrar tu idea emprendedora?',
+      punch: [[['¡ENCUENTRA', 'lime']], [['OPORTUNIDADES Y', 'white']], [['DESCUBRE TU IDEA!', 'green']]], img: 'assets/experiencia-lab.webp', alt: 'Lab: idea trailing — excursionista con bastones frente al rayo azul y verde' },
+    { id: 'explora', stage: 'Tengo una idea', top: 'EXPLORA', sub: 'basecamp', q: '¿Tienes una idea de emprendimiento?',
+      punch: [[['¡VALIDA,', 'lime']], [['SU POTENCIAL', 'white']], [['EMPRENDEDOR!', 'green']]], img: 'assets/experiencia-explora.webp', alt: 'Explora basecamp — excursionista sobre una roca frente al rayo azul y verde' },
+    { id: 'founder', stage: 'Ya estoy ejecutando', top: 'FOUNDER MODE', sub: 'basecamp', q: 'Convierte tu evidencia inicial en ventas, producto y una empresa real.',
+      punch: [[['¡ACTIVA TU', 'lime']], [['FOUNDER', 'white']], [['MODE!', 'green']]], img: 'assets/experiencia-founder.webp', alt: 'Founder Mode basecamp — persona con los brazos abiertos en la cima' },
+    { id: 'labs', stage: 'Tengo un reto crítico', top: 'LABS', sub: '', q: '¿Eres founder y enfrentas en tu emprendimiento un reto crítico?',
+      tag: '¡Resuelve el reto y avanza con estructura y dirección!', img: 'assets/experiencia-labs.webp', alt: 'Labs — excursionista con mochila y bastones' },
+    { id: 'freeland', stage: 'Trabajo por mi cuenta', top: 'FREELAND', sub: '', q: '¿Trabajas por tu cuenta o sueñas con hacerlo?',
+      tag: 'Conecta, aprende y profesionaliza tu talento como freelancer, solopreneur o profesionista independiente.', more: 'Entrenamiento para profesionistas independientes →', img: 'assets/experiencia-freeland.webp', alt: 'Freeland — mano sosteniendo un teléfono del que salen islas con personas trabajando' },
+    { id: 'spark', stage: 'Estoy en PrepaTec', top: 'SPARK', sub: 'camp', q: '¿Estudias tu 3° semestre en PrepaTec y quieres iniciar tu camino emprendedor?',
+      punch: [[['¡ENCIENDE', 'lime'], [' TU', 'white']], [['MENTALIDAD', 'lime']], [['EMPRENDEDORA!', 'orange']]], img: 'assets/experiencia-spark.webp', alt: 'Spark camp — estudiante celebrando con el puño en alto' }
+  ];
+  let xpIndex = 0;
+  const xpTabs = $('#xpTabs'), xpCopy = $('#xpCopy'), xpImg = $('#xpImg'), xpCount = $('#xpCount');
+  const OVAL = '<svg viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="50" cy="20" rx="48" ry="17" fill="none" stroke="#497DE2" stroke-width="2.2" vector-effect="non-scaling-stroke"/></svg>';
+  xpTabs.innerHTML = XP.map((x, i) => `<button class="xp-tab" role="tab" type="button" id="xpTab-${x.id}" aria-selected="${i === 0}" aria-controls="xpPanel" data-i="${i}">${esc(x.stage)}</button>`).join('');
+  function renderXP(i) {
+    xpIndex = (i + XP.length) % XP.length;
+    const x = XP[xpIndex];
+    let punch = '';
+    if (x.punch) {
+      punch = '<p class="xp-punch">' + x.punch.map((line, li) => {
+        const inner = line.map(([t, c]) => `<span class="${c}">${esc(t)}</span>`).join('');
+        return li === x.punch.length - 1 ? `<span class="oval">${inner}${OVAL}</span>` : `<span>${inner}</span>`;
+      }).join('') + '</p>';
+    }
+    xpCopy.innerHTML = `
+      <h3 class="xp-wm"><span class="top">${esc(x.top)}</span>${x.sub ? `<span class="sub">${esc(x.sub)}</span>` : ''}</h3>
+      <p class="xp-q">${esc(x.q)}</p>
+      ${punch}
+      ${x.tag ? `<p class="xp-tag">${esc(x.tag)}</p>` : ''}
+      <div class="xp-cta">
+        <a class="xp-pill" href="${XP_URL[x.id]}" target="_blank" rel="noopener">¡Postúlate al programa! <span class="tick" aria-hidden="true">›</span></a>
+        ${x.more ? `<a class="xp-more" href="${XP_URL.entrenamiento}" target="_blank" rel="noopener">${esc(x.more)}</a>` : ''}
+      </div>`;
+    xpImg.src = x.img; xpImg.alt = x.alt;
+    $$('.xp-tab').forEach((b, k) => b.setAttribute('aria-selected', String(k === xpIndex)));
+    xpCount.textContent = `${xpIndex + 1} / ${XP.length} · ${x.top}${x.sub ? ' ' + x.sub : ''}`;
+  }
+  xpTabs.addEventListener('click', e => { const b = e.target.closest('.xp-tab'); if (b) renderXP(Number(b.dataset.i)); });
+  xpTabs.addEventListener('keydown', e => { if (e.key === 'ArrowRight') renderXP(xpIndex + 1); if (e.key === 'ArrowLeft') renderXP(xpIndex - 1); });
+  $('#xpPrev').addEventListener('click', () => renderXP(xpIndex - 1));
+  $('#xpNext').addEventListener('click', () => renderXP(xpIndex + 1));
+  renderXP(0);
+
+  /* ---- Carrusel ---- */
+  const slides = $$('#carousel .slide');
+  const dots = $('#dots');
+  let cur = 0, timer;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  slides.forEach((_, i) => {
+    const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', `Ir al banner ${i + 1}`);
+    b.addEventListener('click', () => { go(i); restart(); }); dots.appendChild(b);
+  });
+  function go(i) {
+    cur = (i + slides.length) % slides.length;
+    slides.forEach((s, k) => { s.classList.toggle('on', k === cur); const v = s.querySelector('video'); if (v) { if (k === cur) v.play().catch(() => {}); else v.pause(); } });
+    $$('#dots button').forEach((b, k) => b.setAttribute('aria-current', String(k === cur)));
+  }
+  function restart() { clearInterval(timer); if (!reduce) timer = setInterval(() => go(cur + 1), 5500); }
+  go(0); restart();
+  $('#carousel').addEventListener('mouseenter', () => clearInterval(timer));
+  $('#carousel').addEventListener('mouseleave', restart);
+
+  render();
+
+  /* ---- Carga de eventos externos (sitio publicado) ---- */
+  function parseCSV(text) {
+    const rows = []; let row = [], cell = '', q = false;
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (q) { if (c === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; } else cell += c; }
+      else if (c === '"') q = true;
+      else if (c === ',') { row.push(cell); cell = ''; }
+      else if (c === '\n' || c === '\r') { if (c === '\r' && text[i + 1] === '\n') i++; row.push(cell); rows.push(row); row = []; cell = ''; }
+      else cell += c;
+    }
+    if (cell.length || row.length) { row.push(cell); rows.push(row); }
+    const head = (rows.shift() || []).map(h => h.trim().toLowerCase());
+    return rows.filter(r => r.some(v => v && v.trim())).map((r, k) => { const o = {}; head.forEach((h, i) => o[h] = (r[i] || '').trim()); if (!o.id) o.id = 'r' + (k + 1); return o; });
+  }
+  function normalize(list) {
+    return list.filter(e => e && e.titulo && e.fecha && (!e.estado || /^publicado$/i.test(e.estado)))
+      .map(e => ({ ...e, inicio: e.inicio || '00:00', imagen: ILUS[e.imagen] ? e.imagen : 'ilu1' }));
+  }
+  (async () => {
+    if (location.protocol === 'file:' || (window.claude && typeof window.claude.use === 'function')) return; // maqueta: datos incrustados
+    try {
+      let list = null;
+      if (CONFIG.sheetCsvUrl) { const r = await fetch(CONFIG.sheetCsvUrl, { cache: 'no-store' }); if (r.ok) { list = parseCSV(await r.text()); externalSource = 'sheet'; } }
+      else if (CONFIG.eventsJson) { const r = await fetch(CONFIG.eventsJson, { cache: 'no-store' }); if (r.ok) { list = await r.json(); externalSource = 'json'; } }
+      if (Array.isArray(list)) { events = normalize(list); render(); }
+    } catch (e) { /* sin conexión o sin archivo: se quedan los eventos incrustados */ }
+  })();
+
+  /* ---- Descargar eventos.json (flujo admin en GitHub Pages) ---- */
+  const downloadBtn = $('#downloadBtn');
+  if (!(window.claude && typeof window.claude.use === 'function')) downloadBtn.hidden = false;
+  downloadBtn.addEventListener('click', () => {
+    const blob = new Blob([JSON.stringify(events, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'eventos.json'; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    toast('Sube este eventos.json al repositorio (reemplazando el anterior) y la página se actualiza sola.');
+  });
+})();
+</script>
+
+</body>
+</html>
