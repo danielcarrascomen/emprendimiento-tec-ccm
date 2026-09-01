@@ -37,7 +37,7 @@
     --line: #DCDEF3;
     --chip-bg: #E8EAFA;
     --chip-ink: #0C318D;
-    --footer-bg: #0C318D;
+    --footer-bg: #0B1B4D;
     --footer-ink: #FFFFFF;
     --focus: #33CBFF;
     --shadow: 0 10px 30px rgba(12, 49, 141, .10);
@@ -398,7 +398,7 @@
   .join-note { margin-top: 26px; font-family: "Kumbh Sans", sans-serif; font-size: 15px; color: var(--lila); padding-left: 8px; }
 
   /* ============ Footer (estilo emprendimiento.tec.mx) ============ */
-  footer.site { background: #0B1B4D; color: #FFFFFF; padding-block: 56px 36px; font-family: "Kumbh Sans", "Segoe UI", sans-serif; }
+  footer.site { background: var(--footer-bg); color: var(--footer-ink); padding-block: 56px 36px; font-family: "Kumbh Sans", "Segoe UI", sans-serif; }
   .ft-top { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 36px 28px; align-items: start; }
   @media (max-width: 980px) { .ft-top { grid-template-columns: 1fr 1fr; } .ft-logo { grid-column: 1 / -1; } }
   @media (max-width: 560px) { .ft-top { grid-template-columns: 1fr; gap: 28px; } }
@@ -410,7 +410,7 @@
   .ft-col li { font-size: 14px; }
   .ft-col a { color: #FFFFFF; text-decoration: none; letter-spacing: .04em; text-transform: uppercase; font-size: 13.5px; }
   .ft-col a.normal { text-transform: none; letter-spacing: 0; font-size: 15px; }
-  .ft-col a:hover { text-decoration: underline; color: var(--xp-lime); }
+  .ft-col a:hover { text-decoration: underline; color: var(--lila); }
   .ft-col + .ft-col h4 { margin-top: 0; }
   .ft-col .group + .group { margin-top: 26px; }
   .ft-bottom { margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.14); display: grid; grid-template-columns: 1fr auto; gap: 18px 28px; align-items: center; }
@@ -419,7 +419,7 @@
   .ft-legal a { color: #FFFFFF; text-decoration: none; }
   .ft-legal a:hover { text-decoration: underline; }
   .ft-social { display: flex; gap: 10px; }
-  .ft-social a { width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; color: #0B1B4D; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,.3); transition: transform .15s ease; }
+  .ft-social a { width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; color: var(--footer-bg); display: inline-flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,.3); transition: transform .15s ease; }
   .ft-social a:hover { transform: translateY(-2px); }
   .ft-social svg { width: 18px; height: 18px; fill: currentColor; }
 
