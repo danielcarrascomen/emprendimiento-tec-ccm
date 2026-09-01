@@ -284,7 +284,7 @@
   .circulo { margin-top: 22px; display: grid; grid-template-columns: 300px 1fr; gap: 0; background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .16); border-radius: 18px; overflow: hidden; }
   .circulo img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
   .circulo .txt { padding: 22px 26px; font-size: 15.5px; align-self: center; display: grid; gap: 8px; }
-  .circulo .txt b { color: var(--xp-lime); }
+  .circulo .txt, .circulo .txt b, .circulo .txt a { color: #FFFFFF; }
   .circulo .tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .circulo .tags span { font-size: 13px; font-weight: 700; background: rgba(255,255,255,.12); border-radius: 999px; padding: 4px 10px; }
   @media (max-width: 760px) { .circulo { grid-template-columns: 1fr; } .circulo img { max-height: 220px; } }
