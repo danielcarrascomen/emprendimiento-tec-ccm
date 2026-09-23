@@ -8,7 +8,8 @@ https://danielcarrascomen.github.io/emprendimiento-tec-ccm/
 - **Experiencias de Emprendimiento** (programas estrella del Instituto): tarjetas con etapa, fechas del semestre, para quién es y liga de postulación. Los datos viven en el arreglo `PROGRAMAS` de `index.html` (búscalo y edita textos/fechas cada semestre).
 - **Eventos**: se cargan de `eventos.json`. Cada evento tiene su pantalla individual y liga compartible: `…/#evento/ID`.
 - **Comunidad**: WhatsApp e Instagram.
-- **Panel de administración** con usuario y contraseña (sin botón visible): `…/admin.html`.
+- **Sé mentor(a)** (`mentores.html`): registro de mentores (datos personales, carrera, experiencia, campos de expertise, etapas, modalidad y disponibilidad).
+- **Panel de administración** con usuario y contraseña (sin botón visible): `…/admin.html` → abre `index.html#panel` con Resumen, Eventos (tabla con editar, duplicar, ocultar/publicar y borrar), Mentores (solicitudes) y Publicar y respaldos.
 
 ## Cómo publica eventos el administrador
 
@@ -16,6 +17,14 @@ https://danielcarrascomen.github.io/emprendimiento-tec-ccm/
 2. Usa **＋ Nuevo evento** o **Editar / Borrar** en cada tarjeta. Campos (inspirados en el registro de experiencias de Nerix, solo lo esencial para eventos de campus): título, categoría, modalidad, tipo de fecha (fecha establecida · convocatoria con apertura y cierre · fecha por confirmar), fecha, horario, fecha de fin, lugar o plataforma, liga de registro, página web o red social, registro hasta, costo y precio, cupo, correo de contacto, público dirigido, premio, palabras clave, descripción corta (300), descripción detallada (2500), estado (publicado / borrador), imagen banner (ilustración de marca, archivo propio o liga) y logo opcional.
 3. Al terminar, **Publicar cambios**. La página se actualiza para todo el mundo en 1 a 2 minutos (los eventos pasados se archivan solos por fecha).
    - Si el acceso no tiene token de GitHub configurado, en lugar de «Publicar» aparece **Descargar eventos.json**: sube ese archivo al repositorio (Add file → Upload files → Commit) reemplazando el anterior.
+
+## Registro de mentores
+
+`mentores.html` envía cada registro a una Google Sheet por medio de un Apps Script (`docs/mentores-apps-script.gs`, trae las instrucciones). Pega la URL `/exec` en `config.js → mentoresEndpoint`. El panel (pestaña Mentores) lee la hoja con la clave definida en el script, permite cambiar el estado (Nueva, En revisión, Aprobada, Descartada) y descargar CSV. Mientras `mentoresEndpoint` esté vacío, el formulario abre un correo ya redactado para `mentoresCorreo`.
+
+## Segundo botón en eventos
+
+Cada evento puede tener un segundo botón (`extraTexto`, `extraLiga`, `extraPrecio`), p. ej. «Quiero un stand · $200 MXN». Si el evento no tiene `registro`, la tarjeta muestra «Entrada libre» y ese botón como único llamado.
 
 ## Crear o cambiar el usuario, la contraseña o el token
 
@@ -31,7 +40,8 @@ Si prefieren editar una hoja, publica la Sheet como CSV (columnas `id, titulo, d
 
 ## Estructura
 
-- `index.html` — la página completa (estilos, datos de experiencias y lógica).
+- `index.html` — la página completa (estilos, datos de experiencias y lógica) y el panel de administración (`#panel`).
+- `mentores.html` + `mentores.js` — registro de mentores. `config.js` — ajustes compartidos (liga del Apps Script de mentores). `docs/mentores-apps-script.gs` — script de la hoja.
 - `eventos.json` — eventos publicados. `admin.json` — credenciales (verificador + token cifrado).
 - `admin.html` — atajo de acceso (redirige a `index.html#admin`). `configurar-admin.html` — genera `admin.json`.
 - `sw.js` — service worker: caché para que cargue al instante en visitas repetidas. Si cambias un archivo de `assets/` conservando el nombre, sube `VERSION` en `sw.js`.

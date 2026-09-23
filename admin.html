@@ -80,7 +80,7 @@
   }
 
   // Si ya hay sesión, directo a la página en modo admin.
-  try { if (sessionStorage.getItem('adminSession')) { location.replace('index.html'); return; } } catch (e) { /* sin almacenamiento */ }
+  try { if (sessionStorage.getItem('adminSession')) { location.replace('index.html#panel'); return; } } catch (e) { /* sin almacenamiento */ }
 
   const form = $('#loginForm');
   form.addEventListener('submit', async e => {
@@ -91,7 +91,7 @@
       const session = await login(form.elements.usuario.value, form.elements.password.value);
       try { sessionStorage.setItem('adminSession', JSON.stringify(session)); }
       catch (ex) { throw new Error('Tu navegador bloquea el almacenamiento de sesión. Permítelo e inténtalo de nuevo.'); }
-      location.replace('index.html');
+      location.replace('index.html#panel');
     } catch (ex) {
       err.textContent = ex.message || 'No se pudo iniciar sesión.'; err.hidden = false;
       btn.disabled = false; btn.textContent = 'Entrar';

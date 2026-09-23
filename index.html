@@ -31,15 +31,17 @@
       <a class="link" href="experiencias.html">Experiencias</a>
       <a class="link" href="eventos.html">Eventos</a>
       <a class="link" href="#comunidad">Comunidad</a>
+      <a class="link" href="mentores.html">Mentores</a>
     </nav>
   </div>
 </header>
 
 <div class="adminbar" role="region" aria-label="Modo administrador">
   <div class="wrap">
-    <p><b>Modo administrador</b> · <span id="adminWho"></span>. Agrega, edita o borra eventos y, al terminar, publica los cambios.</p>
+    <p><b>Modo administrador</b> · <span id="adminWho"></span> · <span id="adminState">Todo publicado</span></p>
     <div class="tools">
-      <button class="btn btn-sm btn-white" type="button" id="newEvent">＋ Nuevo evento</button>
+      <a class="btn btn-sm btn-white" href="#panel" id="panelBtn">Panel</a>
+      <button class="btn btn-sm btn-outline" type="button" id="newEvent">＋ Nuevo evento</button>
       <button class="btn btn-sm btn-outline" type="button" id="publishBtn" hidden>Publicar cambios</button>
       <button class="btn btn-sm btn-outline" type="button" id="downloadBtn" hidden>Descargar eventos.json</button>
       <button class="btn btn-sm btn-outline" type="button" id="exitAdmin">Cerrar sesión</button>
@@ -49,6 +51,29 @@
 
 <!-- ================= PANTALLA INDIVIDUAL DEL EVENTO (#evento/ID) ================= -->
 <section class="event-view" id="eventView" aria-live="polite"></section>
+
+<!-- ================= PANEL DE ADMINISTRACIÓN (#panel, solo con sesión) ================= -->
+<section class="admin-view" id="adminView" aria-labelledby="apTitle">
+  <div class="wrap">
+    <div class="ap-head">
+      <div>
+        <p class="ap-eyebrow">Panel de administración</p>
+        <h1 id="apTitle">Hola, <span id="apWho"></span></h1>
+      </div>
+      <div class="ap-head-actions">
+        <a class="btn btn-ghost btn-sm" href="#top">Ver la página</a>
+        <button class="btn btn-primary btn-sm" type="button" data-act="new">＋ Nuevo evento</button>
+      </div>
+    </div>
+    <div class="ap-tabs" role="group" aria-label="Secciones del panel">
+      <button type="button" data-tab="resumen" aria-pressed="true">Resumen</button>
+      <button type="button" data-tab="eventos" aria-pressed="false">Eventos <span class="ap-badge" id="bdEv"></span></button>
+      <button type="button" data-tab="mentores" aria-pressed="false">Mentores <span class="ap-badge hot" id="bdMe"></span></button>
+      <button type="button" data-tab="publicar" aria-pressed="false">Publicar y respaldos</button>
+    </div>
+    <div class="ap-main" id="apMain" aria-live="polite"></div>
+  </div>
+</section>
 
 <main id="top">
   <!-- ================= HERO ================= -->
@@ -72,11 +97,6 @@
             <a class="btn btn-secondary" href="#eventos">Ver próximos eventos</a>
           </div>
         </div>
-        <div class="stats" aria-label="Resumen">
-          <div class="stat"><b>7</b><span>experiencias por etapa</span></div>
-          <div class="stat"><b id="statUpcoming">0</b><span>eventos próximos</span></div>
-          <div class="stat"><b id="statOnline">0</b><span>en línea o híbridos</span></div>
-        </div>
       </div>
 
     </div>
@@ -99,32 +119,13 @@
       <div class="sec-head">
         <div class="stack" style="gap:8px">
           <h2 id="evTitle">Próximos eventos</h2>
-          <p class="muted">Toca un evento para ver los detalles y compartirlo.</p>
+          <p class="muted">Los tres más cercanos. Toca uno para ver los detalles.</p>
         </div>
         <a class="btn btn-secondary" href="eventos.html">Ver todos los eventos <span class="arrow">→</span></a>
       </div>
 
-      <div class="filters" role="group" aria-label="Filtros">
-        <button class="chip" data-mod="Todos" aria-pressed="true" type="button">Todos</button>
-        <button class="chip" data-mod="Presencial" aria-pressed="false" type="button"><span class="dot"></span>Presencial</button>
-        <button class="chip" data-mod="En línea" aria-pressed="false" type="button"><span class="dot"></span>En línea</button>
-        <button class="chip" data-mod="Híbrido" aria-pressed="false" type="button"><span class="dot"></span>Híbrido</button>
-        <span class="sep" aria-hidden="true"></span>
-        <label style="display:inline-grid;grid-auto-flow:column;align-items:center;gap:8px;font-size:14px">
-          Categoría
-          <select id="catFilter" style="width:auto;padding:7px 10px;font-size:14px">
-            <option value="Todas">Todas</option>
-            <option>Taller</option><option>Charla</option><option>Pitch</option><option>Networking</option><option>Convocatoria</option><option>Concurso</option><option>Mentoría</option>
-          </select>
-        </label>
-      </div>
-
       <div class="grid" id="eventGrid" aria-live="polite"></div>
 
-      <details class="past">
-        <summary>Eventos pasados</summary>
-        <div class="past-list" id="pastList"></div>
-      </details>
     </div>
   </section>
 
@@ -154,35 +155,6 @@
       </div>
 
 
-      <div class="resources">
-        <a class="res reveal" style="--i:0" href="https://heyzine.com/flip-book/97c2691988.html" target="_blank" rel="noopener">
-          <small>Catálogo</small>
-          <b>Conoce nuestra oferta (IEEGL)</b>
-          <span>Todo el Instituto en un documento interactivo.</span>
-          <span class="go">Abrir el catálogo <span class="arrow">→</span></span>
-        </a>
-        <a class="res reveal" style="--i:1" href="https://sites.google.com/tec.mx/emprendimiento-tec/" target="_blank" rel="noopener">
-          <small>Experiencias</small>
-          <b>Experiencias de emprendimiento Tec</b>
-          <span>Postulación, fechas y preguntas frecuentes.</span>
-          <span class="go">Ver experiencias <span class="arrow">→</span></span>
-        </a>
-        <a class="res reveal" style="--i:2" href="https://emprendimiento.tec.mx/es" target="_blank" rel="noopener">
-          <small>Sitio nacional</small>
-          <b>emprendimiento.tec.mx</b>
-          <span>Becas, convocatorias y test de perfil emprendedor.</span>
-          <span class="go">Ir al sitio <span class="arrow">→</span></span>
-        </a>
-      </div>
-
-      <div class="circulo">
-        <img src="assets/foto-estudiantes.webp" alt="Tres estudiantes del Tec sentados en unas escaleras con una laptop" loading="lazy">
-        <div class="txt">
-          <p><b>Círculo Emprendedor en CCM:</b> acompañamiento para tu proyecto, en el campus.</p>
-          <div class="tags"><span>Mentorías</span><span>Asesorías</span><span>Convocatorias</span><span>Coworking · Edificio Sur, 2do piso</span><span>Conexiones</span></div>
-          <p style="font-size:14px">Escribe a <a href="mailto:olivia_calderon@tec.mx">olivia_calderon@tec.mx</a> o pregunta en cualquier evento.</p>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -208,6 +180,7 @@
         <img class="rayo" src="assets/rayo-blanco.png" alt="">
         <h2 id="coTitle">Comunidad de emprendimiento de Campus Ciudad de México</h2>
         <p style="max-width:56ch">Eventos y convocatorias antes que en ningún otro lado. Equipo, mentores y quienes ya están emprendiendo. ¡Sacudamos el futuro!</p>
+        <p><a class="btn btn-secondary btn-sm co-mentor" href="mentores.html">¿Tienes experiencia? Sé mentor(a) <span class="arrow">→</span></a></p>
         <p class="wa-note lila">En Instagram: <a href="https://www.instagram.com/emprendimientoccm/" target="_blank" rel="noopener" style="color:#fff;font-weight:700">@emprendimientoccm</a></p>
       </div>
       <div class="join">
@@ -239,6 +212,7 @@
             <li><a href="experiencias.html">Experiencias</a></li>
             <li><a href="eventos.html">Eventos</a></li>
             <li><a href="index.html#comunidad">Comunidad</a></li>
+            <li><a href="mentores.html">Sé mentor(a)</a></li>
           </ul>
         </div>
       </div>
@@ -276,7 +250,7 @@
     <div class="fields">
       <label class="full">Título<input name="titulo" required maxlength="90" placeholder="Ej. Taller: de la idea al primer experimento"></label>
       <label>Categoría
-        <select name="categoria"><option>Taller</option><option>Charla</option><option>Pitch</option><option>Networking</option><option>Convocatoria</option><option>Concurso</option><option>Mentoría</option></select>
+        <select name="categoria"><option>Taller</option><option>Charla</option><option>Conferencia</option><option>Pitch</option><option>Networking</option><option>Convocatoria</option><option>Concurso</option><option>Mentoría</option><option>Feria</option><option>Market</option></select>
       </label>
       <label>Modalidad
         <select name="modalidad"><option>Presencial</option><option>En línea</option><option>Híbrido</option></select>
@@ -298,6 +272,10 @@
       <label>Costo<select name="costo"><option value="">Sin especificar</option><option>Sin costo</option><option>Con costo</option></select></label>
       <label>Precio (si tiene costo)<input name="precio" placeholder="Ej. $200 MXN"></label>
       <label>Cupo (opcional)<input name="cupo" placeholder="Ej. 40 lugares"></label>
+      <p class="full hint" style="margin-top:4px"><b style="color:var(--heading)">Segundo botón (opcional).</b> Para stands, expositores o voluntarios. Si el evento no pide registro, deja vacía la liga de registro y este será el único botón.</p>
+      <label>Texto del botón<input name="extraTexto" maxlength="28" placeholder="Ej. Quiero un stand"></label>
+      <label>Precio (opcional)<input name="extraPrecio" placeholder="Ej. $200 MXN"></label>
+      <label class="full">Liga del segundo botón<input name="extraLiga" type="url" placeholder="https://…"></label>
       <label class="full">Correo de contacto (opcional)<input name="contacto" type="email" placeholder="nombre@tec.mx"><span class="hint">De preferencia un correo institucional: @tec.mx, @itesm.mx, @servicios.tec.mx o @exatec.mx.</span></label>
       <fieldset class="full chk-group sep"><legend>Público al que va dirigido</legend><div class="opts">
         <label><input type="checkbox" name="publico" value="Profesional y Posgrado">Profesional y Posgrado</label>
@@ -346,6 +324,7 @@
 <!-- ================= DATOS de respaldo (si eventos.json no se puede leer) ================= -->
 <script id="events-data" type="application/json">[]</script>
 
+<script src="config.js"></script>
 <script src="programas.js"></script>
 <script>
 (function () {
@@ -369,6 +348,8 @@
      · eventsJson: archivo eventos.json en el repositorio (el admin lo publica desde la propia página), o
      · sheetCsvUrl: una Google Sheet publicada como CSV (el admin solo edita filas). Si está vacío, se usa eventos.json. */
   const CONFIG = { eventsJson: 'eventos.json', sheetCsvUrl: '' };
+  const SITIO = window.SITIO || {};
+  const HOME_MAX = 3; // la portada muestra solo los eventos más cercanos; el resto vive en eventos.html
   let events = JSON.parse(document.getElementById('events-data').textContent);
   let externalSource = null;
   let loadState = 'idle'; // idle | loading | error | ok
@@ -411,15 +392,27 @@
   const eventUrl = ev => location.origin + location.pathname + '#evento/' + encodeURIComponent(ev.id);
   const eventHref = ev => '#evento/' + encodeURIComponent(ev.id);
 
+  const hasHour = ev => ev.inicio && ev.inicio !== '00:00';
+  const horaTxt = ev => !hasHour(ev) ? '' : (ev.fin ? `${ev.inicio}–${ev.fin} h` : `${ev.inicio} h`);
+  const entradaLibre = ev => !ev.registro && !!ev.extraLiga;
+  // Botón principal de un evento: registro; si no hay registro pero sí segundo botón (p. ej. stands), ese.
+  function ctaHTML(ev, cls) {
+    const reg = ev.registro
+      ? `<a class="btn btn-primary ${cls}" href="${esc(ev.registro)}" target="_blank" rel="noopener">Registrarme</a>` : '';
+    const extra = ev.extraLiga
+      ? `<a class="btn ${ev.registro ? 'btn-secondary' : 'btn-primary'} ${cls}" href="${esc(ev.extraLiga)}" target="_blank" rel="noopener">${esc(ev.extraTexto || 'Más información')}${ev.extraPrecio ? ' · ' + esc(ev.extraPrecio) : ''}</a>` : '';
+    return reg || extra ? reg + extra : `<button class="btn btn-primary ${cls}" type="button" data-reg="${esc(ev.id)}">Registrarme</button>`;
+  }
   function metaLine(ev, hora) {
     const lugar = esc(ev.lugar || 'Lugar por confirmar') + (ev.categoria ? ' · ' + esc(ev.categoria) : '');
     if (ev.periodicidad === 'porconfirmar') return 'Próximamente · ' + lugar;
     if (ev.periodicidad === 'convocatoria') return `Convocatoria del ${esc(shortDate(ev.fecha))} al ${esc(shortDate(ev.fechaFin || ev.fecha))} · ` + lugar;
-    return (ev.fechaFin && ev.fechaFin !== ev.fecha ? 'Hasta el ' + esc(shortDate(ev.fechaFin)) + ' · ' : '') + esc(hora) + ' h · ' + lugar;
+    return (ev.fechaFin && ev.fechaFin !== ev.fecha ? 'Hasta el ' + esc(shortDate(ev.fechaFin)) + ' · ' : '') + (hasHour(ev) ? esc(hora) + ' h · ' : '') + lugar;
   }
   function cardExtras(ev) {
     const chips = [];
-    if (ev.costo === 'Sin costo') chips.push('<span class="chip free">Sin costo</span>');
+    if (entradaLibre(ev)) chips.push('<span class="chip free">Entrada libre</span>');
+    else if (ev.costo === 'Sin costo') chips.push('<span class="chip free">Sin costo</span>');
     else if (ev.costo === 'Con costo') chips.push(`<span class="chip soft">${esc(ev.precio ? 'Costo: ' + ev.precio : 'Con costo')}</span>`);
     if (ev.limiteRegistro) chips.push(`<span class="chip soft">Registro hasta el ${esc(shortDate(ev.limiteRegistro))}</span>`);
     else if (ev.premio) chips.push(`<span class="chip soft">Premio ${esc(ev.premio.toLowerCase())}</span>`);
@@ -441,7 +434,7 @@
           <p class="meta">${metaLine(ev, hora)}</p>
           ${cardExtras(ev)}
           <div class="actions">
-            <button class="btn btn-primary btn-sm" type="button" data-reg="${esc(ev.id)}">Registrarme</button>
+            ${ev.registro || !ev.extraLiga ? `<button class="btn btn-primary btn-sm" type="button" data-reg="${esc(ev.id)}">Registrarme</button>` : ctaHTML(ev, 'btn-sm')}
             <a class="cal" href="${eventHref(ev)}">Ver más</a>
             <div class="admin-tools">
               <button class="btn btn-ghost btn-sm" type="button" data-edit="${esc(ev.id)}">Editar</button>
@@ -456,7 +449,7 @@
     const vis = visibleEvents();
     const upcoming = vis.filter(isUpcoming).sort((a, b) => toDate(a.fecha, a.inicio) - toDate(b.fecha, b.inicio));
     const past = vis.filter(e => !isUpcoming(e)).sort((a, b) => toDate(b.fecha, b.inicio) - toDate(a.fecha, a.inicio));
-    const shown = upcoming.filter(e => (filterMod === 'Todos' || e.modalidad === filterMod) && (filterCat === 'Todas' || e.categoria === filterCat));
+    const shown = upcoming.filter(e => (filterMod === 'Todos' || e.modalidad === filterMod) && (filterCat === 'Todas' || e.categoria === filterCat)).slice(0, HOME_MAX);
 
     const skel = '<div class="skel" aria-hidden="true"><div class="ph media"></div><div class="body"><div class="ph line" style="width:40%"></div><div class="ph title"></div><div class="ph line"></div><div class="ph line" style="width:70%"></div><div class="ph btn"></div></div></div>';
     $('#eventGrid').innerHTML = shown.length
@@ -466,7 +459,7 @@
       : `<div class="empty" style="grid-column:1/-1">${events.length ? 'Por ahora no hay eventos con ese filtro. Prueba con «Todos» o únete a la comunidad para enterarte de los próximos.' : 'Todavía no hay eventos publicados. Únete a la comunidad de WhatsApp para enterarte de los próximos.'}</div>`;
     observeReveal();
 
-    $('#pastList').innerHTML = past.length
+    if ($('#pastList')) $('#pastList').innerHTML = past.length
       ? past.map(ev => `<a class="past-item" href="${eventHref(ev)}"><b style="color:var(--heading)">${esc(cap(new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'long', year: 'numeric' }).format(toDate(ev.fecha, ev.inicio))))}</b><span>${esc(ev.titulo)} · <span class="muted">${esc(ev.modalidad)}</span></span><span class="muted">${esc(ev.categoria || '')}</span></a>`).join('')
       : `<div class="muted">Todavía no hay eventos pasados.</div>`;
 
@@ -493,7 +486,7 @@
     $$('.filters .chip').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
     render();
   }));
-  $('#catFilter').addEventListener('change', e => { filterCat = e.target.value; render(); });
+  if ($('#catFilter')) $('#catFilter').addEventListener('change', e => { filterCat = e.target.value; render(); });
 
   /* ---- Toast ---- */
   let toastTimer;
@@ -514,7 +507,7 @@
     const reg = e.target.closest('[data-reg]');
     if (reg) {
       const ev = events.find(x => x.id === reg.dataset.reg);
-      if (ev && ev.registro) window.open(ev.registro, '_blank', 'noopener');
+      if (ev && (ev.registro || ev.extraLiga)) window.open(ev.registro || ev.extraLiga, '_blank', 'noopener');
       else toast('Este evento todavía no tiene liga de registro. Únete a la comunidad de WhatsApp para enterarte.');
     }
     const ed = e.target.closest('[data-edit]'); if (ed) openDialog(ed.dataset.edit);
@@ -578,15 +571,15 @@
             ${ev.periodicidad === 'porconfirmar' ? `<div class="ev-fact">${ICON.cal}<div><b>Fecha</b>Por confirmar. Síguenos en Instagram o WhatsApp para enterarte.</div></div>`
               : ev.periodicidad === 'convocatoria' ? `<div class="ev-fact">${ICON.cal}<div><b>Convocatoria</b>Del ${esc(fmtLong.format(d))} al ${esc(fmtLong.format(toDate(ev.fechaFin || ev.fecha, '12:00')))}${ev.inicio && ev.inicio !== '23:59' && ev.inicio !== '00:00' ? ' · cierra a las ' + esc(ev.inicio) + ' h' : ''}</div></div>`
               : `<div class="ev-fact">${ICON.cal}<div><b>Fecha</b>${esc(cap(fmtLong.format(d)))}${ev.fechaFin && ev.fechaFin !== ev.fecha ? ' al ' + esc(fmtLong.format(toDate(ev.fechaFin, '12:00'))) : ''}</div></div>
-            <div class="ev-fact">${ICON.clock}<div><b>Horario</b>${esc(hora)} (hora de la Ciudad de México)</div></div>`}
+            ${hasHour(ev) ? `<div class="ev-fact">${ICON.clock}<div><b>Horario</b>${esc(hora)} (hora de la Ciudad de México)</div></div>` : ''}`}
             <div class="ev-fact">${ICON.pin}<div><b>${ev.modalidad === 'En línea' ? 'Plataforma' : 'Lugar'}</b>${esc(ev.lugar || 'Por confirmar')}</div></div>
             ${ev.limiteRegistro ? `<div class="ev-fact">${ICON.tag}<div><b>Registro hasta</b>${esc(cap(fmtLong.format(toDate(ev.limiteRegistro, '12:00'))))}</div></div>` : ''}
-            ${ev.costo || ev.cupo ? `<div class="ev-fact">${ICON.coin}<div><b>Costo y cupo</b>${esc([ev.costo === 'Con costo' ? (ev.precio ? 'Con costo: ' + ev.precio : 'Con costo') : ev.costo, ev.cupo].filter(Boolean).join(' · '))}</div></div>` : ''}
+            ${ev.costo || ev.cupo || ev.extraPrecio ? `<div class="ev-fact">${ICON.coin}<div><b>Costo y cupo</b>${esc([entradaLibre(ev) ? 'Entrada libre' : ev.costo === 'Con costo' ? (ev.precio ? 'Con costo: ' + ev.precio : 'Con costo') : ev.costo, ev.extraPrecio ? (ev.extraTexto || 'Opción adicional') + ': ' + ev.extraPrecio : '', ev.cupo].filter(Boolean).join(' · '))}</div></div>` : ''}
             ${ev.premio ? `<div class="ev-fact">${ICON.award}<div><b>Premio</b>${esc(ev.premio)}${ev.premioDetalle ? ' · ' + esc(ev.premioDetalle) : ''}</div></div>` : ''}
             ${ev.web ? `<div class="ev-fact">${ICON.link}<div><b>Más información</b><a href="${esc(ev.web)}" target="_blank" rel="noopener">${esc(ev.web.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))}</a></div></div>` : ''}
             ${ev.contacto ? `<div class="ev-fact">${ICON.mail}<div><b>Dudas</b><a href="mailto:${esc(ev.contacto)}">${esc(ev.contacto)}</a></div></div>` : ''}
             <div class="ev-actions">
-              ${past ? '' : `<button class="btn btn-primary" type="button" data-reg="${esc(ev.id)}">Registrarme</button>`}
+              ${past ? '' : ctaHTML(ev, '')}
               <a class="btn btn-secondary" href="${gcalLink(ev)}" target="_blank" rel="noopener">Agregar a mi calendario</a>
             </div>
             <div>
@@ -607,7 +600,13 @@
   }
   function viewFromHash() {
     const h = location.hash;
-    if (h === '#admin') { history.replaceState(null, '', location.pathname + location.search); openAdmin(); return; }
+    if (h === '#admin') { history.replaceState(null, '', location.pathname + location.search + '#panel'); openAdmin(); return; }
+    if (h === '#panel') {
+      if (!session) { location.href = 'admin.html'; return; }
+      document.body.classList.remove('viewing-event'); document.body.classList.add('viewing-admin');
+      document.title = 'Panel · ' + BASE_TITLE; renderPanel(); window.scrollTo(0, 0); return;
+    }
+    if (document.body.classList.contains('viewing-admin')) { document.body.classList.remove('viewing-admin'); document.title = BASE_TITLE; const t = h.length > 1 ? document.getElementById(h.slice(1)) : null; if (t && !/^#evento\//.test(h)) { t.scrollIntoView(); return; } if (!/^#evento\//.test(h)) { window.scrollTo(0, 0); return; } }
     const m = h.match(/^#evento\/(.+)$/);
     const id = m ? decodeURIComponent(m[1]) : null;
     if (!id) {
@@ -652,7 +651,9 @@
   }
   $('#exitAdmin').addEventListener('click', () => {
     if (dirty && !confirm('Tienes cambios sin publicar. ¿Cerrar sesión de todos modos?')) return;
-    session = null; saveSession(); dirty = false; setAdmin(false); toast('Sesión cerrada.');
+    session = null; saveSession(); dirty = false;
+    if (location.hash === '#panel') history.replaceState(null, '', location.pathname + location.search);
+    document.body.classList.remove('viewing-admin'); setAdmin(false); toast('Sesión cerrada.');
   });
   $('#newEvent').addEventListener('click', () => openDialog(null));
 
@@ -708,7 +709,7 @@
     $('#saveDlg').textContent = id ? 'Guardar cambios' : 'Guardar evento';
     if (id) {
       const ev = events.find(x => x.id === id);
-      ['titulo', 'categoria', 'modalidad', 'fecha', 'inicio', 'fin', 'lugar', 'registro', 'descripcion', 'detalle', 'limiteRegistro', 'fechaFin', 'costo', 'precio', 'cupo', 'contacto', 'web', 'periodicidad', 'premio', 'premioDetalle', 'tags'].forEach(k => { if (form.elements[k]) form.elements[k].value = ev[k] || ''; });
+      ['titulo', 'categoria', 'modalidad', 'fecha', 'inicio', 'fin', 'lugar', 'registro', 'descripcion', 'detalle', 'limiteRegistro', 'fechaFin', 'costo', 'precio', 'cupo', 'contacto', 'web', 'periodicidad', 'premio', 'premioDetalle', 'tags', 'extraTexto', 'extraLiga', 'extraPrecio'].forEach(k => { if (form.elements[k]) form.elements[k].value = ev[k] || ''; });
       const pub = list(ev.publico);
       $$('input[name="publico"]', form).forEach(c => { c.checked = pub.includes(c.value); });
       setLogo(ev._pendingLogo || ev.logo || '', !!ev._pendingLogo);
@@ -736,6 +737,8 @@
     const data = Object.fromEntries(fd.entries());
     data.publico = fd.getAll('publico');
     if (data.periodicidad === 'convocatoria' && !data.fechaFin) { toast('Falta la fecha de cierre de la convocatoria.'); return; }
+    if (data.extraLiga && !data.extraTexto) { toast('Escribe el texto del segundo botón (ej. «Quiero un stand»).'); return; }
+    ['extraTexto', 'extraLiga', 'extraPrecio', 'web', 'registro', 'fechaFin', 'limiteRegistro', 'precio', 'cupo', 'contacto', 'premio', 'premioDetalle', 'tags', 'fin', 'detalle'].forEach(k => { if (data[k] === '') delete data[k]; });
     if (!data.inicio) data.inicio = data.periodicidad === 'convocatoria' ? '23:59' : '00:00';
     if (!data.titulo || !data.fecha || (data.periodicidad === 'fija' && !data.inicio)) { toast('Faltan título, fecha u hora de inicio.'); return; }
     let pending = null;
@@ -745,7 +748,7 @@
       else data.imagen = customImg.src;
     }
     let ev;
-    if (editingId) { const i = events.findIndex(x => x.id === editingId); ev = events[i] = { ...events[i], ...data }; }
+    if (editingId) { const i = events.findIndex(x => x.id === editingId); const prev = { ...events[i] }; ['extraTexto', 'extraLiga', 'extraPrecio', 'web', 'registro', 'fechaFin', 'limiteRegistro', 'precio', 'cupo', 'contacto', 'premio', 'premioDetalle', 'tags', 'fin', 'detalle'].forEach(k => delete prev[k]); ev = events[i] = { ...prev, ...data }; }
     else { ev = { id: 'e' + Date.now().toString(36), ...data }; events.push(ev); }
     if (pending) { ev._pending = pending; ev.imagen = `assets/eventos/${ev.id}.jpg`; } else delete ev._pending;
     if (logoData) { ev._pendingLogo = logoData; ev.logo = `assets/eventos/${ev.id}-logo.png`; } else if (!logoKeep) { delete ev.logo; delete ev._pendingLogo; }
@@ -753,7 +756,7 @@
     toast(editingId ? 'Cambios guardados. Recuerda publicar.' : 'Evento agregado. Recuerda publicar.');
     if (!document.body.classList.contains('viewing-event')) document.getElementById('eventos').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
-  function markDirty() { dirty = true; }
+  function markDirty() { dirty = true; updateAdminState(); }
   window.addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
   const exportEvents = () => events.map(({ _pending, _pendingLogo, ...ev }) => ev);
 
@@ -778,7 +781,7 @@
         if (ev._pendingLogo) { await ghPut(ev.logo, ev._pendingLogo.split(',')[1], `Logo del evento: ${ev.titulo}`); delete ev._pendingLogo; }
       }
       await ghPut('eventos.json', b64utf8(JSON.stringify(exportEvents(), null, 2) + '\n'), `Eventos actualizados por ${session.usuario}`);
-      dirty = false;
+      dirty = false; updateAdminState();
       try { localStorage.setItem('eventosCache', JSON.stringify(exportEvents())); } catch (e) { /* sin almacenamiento */ }
       toast('Publicado. La página se actualiza para todo el mundo en 1 a 2 minutos.');
     } catch (ex) {
@@ -790,8 +793,238 @@
     const blob = new Blob([JSON.stringify(list, null, 2)], { type: 'application/json' });
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'eventos.json'; document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 2000);
-    dirty = false;
+    dirty = false; updateAdminState();
     toast('Sube este eventos.json al repositorio (reemplazando el anterior) y la página se actualiza sola.');
+  });
+
+  /* ---- Panel de administración (#panel) ----
+     Resumen · Eventos (tabla con editar, duplicar, ocultar y borrar) · Mentores (solicitudes de mentores.html) · Publicar y respaldos. */
+  const apMain = $('#apMain');
+  let apTab = 'resumen', evView = 'proximos', evQuery = '';
+  let mentors = null, mentorsState = 'idle', mFilter = 'Todas', mArea = 'Todas';
+  let mClave = ''; try { mClave = sessionStorage.getItem('mentoresClave') || ''; } catch (e) { /* sin almacenamiento */ }
+  const M_ESTADOS = ['Nueva', 'En revisión', 'Aprobada', 'Descartada'];
+  const M_CLASS = { 'Nueva': 'st-new', 'En revisión': 'st-rev', 'Aprobada': 'st-ok', 'Descartada': 'st-no' };
+  const fmtDM = d => clean(fmtShort.format(d));
+  const evDateTxt = ev => ev.periodicidad === 'porconfirmar' ? 'Por confirmar'
+    : ev.fechaFin && ev.fechaFin !== ev.fecha ? `${shortDate(ev.fecha)} – ${shortDate(ev.fechaFin)}` : shortDate(ev.fecha);
+  const priceTxt = ev => entradaLibre(ev) ? 'Entrada libre' : ev.costo === 'Con costo' ? (ev.precio || 'Con costo') : (ev.costo || '—');
+  const needsLink = ev => !ev.registro && !ev.extraLiga;
+
+  function updateAdminState() {
+    const t = dirty ? 'Cambios sin publicar' : 'Todo publicado';
+    const st = $('#adminState'); if (st) st.textContent = t;
+    const up = events.filter(e => !isDraft(e) && isUpcoming(e)).length;
+    $('#bdEv').textContent = up || '';
+    const nuevos = Array.isArray(mentors) ? mentors.filter(m => (m.estado || 'Nueva') === 'Nueva').length : 0;
+    $('#bdMe').textContent = nuevos || '';
+    const ps = $('#apPubState'); if (ps) { ps.textContent = t; ps.classList.toggle('dirty', dirty); }
+  }
+  function renderPanel() {
+    if (!session) return;
+    $('#apWho').textContent = session.usuario;
+    $$('.ap-tabs [data-tab]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.tab === apTab)));
+    ({ resumen: viewResumen, eventos: viewEventos, mentores: viewMentores, publicar: viewPublicar })[apTab]();
+    updateAdminState();
+  }
+  $$('.ap-tabs [data-tab]').forEach(b => b.addEventListener('click', () => { apTab = b.dataset.tab; renderPanel(); }));
+
+  function viewResumen() {
+    const up = events.filter(e => !isDraft(e) && isUpcoming(e)).sort((a, b) => toDate(a.fecha, a.inicio) - toDate(b.fecha, b.inicio));
+    const drafts = events.filter(isDraft);
+    const sinLiga = up.filter(needsLink);
+    const porConf = up.filter(e => e.periodicidad === 'porconfirmar');
+    const todo = [];
+    sinLiga.forEach(e => todo.push([`«${e.titulo}» no tiene liga de registro.`, e.id]));
+    porConf.forEach(e => todo.push([`«${e.titulo}» tiene la fecha por confirmar.`, e.id]));
+    drafts.forEach(e => todo.push([`«${e.titulo}» sigue como borrador.`, e.id]));
+    if (dirty) todo.push(['Hay cambios sin publicar.', '#publicar']);
+    const nuevos = Array.isArray(mentors) ? mentors.filter(m => (m.estado || 'Nueva') === 'Nueva').length : null;
+    apMain.innerHTML = `
+      <div class="kpis">
+        <button class="kpi" type="button" data-go="eventos" data-view="proximos"><b>${up.length}</b><span>eventos próximos publicados</span></button>
+        <button class="kpi${sinLiga.length ? ' warn' : ''}" type="button" data-go="eventos" data-view="proximos"><b>${sinLiga.length}</b><span>sin liga de registro</span></button>
+        <button class="kpi" type="button" data-go="eventos" data-view="borradores"><b>${drafts.length}</b><span>borradores</span></button>
+        <button class="kpi${nuevos ? ' warn' : ''}" type="button" data-go="mentores"><b>${nuevos === null ? '—' : nuevos}</b><span>mentores por revisar</span></button>
+      </div>
+      <div class="ap-cols">
+        <div class="ap-card"><h2>Próximos eventos</h2>
+          ${up.length ? `<div class="mini">${up.slice(0, 6).map(e => `<div class="mini-row"><span class="muted">${esc(evDateTxt(e))}</span><span><b>${esc(e.titulo)}</b><small>${esc([e.modalidad, priceTxt(e)].join(' · '))}</small></span><button class="btn btn-ghost btn-sm" type="button" data-edit="${esc(e.id)}">Editar</button></div>`).join('')}</div>` : '<p class="muted">No hay eventos próximos. Agrega uno.</p>'}
+        </div>
+        <div class="ap-card"><h2>Pendientes</h2>
+          <ul class="todo">${todo.length ? todo.map(([t, id]) => `<li><span>${esc(t)}</span>${id === '#publicar' ? '<button class="btn btn-ghost btn-sm" type="button" data-go="publicar">Publicar</button>' : `<button class="btn btn-ghost btn-sm" type="button" data-edit="${esc(id)}">Corregir</button>`}</li>`).join('') : '<li class="ok">Nada pendiente.</li>'}</ul>
+          <p class="note"><b>Rutina semanal (10 min):</b> agrega los eventos nuevos, revisa que los pasados se archivaron, publica y comparte la liga en Instagram y WhatsApp.</p>
+        </div>
+      </div>`;
+  }
+
+  function viewEventos() {
+    apMain.innerHTML = `
+      <div class="ap-toolbar">
+        <input type="search" id="evSearch" placeholder="Buscar por título, lugar o categoría" value="${esc(evQuery)}" aria-label="Buscar eventos">
+        <div class="seg" role="group" aria-label="Ver">${[['proximos', 'Próximos'], ['pasados', 'Pasados'], ['borradores', 'Borradores'], ['todos', 'Todos']].map(([k, l]) => `<button type="button" data-evview="${k}" aria-pressed="${evView === k}">${l}</button>`).join('')}</div>
+      </div>
+      <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Fecha</th><th>Evento</th><th>Tipo</th><th>Costo</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="evRows"></tbody></table></div>`;
+    $('#evSearch').addEventListener('input', e => { evQuery = e.target.value; fillEvRows(); });
+    fillEvRows();
+  }
+  function fillEvRows() {
+    const q = evQuery.trim().toLowerCase();
+    const byDate = (a, b) => toDate(a.fecha, a.inicio) - toDate(b.fecha, b.inicio);
+    let rows = events.slice();
+    if (evView === 'proximos') rows = rows.filter(e => !isDraft(e) && isUpcoming(e)).sort(byDate);
+    else if (evView === 'pasados') rows = rows.filter(e => !isUpcoming(e)).sort((a, b) => byDate(b, a));
+    else if (evView === 'borradores') rows = rows.filter(isDraft).sort(byDate);
+    else rows.sort(byDate);
+    if (q) rows = rows.filter(e => [e.titulo, e.lugar, e.categoria, e.tags].join(' ').toLowerCase().includes(q));
+    $('#evRows').innerHTML = rows.length ? rows.map(e => `
+      <tr>
+        <td class="nowrap">${esc(evDateTxt(e))}<br><small class="muted">${esc(horaTxt(e))}</small></td>
+        <td class="t"><a href="${eventHref(e)}">${esc(e.titulo)}</a><small>${esc(e.lugar || 'Lugar por confirmar')}</small>${needsLink(e) ? '<small class="warn-txt">Sin liga de registro</small>' : ''}</td>
+        <td>${esc(e.categoria || '')}<br><small class="muted">${esc(e.modalidad || '')}</small></td>
+        <td>${esc(priceTxt(e))}${e.extraPrecio ? `<br><small class="muted">${esc((e.extraTexto || 'Extra') + ': ' + e.extraPrecio)}</small>` : ''}</td>
+        <td>${isDraft(e) ? '<span class="chip modal-pill draft">Borrador</span>' : !isUpcoming(e) ? '<span class="chip soft">Pasado</span>' : '<span class="chip free">Publicado</span>'}</td>
+        <td><div class="acts">
+          <button class="btn btn-ghost btn-sm" type="button" data-edit="${esc(e.id)}">Editar</button>
+          <button class="btn btn-ghost btn-sm" type="button" data-dup="${esc(e.id)}">Duplicar</button>
+          <button class="btn btn-ghost btn-sm" type="button" data-toggle="${esc(e.id)}">${isDraft(e) ? 'Publicar' : 'Ocultar'}</button>
+          <button class="btn btn-danger btn-sm" type="button" data-del="${esc(e.id)}">Borrar</button>
+        </div></td>
+      </tr>`).join('') : '<tr><td colspan="6" class="muted" style="padding:22px 14px">No hay eventos en esta vista.</td></tr>';
+  }
+
+  /* -- Mentores: se leen de la Google Sheet (Apps Script) con una clave de lectura -- */
+  async function loadMentors() {
+    if (!SITIO.mentoresEndpoint || !mClave) return;
+    mentorsState = 'loading'; if (apTab === 'mentores') viewMentores();
+    try {
+      const r = await fetch(`${SITIO.mentoresEndpoint}?clave=${encodeURIComponent(mClave)}&t=${Date.now()}`);
+      const j = await r.json();
+      if (!j.ok) { mentorsState = j.error === 'clave' ? 'badkey' : 'error'; mentors = null; }
+      else { mentors = j.rows || []; mentorsState = 'ok'; }
+    } catch (e) { mentorsState = 'error'; }
+    if (apTab === 'mentores' || apTab === 'resumen') renderPanel(); else updateAdminState();
+  }
+  function viewMentores() {
+    if (!SITIO.mentoresEndpoint) {
+      apMain.innerHTML = `
+        <div class="ap-card"><h2>Conecta el formulario de mentores</h2>
+          <p>El formulario de <a href="mentores.html">mentores.html</a> ya funciona: mientras no esté conectado, cada registro se envía por correo a ${esc(SITIO.mentoresCorreo || 'olivia_calderon@tec.mx')}.</p>
+          <p>Para recibirlos en una Google Sheet y revisarlos aquí:</p>
+          <ol class="steps">
+            <li>Crea una Google Sheet con la cuenta @tec.mx → <b>Extensiones → Apps Script</b> y pega el código de <code>docs/mentores-apps-script.gs</code> (cambia la clave de la primera línea).</li>
+            <li><b>Implementar → Nueva implementación → Aplicación web</b>, ejecutar como tú, acceso «Cualquier persona». Copia la URL que termina en <code>/exec</code>.</li>
+            <li>Pégala en <code>mentoresEndpoint</code> dentro de <code>config.js</code> y súbelo al repositorio.</li>
+          </ol>
+        </div>`;
+      return;
+    }
+    if (!mClave || mentorsState === 'badkey') {
+      apMain.innerHTML = `
+        <form class="ap-card" id="mKeyForm"><h2>Solicitudes de mentores</h2>
+          <p>Escribe la clave de lectura que pusiste en el Apps Script de la hoja.</p>
+          ${mentorsState === 'badkey' ? '<p class="warn-txt">Esa clave no coincide.</p>' : ''}
+          <div class="ap-toolbar"><input type="password" name="clave" autocomplete="off" aria-label="Clave de lectura" required><button class="btn btn-primary btn-sm" type="submit">Ver solicitudes</button></div>
+        </form>`;
+      $('#mKeyForm').addEventListener('submit', e => { e.preventDefault(); mClave = e.target.elements.clave.value.trim(); try { sessionStorage.setItem('mentoresClave', mClave); } catch (er) { /* sin almacenamiento */ } mentorsState = 'idle'; loadMentors(); });
+      return;
+    }
+    if (mentorsState === 'loading' || mentorsState === 'idle') { apMain.innerHTML = '<div class="ap-card"><p class="muted">Cargando solicitudes…</p></div>'; if (mentorsState === 'idle') loadMentors(); return; }
+    if (mentorsState === 'error') { apMain.innerHTML = '<div class="ap-card"><p>No pudimos leer la hoja de mentores.</p><div><button class="btn btn-secondary btn-sm" type="button" data-act="mreload">Reintentar</button></div></div>'; return; }
+    const counts = Object.fromEntries(M_ESTADOS.map(s => [s, mentors.filter(m => (m.estado || 'Nueva') === s).length]));
+    const areas = [...new Set(mentors.flatMap(m => list(m.areas)))].sort();
+    let rows = mentors.slice().sort((a, b) => String(b.fecha).localeCompare(String(a.fecha)));
+    if (mFilter !== 'Todas') rows = rows.filter(m => (m.estado || 'Nueva') === mFilter);
+    if (mArea !== 'Todas') rows = rows.filter(m => list(m.areas).includes(mArea));
+    const dl = (k, v) => v ? `<dt>${esc(k)}</dt><dd>${v}</dd>` : '';
+    apMain.innerHTML = `
+      <div class="ap-toolbar">
+        <div class="seg" role="group" aria-label="Estado">${['Todas'].concat(M_ESTADOS).map(s => `<button type="button" data-mfilter="${esc(s)}" aria-pressed="${mFilter === s}">${esc(s)}${s !== 'Todas' ? ` (${counts[s]})` : ''}</button>`).join('')}</div>
+        <select id="mArea" aria-label="Filtrar por área"><option value="Todas">Todas las áreas</option>${areas.map(a => `<option ${mArea === a ? 'selected' : ''}>${esc(a)}</option>`).join('')}</select>
+        <button class="btn btn-ghost btn-sm" type="button" data-act="mcsv" ${mentors.length ? '' : 'disabled'}>Descargar CSV</button>
+        ${SITIO.mentoresSheet ? `<a class="btn btn-ghost btn-sm" href="${esc(SITIO.mentoresSheet)}" target="_blank" rel="noopener">Abrir la hoja</a>` : ''}
+      </div>
+      <div class="m-list">${rows.length ? rows.map(m => `
+        <article class="m-card">
+          <div class="m-top"><div><b>${esc(m.nombre)}</b><small>${esc([m.carrera, [m.puesto, m.empresa].filter(Boolean).join(' en ')].filter(Boolean).join(' · '))}</small></div><span class="st ${M_CLASS[m.estado || 'Nueva'] || 'st-new'}">${esc(m.estado || 'Nueva')}</span></div>
+          <div class="m-tags">${list(m.areas).map(a => `<span>${esc(a)}</span>`).join('')}${m.otraArea ? `<span>${esc(m.otraArea)}</span>` : ''}</div>
+          <p class="muted m-meta">${esc([m.relacion, m.anios ? m.anios + ' años de experiencia' : '', m.modalidad, m.horas ? m.horas + ' h al mes' : ''].filter(Boolean).join(' · '))}</p>
+          <details><summary>Ver registro completo</summary><dl>
+            ${dl('Correo', `<a href="mailto:${esc(m.correo)}">${esc(m.correo)}</a>`)}${dl('Teléfono', esc(m.telefono))}${dl('LinkedIn o web', m.linkedin ? `<a href="${esc(m.linkedin)}" target="_blank" rel="noopener">${esc(m.linkedin)}</a>` : '')}
+            ${dl('Sector', esc(m.sector))}${dl('¿Ha fundado?', esc(m.fundador))}${dl('Etapas', esc(list(m.etapas).join(', ')))}${dl('Idiomas', esc(m.idiomas))}
+            ${dl('Trayectoria', esc(m.bio))}${dl('Motivación', esc(m.motivo))}${dl('Registro', m.fecha ? esc(new Date(m.fecha).toLocaleString('es-MX')) : '')}
+          </dl></details>
+          <div class="m-acts">
+            <label class="m-state">Estado <select data-mstate="${esc(m.id)}">${M_ESTADOS.map(s => `<option ${s === (m.estado || 'Nueva') ? 'selected' : ''}>${esc(s)}</option>`).join('')}</select></label>
+            <a class="btn btn-ghost btn-sm" href="mailto:${esc(m.correo)}?subject=${encodeURIComponent('Mentorías · Emprendimiento Tec CCM')}">Escribir correo</a>
+          </div>
+        </article>`).join('') : `<div class="empty">${mentors.length ? 'No hay solicitudes con ese filtro.' : 'Aún no hay solicitudes. Comparte mentores.html con EXATEC, profesores y aliados.'}</div>`}</div>`;
+    $('#mArea').addEventListener('change', e => { mArea = e.target.value; viewMentores(); });
+  }
+
+  function viewPublicar() {
+    const hasToken = session && session.token;
+    apMain.innerHTML = `
+      <div class="ap-cols">
+        <div class="ap-card"><h2>Publicar</h2>
+          <p><span class="ap-pub" id="apPubState"></span></p>
+          ${hasToken
+            ? `<p>Guarda los eventos en el repositorio. La página se actualiza para todo el mundo en 1 a 2 minutos.</p><div><button class="btn btn-primary btn-sm" type="button" data-act="publish">Publicar cambios</button></div>`
+            : `<p>Este acceso no tiene token de GitHub, así que se publica en dos pasos:</p>
+               <ol class="steps"><li>Da clic en <b>Descargar eventos.json</b>.</li><li>En GitHub: <b>Add file → Upload files</b>, arrastra el archivo y <b>Commit changes</b>.</li></ol>
+               <div><button class="btn btn-primary btn-sm" type="button" data-act="download">Descargar eventos.json</button></div>
+               <p class="hint">Para publicar con un clic, agrega un token en <a href="configurar-admin.html">configurar-admin.html</a>.</p>`}
+        </div>
+        <div class="ap-card"><h2>Respaldos</h2>
+          <div class="ap-toolbar"><button class="btn btn-ghost btn-sm" type="button" data-act="backup">Descargar respaldo (JSON)</button></div>
+          <label>Importar eventos.json<input type="file" id="importJson" accept=".json,application/json"></label>
+          <p class="hint">Importar reemplaza la lista actual de eventos en el panel. Después revisa y publica.</p>
+        </div>
+      </div>`;
+    $('#importJson').addEventListener('change', async e => {
+      const f = e.target.files[0]; if (!f) return;
+      try { const l = JSON.parse(await f.text()); if (!Array.isArray(l)) throw new Error(); events = normalize(l); markDirty(); render(); toast(`Importados ${events.length} eventos. Revisa y publica.`); renderPanel(); }
+      catch (er) { toast('Ese archivo no es un eventos.json válido.'); }
+    });
+  }
+  function saveBlob(name, text, type) {
+    const blob = new Blob([text], { type }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  }
+  const csvCell = v => { const x = Array.isArray(v) ? v.join('; ') : String(v ?? ''); return /[",\n;]/.test(x) ? '"' + x.replace(/"/g, '""') + '"' : x; };
+
+  document.addEventListener('click', e => {
+    const t = e.target.closest('button, a'); if (!t || !document.body.classList.contains('viewing-admin')) return;
+    const d = t.dataset;
+    if (d.go) { if (d.view) evView = d.view; apTab = d.go; renderPanel(); return; }
+    if (d.evview) { evView = d.evview; $$('[data-evview]').forEach(b => b.setAttribute('aria-pressed', String(b === t))); fillEvRows(); return; }
+    if (d.mfilter) { mFilter = d.mfilter; viewMentores(); return; }
+    if (d.dup) {
+      const src = events.find(x => x.id === d.dup); if (!src) return;
+      const { _pending, _pendingLogo, ...rest } = src;
+      const copy = { ...rest, id: 'e' + Date.now().toString(36), titulo: src.titulo + ' (copia)', estado: 'borrador' };
+      events.push(copy); markDirty(); render(); openDialog(copy.id); toast('Copia creada como borrador.'); return;
+    }
+    if (d.toggle) { const ev = events.find(x => x.id === d.toggle); if (ev) { ev.estado = isDraft(ev) ? 'publicado' : 'borrador'; markDirty(); render(); renderPanel(); toast(isDraft(ev) ? 'Evento oculto (borrador).' : 'Evento visible en la página.'); } return; }
+    switch (d.act) {
+      case 'new': openDialog(null); break;
+      case 'publish': publishBtn.click(); break;
+      case 'download': downloadBtn.click(); break;
+      case 'backup': saveBlob('eventos-respaldo.json', JSON.stringify(exportEvents(), null, 2), 'application/json'); break;
+      case 'mreload': mentorsState = 'idle'; loadMentors(); break;
+      case 'mcsv': {
+        const cols = [['fecha', 'Fecha de registro'], ['estado', 'Estado'], ['nombre', 'Nombre'], ['correo', 'Correo'], ['telefono', 'Teléfono'], ['linkedin', 'LinkedIn'], ['relacion', 'Relación con el Tec'], ['carrera', 'Carrera'], ['empresa', 'Empresa'], ['puesto', 'Puesto'], ['sector', 'Sector'], ['anios', 'Años de experiencia'], ['fundador', '¿Ha fundado?'], ['areas', 'Áreas'], ['otraArea', 'Otra área'], ['etapas', 'Etapas'], ['modalidad', 'Modalidad'], ['horas', 'Horas al mes'], ['idiomas', 'Idiomas'], ['bio', 'Trayectoria'], ['motivo', 'Motivación']];
+        saveBlob('mentores.csv', '﻿' + [cols.map(c => c[1]).join(',')].concat(mentors.map(m => cols.map(c => csvCell(m[c[0]])).join(','))).join('\n'), 'text/csv');
+        break;
+      }
+    }
+  });
+  document.addEventListener('change', async e => {
+    const s = e.target.closest('[data-mstate]'); if (!s || !Array.isArray(mentors)) return;
+    const m = mentors.find(x => String(x.id) === s.dataset.mstate); if (!m) return;
+    m.estado = s.value; renderPanel();
+    try { await fetch(SITIO.mentoresEndpoint, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ accion: 'estado', clave: mClave, id: m.id, estado: m.estado }) }); toast(`${m.nombre}: ${m.estado}.`); }
+    catch (er) { toast('No se pudo guardar el estado en la hoja. Inténtalo de nuevo.'); }
   });
 
   /* ---- Experiencias de Emprendimiento: programas estrella (datos del sitio del Instituto, ago–dic 2026) ---- */

@@ -47,7 +47,7 @@ Los valores viven como variables CSS en `index.html` (`:root`); si cambias algo 
 - **Max content width:** 1120px. Texto largo máx. 62ch.
 - **Border radius:** `--r-sm` 8 · `--r-md` 12 · `--r-lg` 16 (tarjetas) · `--r-xl` 22 (programas, diálogo) · píldora 999.
 - **Sombras:** tintadas al navy: `--sh-sm` 0 2px 8px rgba(12,49,141,.08) · `--sh-md` 0 10px 30px .10 · `--sh-lg` 0 18px 44px .16. Botones con `--btn-shadow`. Sobre fondos navy, sombras negras al 25–35 %.
-- **Orden de la portada (index.html):** header → eventos → experiencias en carrusel → «¿Qué es emprender en el Tec?» (definición con reglas y foco) → test de perfil emprendedor (Typeform) → comunidad con el carrusel de campaña → footer compacto. Sin hero de texto.
+- **Orden de la portada (index.html):** carrusel → hero de texto (sin stats) → «¿Qué es emprender en el Tec?» → eventos (solo los 3 más cercanos, sin filtros ni pasados) → experiencias en carrusel (sin recursos ni Círculo, que viven en `experiencias.html`) → test de perfil emprendedor → comunidad (con botón a `mentores.html`) → footer.
 - **Páginas de catálogo:** `experiencias.html` y `eventos.html` con collage tipo cartelera (una pieza grande + cuadrícula) y secciones debajo (por etapa / por categoría). Estilos compartidos en `styles.css`; datos de programas en `programas.js`; lógica de catálogo en `catalogo.js`.
 - **Resaltado:** los estados de selección, foco y el spotlight del cursor usan cyan `#33CBFF`, nunca lima (decisión del usuario, 31 ago 2026).
 - **Móvil:** banners en versión recortada 3:1 a todo el ancho; objetivos táctiles ≥44px; barra de admin no fija.
@@ -86,3 +86,7 @@ Los valores viven como variables CSS en `index.html` (`:root`); si cambias algo 
 | 2026-09-01 | Footer gris negro (`--footer-bg: #1B1B1F`) | Petición del usuario, con la referencia del footer negro 2023 |
 | 2026-09-01 | Rayito de color del catálogo junto al wordmark en el carrusel de experiencias (`assets/catalogo-rayo-*.png`) | Petición del usuario "como en el canvas"; lab→verde, explora/spark→azul-lima, founder/labs→venture, freeland/entrenamiento→freeland |
 | 2026-09-01 | Login de admin como página propia (`admin.html`) en vez de diálogo | Petición del usuario; misma verificación PBKDF2 contra admin.json, sesión en sessionStorage |
+| 2026-09-23 | Portada más ligera: sin stats, 3 eventos sin filtros ni pasados; recursos y Círculo pasan a `experiencias.html` | Petición del usuario: "ya hay mucha info en la pantalla principal"; los formularios van en subpantallas |
+| 2026-09-23 | `mentores.html` como subpantalla con formulario de mentores; datos a Google Sheet vía Apps Script | Petición del usuario; sin backend propio en GitHub Pages |
+| 2026-09-23 | Panel de administración (`index.html#panel`) con pestañas Resumen · Eventos · Mentores · Publicar | Petición del usuario de terminar el panel; misma sesión de admin.html |
+| 2026-09-23 | Segundo botón por evento (`extraTexto/extraLiga/extraPrecio`) y chip «Entrada libre» | Emprende Market: la entrada es libre, el boleto de $200 es solo para stands |
