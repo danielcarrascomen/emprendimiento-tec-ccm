@@ -4,7 +4,7 @@
      de mentores.html envía cada registro por correo a mentoresCorreo.
    · mentoresSheet: (opcional) liga a esa Google Sheet, para abrirla desde el panel. */
 window.SITIO = {
-  mentoresEndpoint: '',
-  mentoresSheet: '',
+  mentoresEndpoint: 'https://script.google.com/macros/s/AKfycbwv-9AtELMGNvpLS2TUjdldsTdMob6KNLEAF6yq1BJDmibGGYAneohqgpijoAJ58yAQJg/exec',
+  mentoresSheet: 'https://docs.google.com/spreadsheets/d/1RRiD2uu2vaB-q8so5VO-OO6X5MAMWQlfbfaNNJXCRtg/edit',
   mentoresCorreo: 'olivia_calderon@tec.mx'
 };
